@@ -1,28 +1,27 @@
 FROM centos:centos7
 
 RUN yum install -y --setopt=tsflags=nodocs \
-	yum-utils \
-	wget \
-    which \
-    lsof \
-    unzip \
-	tar \
-    bsdtar \
-	procps-ng \
-    epel-release \
-    gettext \
-    which \
-    gcc-c++ \
-    automake \
     autoconf \
+    automake \
+    bsdtar \
     curl-devel \
-    openssl-devel \
-    zlib-devel \
-    libxslt-devel \
-    libxml2-devel \
+    epel-release \
+    gcc-c++ \
     gdb \
-    mysql-libs \
+    gettext \
+    libxml2-devel \
+    libxslt-devel \
+    lsof \
     mysql-devel \
+    mysql-libs \
+    openssl-devel \
     postgresql-devel \
-    sqlite-devel && \
+    procps-ng \
+    sqlite-devel \
+    tar \
+    unzip \
+    wget \
+    which \
+    yum-utils \
+    zlib-devel && \
     yum clean all -y

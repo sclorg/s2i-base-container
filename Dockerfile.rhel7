@@ -1,27 +1,26 @@
 FROM rhel7
 
 RUN yum install -y --setopt=tsflags=nodocs \
-    yum-utils \
+    autoconf \
+    automake \
+    bsdtar \
+    curl-devel \
+    gcc-c++ \
+    gdb \
+    gettext \
+    libxml2-devel \
+    libxslt-devel \
+    lsof \
+    mysql-devel \
+    mysql-libs \
+    openssl-devel \
+    postgresql-devel \
+    procps-ng \
+    sqlite-devel \
+    tar \
+    unzip \
     wget \
     which \
-    lsof \
-    unzip \
-    tar \
-    bsdtar \
-    procps-ng \
-    gettext \ 
-    which \
-    gcc-c++ \ 
-    automake \
-    autoconf \
-    curl-devel \
-    openssl-devel \
-    zlib-devel \
-    libxslt-devel \
-    libxml2-devel \
-    gdb \
-    mysql-libs \
-    mysql-devel \
-    postgresql-devel \ 
-    sqlite-devel && \
+    yum-utils \
+    zlib-devel && \
     yum clean all -y
