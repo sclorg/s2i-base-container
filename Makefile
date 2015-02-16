@@ -1,8 +1,8 @@
 
 ifeq ($(TARGET),rhel7)
-	IMAGE_NAME := openshift/rhel-7-base
+	IMAGE_NAME := openshift/base-rhel7
 else
-	IMAGE_NAME := openshift/centos-7-base
+	IMAGE_NAME := openshift/base-centos7
 endif
 
 build:
