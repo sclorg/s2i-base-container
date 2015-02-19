@@ -5,7 +5,8 @@ MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
-RUN yum install -y --setopt=tsflags=nodocs \
+RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
+    yum install -y --setopt=tsflags=nodocs \
     autoconf \
     automake \
     bsdtar \
