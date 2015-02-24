@@ -36,10 +36,10 @@ RUN yum install -y --setopt=tsflags=nodocs \
 ADD bin/base-usage /usr/local/sti/base-usage
 
 # Location of the STI scripts inside the image
-ENV STI_SCRIPTS_URL image:///usr/local/sti
-
 # The $HOME is not set by default, but some applications needs this variable
-ENV HOME /opt/openshift/src
+ENV STI_SCRIPTS_URL  image:///usr/local/sti
+ENV HOME             /opt/openshift/src
+ENV PATH             /opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
 
 # Setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
@@ -47,10 +47,7 @@ ENV HOME /opt/openshift/src
 RUN mkdir -p ${HOME} && \
     groupadd -r default -f -g 1001 && \
     useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
-            -c "Default Application User" default && \
-    chown -R default:default "${HOME}/.."
-
-ENV PATH ${HOME}/bin:/usr/local/sti:$PATH
+            -c "Default Application User" default
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
@@ -61,6 +58,11 @@ WORKDIR ${HOME}
 #
 # Copy the STI scripts from the specific language image to /usr/local/sti
 ONBUILD COPY ./.sti/bin/ /usr/local/sti
+
+# Each language image must have 'contrib' directory with extra files needed to
+# run and build the applications.
+ONBUILD COPY ./contrib/ /opt/openshift
+ONBUILD RUN chown -R default:default /opt/openshift
 
 # Set the default CMD to print the usage of the language image
 ONBUILD CMD ["usage"]
