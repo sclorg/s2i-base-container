@@ -1,17 +1,17 @@
 
 ifeq ($(TARGET),rhel7)
-	IMAGE_NAME := openshift/base-rhel7
+	OS := rhel7
 else
-	IMAGE_NAME := openshift/base-centos7
+	OS := centos7
 endif
 
+
+.PHONY: build
 build:
-ifeq ("$(TARGET)","rhel7")
-	mv Dockerfile Dockerfile.centos7
-	mv Dockerfile.rhel7 Dockerfile
-	docker build -t $(IMAGE_NAME) .
-	mv Dockerfile Dockerfile.rhel7
-	mv Dockerfile.centos7 Dockerfile
-else 
-	docker build -t $(IMAGE_NAME) .
-endif
+	hack/build.sh $(OS)
+
+
+.PHONY: test
+test:
+	hack/build.sh $(OS)-candidate
+	IMAGE_NAME=openshift/base-$(OS)-candidate test/run
