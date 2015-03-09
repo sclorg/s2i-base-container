@@ -11,7 +11,7 @@ Choose between CentOS7 or RHEL7 base image:
 *  **RHEL7 base image**
 This image is not available as trusted build in [Docker Index](https://index.docker.io).
 
-To build a base-rhel7 image, you need to run docker build it on properly subscribed RHEL machine.
+To build a base-rhel7 image, you need to build it on properly subscribed RHEL machine.
 
 ```
 $ git clone https://github.com/openshift/sti-base.git
