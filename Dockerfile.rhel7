@@ -39,7 +39,12 @@ ADD bin/base-usage /usr/local/sti/base-usage
 # The $HOME is not set by default, but some applications needs this variable
 ENV STI_SCRIPTS_URL  image:///usr/local/sti
 ENV HOME             /opt/openshift/src
-ENV PATH             /opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
+
+# TODO: There is a bug in rhel7.1 image where the PATH variable is not exported
+# properly as Docker image metadata, which causes the $PATH variable do not
+# expand properly.
+#ENV PATH             /opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
+ENV PATH              /opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
