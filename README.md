@@ -2,8 +2,11 @@ OpenShift base images
 ========================================
 This repository contains [Dockerfiles](https://github.com/openshift/sti-base)
 which serve as base images with all the essential libraries and tools needed
-for OpenShift platform and database images. You can choose from RHEL7 or CentOS7 based images.
-
+for OpenShift language images, namely:
+* [sti-ruby](https://github.com/openshift/sti-ruby)
+* [sti-nodejs](https://github.com/openshift/sti-nodejs)
+* [sti-python](https://github.com/openshift/sti-python)
+* [sti-perl](https://github.com/openshift/sti-perl)
 
 Installation and Usage
 ------------------------
