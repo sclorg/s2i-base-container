@@ -9,16 +9,16 @@
 IMAGE_NAME=${IMAGE_NAME-openshift/base-centos7-candidate}
 
 test_docker_run_usage() {
-  echo "Testing 'docker run' usage..."
-  docker run --rm ${IMAGE_NAME} &>/dev/null
+	echo "Testing 'docker run' usage..."
+	docker run --rm ${IMAGE_NAME} &>/dev/null
 }
 
 check_result() {
-  local result="$1"
-  if [[ "$result" != "0" ]]; then
-    echo "STI image '${IMAGE_NAME}' test FAILED (exit code: ${result})"
-    exit $result
-  fi
+	local result="$1"
+	if [[ "$result" != "0" ]]; then
+		echo "STI image '${IMAGE_NAME}' test FAILED (exit code: ${result})"
+		exit $result
+	fi
 }
 
 # Verify the 'usage' script is working properly when running the base image with 'docker run ...'
