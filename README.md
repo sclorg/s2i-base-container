@@ -23,6 +23,14 @@ $ make build TARGET=rhel7
 
 *  **CentOS7 base image**
 
+This image is available on DockerHub. To download it use:
+
+```console
+docker pull openshift/base-centos7
+```
+
+To build Base image from scratch use:
+
 ```
 $ git clone https://github.com/openshift/sti-base.git
 $ cd sti-base
