@@ -22,6 +22,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
 	openssl-devel \
 	postgresql-devel \
 	procps-ng \
+	scl-utils \
 	sqlite-devel \
 	tar \
 	unzip \

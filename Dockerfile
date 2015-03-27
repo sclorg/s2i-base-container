@@ -24,6 +24,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	openssl-devel \
 	postgresql-devel \
 	procps-ng \
+	scl-utils \
 	sqlite-devel \
 	tar \
 	unzip \
