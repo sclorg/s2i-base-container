@@ -12,7 +12,6 @@ Installation and Usage
 ------------------------
 Choose between CentOS7 or RHEL7 base image:
 *  **RHEL7 base image**
-This image is not available as trusted build in [Docker Index](https://index.docker.io).
 
 To build a base-rhel7 image, you need to build it on properly subscribed RHEL machine.
 
