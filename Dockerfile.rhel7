@@ -59,18 +59,4 @@ RUN mkdir -p ${HOME} && \
 # can execute relative to this path
 WORKDIR ${HOME}
 
-# These instruction triggers the instructions at a later time, when the image
-# is used as the base for another build.
-#
-# Copy the STI scripts from the specific language image to /usr/local/sti
-ONBUILD COPY ./.sti/bin/ /usr/local/sti
-
-# Each language image must have 'contrib' directory with extra files needed to
-# run and build the applications.
-ONBUILD COPY ./contrib/ /opt/openshift
-ONBUILD RUN chown -R default:default /opt/openshift
-
-# Set the default CMD to print the usage of the language image
-ONBUILD CMD ["usage"]
-
 CMD ["base-usage"]
