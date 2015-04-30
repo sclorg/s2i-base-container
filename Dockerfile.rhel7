@@ -20,6 +20,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
 	mysql-devel \
 	mysql-libs \
 	openssl-devel \
+	patch \
 	postgresql-devel \
 	procps-ng \
 	scl-utils \
