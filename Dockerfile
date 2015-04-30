@@ -22,6 +22,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	mysql-devel \
 	mysql-libs \
 	openssl-devel \
+	patch \
 	postgresql-devel \
 	procps-ng \
 	scl-utils \
