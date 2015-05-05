@@ -3,8 +3,17 @@ FROM centos:centos7
 # This image is the base image for all OpenShift v3 language Docker images.
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
+# Location of the STI scripts inside the image
+# The $HOME is not set by default, but some applications needs this variable
+ENV STI_SCRIPTS_URL=image:///usr/local/sti \
+    HOME=/opt/openshift/src \
+    PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
+
 # This is the list of basic dependencies that all language Docker image can
 # consume.
+# Also setup the 'openshift' user that is used for the build execution and for the
+# application runtime execution.
+# TODO: Use better UID and GID values
 RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	yum install -y --setopt=tsflags=nodocs \
 	autoconf \
@@ -33,25 +42,15 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	which \
 	yum-utils \
 	zlib-devel && \
-	yum clean all -y
+	yum clean all -y && \
+	mkdir -p ${HOME} && \
+	groupadd -r default -f -g 1001 && \
+	useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
+			-c "Default Application User" default
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
 ADD bin/base-usage /usr/local/sti/base-usage
-
-# Location of the STI scripts inside the image
-# The $HOME is not set by default, but some applications needs this variable
-ENV STI_SCRIPTS_URL  image:///usr/local/sti
-ENV HOME             /opt/openshift/src
-ENV PATH             /opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
-
-# Setup the 'openshift' user that is used for the build execution and for the
-# application runtime execution.
-# TODO: Use better UID and GID values
-RUN mkdir -p ${HOME} && \
-	groupadd -r default -f -g 1001 && \
-	useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
-			-c "Default Application User" default
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
