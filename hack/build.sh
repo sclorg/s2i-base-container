@@ -7,15 +7,15 @@ IMAGE_NAME=openshift/base-${OS}
 
 function squash {	
 	# install the docker layer squashing tool
-	easy_install pip
+	easy_install --user pip
 	rm -rf docker-scripts
 	git clone https://github.com/goldmann/docker-scripts/
 	pushd docker-scripts
 	git checkout 0.3.0
-	pip install --force --user .
+	~/.local/bin/pip install --force --user .
 	popd
 	# find the top of the "centos" or "rhel" layer
-	layer=$(~/.local/bin/docker-scripts layers -t openshift/base-${OS} | grep ${OS} | awk '{print $2}' | head -n 1)
+	layer=$(~/.local/bin/docker-scripts layers -t openshift/base-${OS} | grep ${OS} | grep -v registry.access.redhat.com | awk '{print $2}' | head -n 1)
 	# squash everything above it
 	~/.local/bin/docker-scripts squash -f $layer openshift/base-${OS}
 	rm -rf docker-scripts
