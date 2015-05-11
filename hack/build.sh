@@ -15,9 +15,9 @@ function squash {
 	~/.local/bin/pip install --force --user .
 	popd
 	# find the top of the "centos" or "rhel" layer
-	layer=$(~/.local/bin/docker-scripts layers -t openshift/base-${OS} | grep ${OS} | grep -v registry.access.redhat.com | awk '{print $2}' | head -n 1)
+	layer=$(~/.local/bin/docker-scripts layers -t ${IMAGE_NAME} | grep ${OS} | grep -v registry.access.redhat.com | awk '{print $2}' | head -n 1)
 	# squash everything above it
-	~/.local/bin/docker-scripts squash -f $layer openshift/base-${OS}
+	~/.local/bin/docker-scripts squash -f $layer ${IMAGE_NAME}
 	rm -rf docker-scripts
 }
 
