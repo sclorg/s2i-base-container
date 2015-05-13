@@ -7,7 +7,7 @@ IMAGE_NAME=openshift/base-${OS}
 
 function squash { 
   # install the docker layer squashing tool
-  easy_install --user docker-scripts==0.3.2
+  easy_install --user docker-scripts==0.3.3
   base=$(awk '/^FROM/{print $2}' Dockerfile)
   $HOME/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}
 }
