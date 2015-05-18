@@ -23,6 +23,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
 	automake \
 	bsdtar \
 	curl-devel \
+	findutils \
 	gcc-c++ \
 	gdb \
 	gettext \
