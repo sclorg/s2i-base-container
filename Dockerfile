@@ -20,6 +20,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	automake \
 	bsdtar \
 	curl-devel \
+	findutils \
 	epel-release \
 	gcc-c++ \
 	gdb \
