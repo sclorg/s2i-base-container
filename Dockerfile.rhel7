@@ -27,6 +27,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
 	gcc-c++ \
 	gdb \
 	gettext \
+	git \
 	libxml2-devel \
 	libxslt-devel \
 	lsof \

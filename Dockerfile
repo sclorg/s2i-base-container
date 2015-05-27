@@ -25,6 +25,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	gcc-c++ \
 	gdb \
 	gettext \
+	git \
 	libxml2-devel \
 	libxslt-devel \
 	lsof \
