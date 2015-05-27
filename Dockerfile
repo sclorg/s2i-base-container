@@ -4,9 +4,12 @@ FROM centos:centos7
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Location of the STI scripts inside the image
+LABEL io.openshift.sti.scripts-url=image:///usr/local/sti
+# Deprecated. Use above LABEL instead, because this will be removed in future versions.
+ENV STI_SCRIPTS_URL=image:///usr/local/sti
+
 # The $HOME is not set by default, but some applications needs this variable
-ENV STI_SCRIPTS_URL=image:///usr/local/sti \
-    HOME=/opt/openshift/src \
+ENV HOME=/opt/openshift/src \
     PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
 
 # This is the list of basic dependencies that all language Docker image can
