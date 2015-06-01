@@ -5,14 +5,14 @@ OS=$1
 
 IMAGE_NAME=openshift/base-${OS}
 
-function squash { 
+function squash {
   # install the docker layer squashing tool
-  easy_install --user docker-scripts==0.3.3
+  easy_install --user docker-scripts==0.4.1
   base=$(awk '/^FROM/{print $2}' Dockerfile)
   $HOME/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}
 }
 
-# TODO: Remove this hack once Docker 1.5 is in use, 
+# TODO: Remove this hack once Docker 1.5 is in use,
 # which supports building of named Dockerfiles.
 function docker_build {
 	TAG=$1
