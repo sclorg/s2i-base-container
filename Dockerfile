@@ -22,7 +22,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	autoconf \
 	automake \
 	bsdtar \
-	curl-devel \
+	libcurl-devel \
 	findutils \
 	epel-release \
 	gcc-c++ \
@@ -33,8 +33,6 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 	libxslt-devel \
 	lsof \
 	make \
-	mysql-devel \
-	mysql-libs \
 	openssl-devel \
 	patch \
 	postgresql-devel \

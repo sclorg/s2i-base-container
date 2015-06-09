@@ -24,7 +24,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
 	autoconf \
 	automake \
 	bsdtar \
-	curl-devel \
+	libcurl-devel \
 	findutils \
 	gcc-c++ \
 	gdb \
@@ -34,8 +34,6 @@ RUN yum install -y --setopt=tsflags=nodocs \
 	libxslt-devel \
 	lsof \
 	make \
-	mysql-devel \
-	mysql-libs \
 	openssl-devel \
 	patch \
 	postgresql-devel \
