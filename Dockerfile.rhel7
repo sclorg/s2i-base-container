@@ -21,36 +21,36 @@ ENV HOME=/opt/openshift/src \
 # application runtime execution.
 # TODO: Use better UID and GID values
 RUN yum install -y --setopt=tsflags=nodocs \
-	autoconf \
-	automake \
-	bsdtar \
-	libcurl-devel \
-	findutils \
-	gcc-c++ \
-	gdb \
-	gettext \
-	git \
-	libxml2-devel \
-	libxslt-devel \
-	lsof \
-	make \
-	openssl-devel \
-	patch \
-	postgresql-devel \
-	procps-ng \
-	scl-utils \
-	sqlite-devel \
-	tar \
-	unzip \
-	wget \
-	which \
-	yum-utils \
-	zlib-devel && \
-	yum clean all -y && \
-	mkdir -p ${HOME} && \
-	groupadd -r default -f -g 1001 && \
-	useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
-			-c "Default Application User" default
+  autoconf \
+  automake \
+  bsdtar \
+  libcurl-devel \
+  findutils \
+  gcc-c++ \
+  gdb \
+  gettext \
+  git \
+  libxml2-devel \
+  libxslt-devel \
+  lsof \
+  make \
+  openssl-devel \
+  patch \
+  postgresql-devel \
+  procps-ng \
+  scl-utils \
+  sqlite-devel \
+  tar \
+  unzip \
+  wget \
+  which \
+  yum-utils \
+  zlib-devel && \
+  yum clean all -y && \
+  mkdir -p ${HOME} && \
+  groupadd -r default -f -g 1001 && \
+  useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
+      -c "Default Application User" default
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
