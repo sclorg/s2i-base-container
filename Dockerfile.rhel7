@@ -13,7 +13,6 @@ ENV STI_SCRIPTS_URL=image:///usr/local/sti
 # properly as Docker image metadata, which causes the $PATH variable do not
 # expand properly.
 ENV HOME=/opt/openshift/src \
-    BASH_ENV=/opt/openshift/src/.bashrc \
     PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # This is the list of basic dependencies that all language Docker image can
