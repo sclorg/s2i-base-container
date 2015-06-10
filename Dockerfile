@@ -10,6 +10,7 @@ ENV STI_SCRIPTS_URL=image:///usr/local/sti
 
 # The $HOME is not set by default, but some applications needs this variable
 ENV HOME=/opt/openshift/src \
+    BASH_ENV=/opt/openshift/src/.bashrc \
     PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
 
 # This is the list of basic dependencies that all language Docker image can
@@ -18,38 +19,38 @@ ENV HOME=/opt/openshift/src \
 # application runtime execution.
 # TODO: Use better UID and GID values
 RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-	yum install -y --setopt=tsflags=nodocs \
-	autoconf \
-	automake \
-	bsdtar \
-	libcurl-devel \
-	findutils \
-	epel-release \
-	gcc-c++ \
-	gdb \
-	gettext \
-	git \
-	libxml2-devel \
-	libxslt-devel \
-	lsof \
-	make \
-	openssl-devel \
-	patch \
-	postgresql-devel \
-	procps-ng \
-	scl-utils \
-	sqlite-devel \
-	tar \
-	unzip \
-	wget \
-	which \
-	yum-utils \
-	zlib-devel && \
-	yum clean all -y && \
-	mkdir -p ${HOME} && \
-	groupadd -r default -f -g 1001 && \
-	useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
-			-c "Default Application User" default
+  yum install -y --setopt=tsflags=nodocs \
+  autoconf \
+  automake \
+  bsdtar \
+  libcurl-devel \
+  findutils \
+  epel-release \
+  gcc-c++ \
+  gdb \
+  gettext \
+  git \
+  libxml2-devel \
+  libxslt-devel \
+  lsof \
+  make \
+  openssl-devel \
+  patch \
+  postgresql-devel \
+  procps-ng \
+  scl-utils \
+  sqlite-devel \
+  tar \
+  unzip \
+  wget \
+  which \
+  yum-utils \
+  zlib-devel && \
+  yum clean all -y && \
+  mkdir -p ${HOME} && \
+  groupadd -r default -f -g 1001 && \
+  useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
+      -c "Default Application User" default
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
