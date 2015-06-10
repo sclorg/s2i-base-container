@@ -7,6 +7,7 @@ for OpenShift language images, namely:
 * [sti-nodejs](https://github.com/openshift/sti-nodejs)
 * [sti-python](https://github.com/openshift/sti-python)
 * [sti-perl](https://github.com/openshift/sti-perl)
+* [sti-php](https://github.com/openshift/sti-php)
 
 Installation and Usage
 ------------------------
