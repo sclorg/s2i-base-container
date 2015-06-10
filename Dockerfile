@@ -23,17 +23,19 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   autoconf \
   automake \
   bsdtar \
-  libcurl-devel \
-  findutils \
   epel-release \
+  findutils \
   gcc-c++ \
   gdb \
   gettext \
   git \
+  libcurl-devel \
   libxml2-devel \
   libxslt-devel \
   lsof \
   make \
+  mariadb-devel \
+  mariadb-libs \
   openssl-devel \
   patch \
   postgresql-devel \

@@ -25,16 +25,18 @@ RUN yum install -y --setopt=tsflags=nodocs \
   autoconf \
   automake \
   bsdtar \
-  libcurl-devel \
   findutils \
   gcc-c++ \
   gdb \
   gettext \
   git \
+  libcurl-devel \
   libxml2-devel \
   libxslt-devel \
   lsof \
   make \
+  mariadb-devel \
+  mariadb-libs \
   openssl-devel \
   patch \
   postgresql-devel \
