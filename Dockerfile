@@ -10,7 +10,6 @@ ENV STI_SCRIPTS_URL=image:///usr/local/sti
 
 # The $HOME is not set by default, but some applications needs this variable
 ENV HOME=/opt/openshift/src \
-    BASH_ENV=/opt/openshift/src/.bashrc \
     PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
 
 # This is the list of basic dependencies that all language Docker image can
