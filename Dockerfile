@@ -15,6 +15,7 @@ ENV HOME=/opt/openshift/src \
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
 # the SCL for all scripts without need to do 'scl enable'.
+ADD contrib/scl_enable /opt/openshift/etc/scl_enable
 ENV BASH_ENV=/opt/openshift/etc/scl_enable \
     ENV=/opt/openshift/etc/scl_enable \
     PROMPT_COMMAND=". /opt/openshift/etc/scl_enable"
