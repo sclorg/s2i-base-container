@@ -10,8 +10,15 @@ ENV STI_SCRIPTS_URL=image:///usr/local/sti
 
 # The $HOME is not set by default, but some applications needs this variable
 ENV HOME=/opt/openshift/src \
-    BASH_ENV=/opt/openshift/src/.bashrc \
     PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
+
+# When bash is started non-interactively, to run a shell script, for example it
+# looks for this variable and source the content of this file. This will enable
+# the SCL for all scripts without need to do 'scl enable'.
+ADD contrib/scl_enable /opt/openshift/etc/scl_enable
+ENV BASH_ENV=/opt/openshift/etc/scl_enable \
+    ENV=/opt/openshift/etc/scl_enable \
+    PROMPT_COMMAND=". /opt/openshift/etc/scl_enable"
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
