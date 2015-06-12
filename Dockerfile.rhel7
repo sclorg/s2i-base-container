@@ -8,6 +8,12 @@ LABEL io.s2i.scripts-url=image:///usr/local/sti
 # Deprecated. Use above LABEL instead, because this will be removed in future versions.
 ENV STI_SCRIPTS_URL=image:///usr/local/sti
 
+# Labels consumed by Red Hat build service
+LABEL Component="openshift-sti-base-docker" \
+      Name="openshift3/sti-base" \
+      Version="1.0" \
+      Release="1"
+
 # The $HOME is not set by default, but some applications needs this variable
 # TODO: There is a bug in rhel7.1 image where the PATH variable is not exported
 # properly as Docker image metadata, which causes the $PATH variable do not
