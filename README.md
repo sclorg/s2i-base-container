@@ -40,27 +40,38 @@ $ make build
 
 Software Collections in STI images
 --------------------------------
-All OpenShift STI images use [Software
-Collections](https://www.softwarecollections.org/en/) packages which provides
-the latest versions of the languages they provide.  This is because the system
-versions provided by Centos and RHEL will unlikely change for several years.
-However, we still want to have RHEL and Centos as base images for our language
-images because they provided stable, supported and secure platform.
+OpenShift STI images use [Software Collections](https://www.softwarecollections.org/en/)
+packages to provide the latest versions of various language environments.
+The SCL packages are released more frequently than the RHEL or CentOS systems,
+which are unlikely to change for several years.
+We rely on RHEL and CentOS for base images, on the other hand,
+because those are stable, supported, and secure platforms.
 
-Having SCL comes with several trade-offs, such as you have to 'enable' the
-collection you want to use manually and only for commands you want to run with
-collection enabled. In Docker world, however, we think this limitation does not
-make sense and if users run 'ruby-2.0' image, the expectation is that this image
-will provide Ruby 2.0 out-of-box.
+Normally, SCL requires manual operation to enable the collection you want to use.
+This is burdensome and can be prone to error.
+The OpenShift STI approach is to set Bash environment variables that
+serve to automatically enable the desired collection:
 
-To make that happen in our images, we are setting three internal Bash variables
-to enable the collection automatically:
+* `BASH_ENV`: enables the collection for all non-interactive Bash sessions
+* `ENV`: enables the collection for all invocations of `/bin/sh`
+* `PROMPT_COMMAND`: enables the collection in interactive shell
 
-* `BASH_ENV`: This will enable collection for all non-interactive Bash sessions. So for example your scripts with `#!/bin/bash` shebang don't need to call `scl enable`.
-* `ENV`: This will enable collection for all invocations of `/bin/sh`.
-* `PROMPT_COMMAND`: This variable enable the collection in interactive shell. So when you `docker exec ... /bin/bash` the collection will be automatically enabled for you.
+Two examples:
+* If you specify `BASH_ENV`, then all your `#!/bin/bash` scripts
+do not need to call `scl enable`.
+* If you specify `PROMPT_COMMAND`, then on execution of the
+`docker exec ... /bin/bash` command, the collection will be automatically enabled.
 
-There are still some limitations. For example, you can't invoke the 'ruby'
-executable directly with `docker exec` or `docker run`, as the executable is not
-in the `PATH`. To workaround this, you can execute this commands using: `docker
-exec CID /bin/bash -c ruby`.
+*Note*:
+The language interpreter executables in the collection (e.g., `ruby`)
+are not directly in a directory named in the `PATH` environment variable.
+This means that you cannot do:
+
+    $ docker exec <cid> ... ruby
+
+but must instead do:
+
+    $ docker exec <cid> ... /bin/bash -c ruby
+
+The `/bin/bash -c`, along with the setting the appropriate environment variable,
+ensures the correct `ruby` executable is found and invoked.
