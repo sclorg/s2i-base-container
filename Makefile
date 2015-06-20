@@ -1,3 +1,5 @@
+SKIP_SQUASH?=0
+
 ifeq ($(TARGET),rhel7)
 	OS := rhel7
 else
