@@ -1,4 +1,4 @@
-FROM rhel7
+FROM openshift/ose-base
 
 # This image is the base image for all OpenShift v3 language Docker images.
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
@@ -42,7 +42,6 @@ RUN yum install -y --setopt=tsflags=nodocs \
   gcc-c++ \
   gdb \
   gettext \
-  git \
   libcurl-devel \
   libxml2-devel \
   libxslt-devel \
@@ -56,9 +55,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
   procps-ng \
   scl-utils \
   sqlite-devel \
-  tar \
   unzip \
-  wget \
   which \
   yum-utils \
   zlib-devel && \

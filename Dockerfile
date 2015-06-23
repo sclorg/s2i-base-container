@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM openshift/origin-base
 
 # This image is the base image for all OpenShift v3 language Docker images.
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
@@ -30,12 +30,10 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   autoconf \
   automake \
   bsdtar \
-  epel-release \
   findutils \
   gcc-c++ \
   gdb \
   gettext \
-  git \
   libcurl-devel \
   libxml2-devel \
   libxslt-devel \
@@ -49,9 +47,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   procps-ng \
   scl-utils \
   sqlite-devel \
-  tar \
   unzip \
-  wget \
   which \
   yum-utils \
   zlib-devel && \
