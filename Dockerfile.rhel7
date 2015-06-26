@@ -4,7 +4,11 @@ FROM rhel7
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Location of the STI scripts inside the image
+LABEL io.openshift.s2i.scripts-url=image:///usr/local/sti
+
+# DEPRECATED: This label will be kept here for backward compatibility
 LABEL io.s2i.scripts-url=image:///usr/local/sti
+
 # Deprecated. Use above LABEL instead, because this will be removed in future versions.
 ENV STI_SCRIPTS_URL=image:///usr/local/sti
 
