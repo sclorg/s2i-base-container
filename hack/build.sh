@@ -14,12 +14,12 @@ function squash {
 
 if [ "$OS" == "rhel7" -o "$OS" == "rhel7-candidate" ]; then
   docker build -t ${IMAGE_NAME} -f Dockerfile.rhel7 .
-  if [ "${SKIP_SQUASH}" -ne "1" ]; then
+  if [[ "${SKIP_SQUASH}" != "1" ]]; then
     squash Dockerfile.rhel7
   fi
 else
   docker build -t ${IMAGE_NAME} .
-  if [ "${SKIP_SQUASH}" -ne "1" ]; then
+  if [[ "${SKIP_SQUASH}" != "1" ]]; then
     squash Dockerfile
   fi
 fi
