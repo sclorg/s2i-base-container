@@ -59,7 +59,8 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   mkdir -p ${HOME} && \
   groupadd -r default -f -g 1001 && \
   useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
-      -c "Default Application User" default
+      -c "Default Application User" default && \
+  chown -R 1001:1001 /opt/openshift
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations

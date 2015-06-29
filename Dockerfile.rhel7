@@ -66,12 +66,12 @@ RUN yum install -y --setopt=tsflags=nodocs \
   mkdir -p ${HOME} && \
   groupadd -r default -f -g 1001 && \
   useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
-      -c "Default Application User" default
+      -c "Default Application User" default && \
+  chown -R 1001:1001 /opt/openshift
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
 ADD bin/base-usage /usr/local/sti/base-usage
-
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
