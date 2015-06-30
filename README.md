@@ -11,10 +11,10 @@ for OpenShift language images, namely:
 
 Installation and Usage
 ------------------------
-Choose between CentOS7 or RHEL7 base image:
+Choose either the CentOS7 or RHEL7 base image:
 *  **RHEL7 base image**
 
-To build a base-rhel7 image, you need to build it on properly subscribed RHEL machine.
+To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
 
 ```
 $ git clone https://github.com/openshift/sti-base.git
@@ -24,13 +24,13 @@ $ make build TARGET=rhel7
 
 *  **CentOS7 base image**
 
-This image is available on DockerHub. To download it use:
+This image is available on DockerHub. To download it run:
 
 ```console
 docker pull openshift/base-centos7
 ```
 
-To build Base image from scratch use:
+To build a Base image from scratch run:
 
 ```
 $ git clone https://github.com/openshift/sti-base.git
@@ -38,9 +38,9 @@ $ cd sti-base
 $ make build
 ```
 
-Software Collections in STI images
+Software Collections in S2I images
 --------------------------------
-OpenShift STI images use [Software Collections](https://www.softwarecollections.org/en/)
+OpenShift S2I images use [Software Collections](https://www.softwarecollections.org/en/)
 packages to provide the latest versions of various language environments.
 The SCL packages are released more frequently than the RHEL or CentOS systems,
 which are unlikely to change for several years.
@@ -49,7 +49,7 @@ because those are stable, supported, and secure platforms.
 
 Normally, SCL requires manual operation to enable the collection you want to use.
 This is burdensome and can be prone to error.
-The OpenShift STI approach is to set Bash environment variables that
+The OpenShift S2I approach is to set Bash environment variables that
 serve to automatically enable the desired collection:
 
 * `BASH_ENV`: enables the collection for all non-interactive Bash sessions
