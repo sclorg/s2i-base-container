@@ -1,25 +1,52 @@
 #!/bin/bash -e
-# $1 - Specifies distribution - RHEL7/CentOS7
+# This script is used to build, test and squash the OpenShift Docker images.
+#
+# $1 - Specifies distribution - "rhel7" or "centos7"
+# $2 - Specifies the image version - (must match with subdirectory in repo)
+# TEST_MODE - If set, build a candidate image and test it
 
 OS=$1
 
-IMAGE_NAME=openshift/base-${OS}
+DOCKERFILE_PATH=""
+BASE_DIR_NAME=$(basename `pwd`)
+BASE_IMAGE_NAME="openshift/${BASE_DIR_NAME#sti-}"
 
-function squash {
-  # install the docker layer squashing tool
-  easy_install --user docker_py==1.2.3 docker-scripts==0.4.2
-  base=$(awk '/^FROM/{print $2}' $1)
-  $HOME/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}
+# Cleanup the temporary Dockerfile created by docker build with version
+trap 'remove_tmp_dockerfile' SIGINT SIGQUIT EXIT
+function remove_tmp_dockerfile {
+  [[ ! -z "${DOCKERFILE_PATH}.version" ]] && rm -f "${DOCKERFILE_PATH}.version"
 }
 
+# Perform docker build but append the LABEL with GIT commit id at the end
+function docker_build_with_version {
+  local dockerfile="$1"
+  # Use perl here to make this compatible with OSX
+  DOCKERFILE_PATH=$(perl -MCwd -e 'print Cwd::abs_path shift' $dockerfile)
+  cp ${DOCKERFILE_PATH} "${DOCKERFILE_PATH}.version"
+  git_version=$(git rev-parse --short HEAD)
+  echo "LABEL io.openshift.builder-base-version=\"${git_version}\"" >> "${dockerfile}.version"
+  docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
+  if [[ "${SKIP_SQUASH}" -ne "1" ]]; then
+    squash "${dockerfile}.version"
+  fi
+}
+
+# Install the docker squashing tool[1] and squash the result image
+# [1] https://github.com/goldmann/docker-scripts
+function squash {
+  # FIXME: We have to use the exact versions here to avoid Docker client
+  #        compatibility issues
+  easy_install -q --user docker_py==1.2.3 docker-scripts==0.4.2
+  base=$(awk '/^FROM/{print $2}' $1)
+  ${HOME}/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}
+}
+
+IMAGE_NAME="${BASE_IMAGE_NAME}-${OS}"
+
+echo "-> Building ${IMAGE_NAME} ..."
+
 if [ "$OS" == "rhel7" -o "$OS" == "rhel7-candidate" ]; then
-  docker build -t ${IMAGE_NAME} -f Dockerfile.rhel7 .
-  if [[ "${SKIP_SQUASH}" != "1" ]]; then
-    squash Dockerfile.rhel7
-  fi
+  docker_build_with_version Dockerfile.rhel7
 else
-  docker build -t ${IMAGE_NAME} .
-  if [[ "${SKIP_SQUASH}" != "1" ]]; then
-    squash Dockerfile
-  fi
+  docker_build_with_version Dockerfile
 fi
