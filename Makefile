@@ -8,7 +8,7 @@ endif
 
 .PHONY: build
 build:
-	hack/build.sh $(OS)
+	SKIP_SQUASH=$(SKIP_SQUASH) hack/build.sh $(OS)
 
 .PHONY: test
 test:
