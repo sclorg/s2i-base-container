@@ -16,7 +16,7 @@ installing software:
 USER default
 
 The default directory for installing your application sources is
-'/opt/openshift/src' and the WORKDIR and HOME for the 'default' user is set
+'/opt/app-root/src' and the WORKDIR and HOME for the 'default' user is set
 to this directory as well. In your STI scripts, you don't have to use absolute
 path, but rather rely on the relative path.
 

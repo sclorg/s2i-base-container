@@ -14,16 +14,16 @@ LABEL io.s2i.scripts-url=image:///usr/local/sti
 ENV STI_SCRIPTS_URL=image:///usr/local/sti
 
 # The $HOME is not set by default, but some applications needs this variable
-ENV HOME=/opt/openshift/src \
-    PATH=/opt/openshift/src/bin:/opt/openshift/bin:/usr/local/sti:$PATH
+ENV HOME=/opt/app-root/src \
+    PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sti:$PATH
 
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
 # the SCL for all scripts without need to do 'scl enable'.
-ADD contrib/scl_enable /opt/openshift/etc/scl_enable
-ENV BASH_ENV=/opt/openshift/etc/scl_enable \
-    ENV=/opt/openshift/etc/scl_enable \
-    PROMPT_COMMAND=". /opt/openshift/etc/scl_enable"
+ADD contrib/scl_enable /opt/app-root/etc/scl_enable
+ENV BASH_ENV=/opt/app-root/etc/scl_enable \
+    ENV=/opt/app-root/etc/scl_enable \
+    PROMPT_COMMAND=". /opt/app-root/etc/scl_enable"
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
@@ -65,7 +65,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   groupadd -r default -f -g 1001 && \
   useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
-  chown -R 1001:1001 /opt/openshift
+  chown -R 1001:1001 /opt/app-root
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
