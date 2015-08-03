@@ -3,6 +3,8 @@
 #
 # $1 - Specifies distribution - "rhel7" or "centos7"
 # TEST_MODE - If set, build a candidate image and test it
+# TAG_ON_SUCCESS - If set, tested image will be re-tagged as a non-candidate
+#                  image, if the tests pass.
 
 OS=$1
 
@@ -56,4 +58,9 @@ fi
 
 if [[ -v TEST_MODE ]]; then
   IMAGE_NAME=${IMAGE_NAME} test/run
+
+  if [[ $? -eq 0 ]] && [[ "${TAG_ON_SUCCESS}" == "true" ]]; then
+    echo "-> Re-tagging ${IMAGE_NAME} image to ${IMAGE_NAME%"-candidate"}"
+    docker tag -f $IMAGE_NAME ${IMAGE_NAME%"-candidate"}
+  fi
 fi
