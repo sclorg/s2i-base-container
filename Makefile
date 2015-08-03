@@ -12,5 +12,4 @@ build:
 
 .PHONY: test
 test:
-	SKIP_SQUASH=$(SKIP_SQUASH) hack/build.sh $(OS)-candidate
-	IMAGE_NAME=openshift/base-$(OS)-candidate test/run
+	SKIP_SQUASH=$(SKIP_SQUASH) TEST_MODE=true hack/build.sh $(OS)

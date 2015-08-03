@@ -2,6 +2,7 @@
 # This script is used to build, test and squash the OpenShift Docker images.
 #
 # $1 - Specifies distribution - "rhel7" or "centos7"
+# TEST_MODE - If set, build a candidate image and test it
 
 OS=$1
 
@@ -41,10 +42,18 @@ function squash {
 
 IMAGE_NAME="${BASE_IMAGE_NAME}-${OS}"
 
+if [[ -v TEST_MODE ]]; then
+  IMAGE_NAME+="-candidate"
+fi
+
 echo "-> Building ${IMAGE_NAME} ..."
 
 if [ "$OS" == "rhel7" -o "$OS" == "rhel7-candidate" ]; then
   docker_build_with_version Dockerfile.rhel7
 else
   docker_build_with_version Dockerfile
+fi
+
+if [[ -v TEST_MODE ]]; then
+  IMAGE_NAME=${IMAGE_NAME} test/run
 fi
