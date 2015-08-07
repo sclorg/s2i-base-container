@@ -13,10 +13,7 @@ BASE_DIR_NAME=$(echo $(basename `pwd`) | sed -e 's/-[0-9]*$//g')
 BASE_IMAGE_NAME="openshift/${BASE_DIR_NAME#sti-}"
 
 # Cleanup the temporary Dockerfile created by docker build with version
-trap 'remove_tmp_dockerfile' SIGINT SIGQUIT EXIT
-function remove_tmp_dockerfile {
-  [[ ! -z "${DOCKERFILE_PATH}.version" ]] && rm -f "${DOCKERFILE_PATH}.version"
-}
+trap "rm -f ${DOCKERFILE_PATH}.version" SIGINT SIGQUIT EXIT
 
 # Perform docker build but append the LABEL with GIT commit id at the end
 function docker_build_with_version {
@@ -30,6 +27,7 @@ function docker_build_with_version {
   if [[ "${SKIP_SQUASH}" -ne "1" ]]; then
     squash "${dockerfile}.version"
   fi
+  rm -f "${DOCKERFILE_PATH}.version"
 }
 
 # Install the docker squashing tool[1] and squash the result image
