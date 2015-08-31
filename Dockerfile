@@ -71,8 +71,13 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 # Install the base-usage script with base image usage informations
 ADD bin/base-usage /usr/local/sti/base-usage
 
+# Use entrypoint so path is correctly adjusted already at the time the command
+# is searching, so something like docker run IMG python runs binary from SCL
+ADD bin/container-entrypoint /usr/bin/container-entrypoint
+
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
 WORKDIR ${HOME}
 
+ENTRYPOINT ["container-entrypoint"]
 CMD ["base-usage"]
