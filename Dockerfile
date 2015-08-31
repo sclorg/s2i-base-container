@@ -5,13 +5,16 @@ MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Location of the STI scripts inside the image
 #
-LABEL io.openshift.s2i.scripts-url=image:///usr/bin
+LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
 
 # DEPRECATED: This label will be kept here for backward compatibility
-LABEL io.s2i.scripts-url=image:///usr/bin
+LABEL io.s2i.scripts-url=image:///usr/libexec/s2i
 
 # Deprecated. Use above LABEL instead, because this will be removed in future versions.
-ENV STI_SCRIPTS_URL=image:///usr/bin
+ENV STI_SCRIPTS_URL=image:///usr/libexec/s2i
+
+# Path to be used in other layers to place s2i scritps into
+ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
 # The $HOME is not set by default, but some applications needs this variable
 ENV HOME=/opt/app-root/src \
