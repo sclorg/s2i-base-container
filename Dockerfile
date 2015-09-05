@@ -62,10 +62,9 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   zlib-devel && \
   yum clean all -y && \
   mkdir -p ${HOME} && \
-  groupadd -r default -f -g 1001 && \
-  useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
+  useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
-  chown -R 1001:1001 /opt/app-root
+  chown -R 1001:0 /opt/app-root
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
