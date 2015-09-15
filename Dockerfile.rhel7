@@ -1,8 +1,6 @@
 FROM rhel7
 
 # This image is the base image for all OpenShift v3 language Docker images.
-MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
-
 # Location of the STI scripts inside the image
 LABEL io.openshift.s2i.scripts-url=image:///usr/local/sti
 
