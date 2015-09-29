@@ -5,17 +5,20 @@ MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Location of the STI scripts inside the image
 #
-LABEL io.openshift.s2i.scripts-url=image:///usr/local/sti
+LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
 
 # DEPRECATED: This label will be kept here for backward compatibility
-LABEL io.s2i.scripts-url=image:///usr/local/sti
+LABEL io.s2i.scripts-url=image:///usr/libexec/s2i
 
 # Deprecated. Use above LABEL instead, because this will be removed in future versions.
-ENV STI_SCRIPTS_URL=image:///usr/local/sti
+ENV STI_SCRIPTS_URL=image:///usr/libexec/s2i
+
+# Path to be used in other layers to place s2i scripts into
+ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
 # The $HOME is not set by default, but some applications needs this variable
 ENV HOME=/opt/app-root/src \
-    PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sti:$PATH
+    PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH
 
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
@@ -68,7 +71,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
-ADD bin/base-usage /usr/local/sti/base-usage
+ADD bin/base-usage /usr/bin/base-usage
 
 # Use entrypoint so path is correctly adjusted already at the time the command
 # is searching, so something like docker run IMG python runs binary from SCL
