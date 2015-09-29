@@ -13,7 +13,7 @@ LABEL io.s2i.scripts-url=image:///usr/libexec/s2i
 # Deprecated. Use above LABEL instead, because this will be removed in future versions.
 ENV STI_SCRIPTS_URL=image:///usr/libexec/s2i
 
-# Path to be used in other layers to place s2i scritps into
+# Path to be used in other layers to place s2i scripts into
 ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
 # The $HOME is not set by default, but some applications needs this variable
