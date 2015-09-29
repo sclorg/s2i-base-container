@@ -65,17 +65,21 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   zlib-devel && \
   yum clean all -y && \
   mkdir -p ${HOME} && \
-  groupadd -r default -f -g 1001 && \
-  useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
+  useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
-  chown -R 1001:1001 /opt/app-root
+  chown -R 1001:0 /opt/app-root
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
 ADD bin/base-usage /usr/bin/base-usage
 
+# Use entrypoint so path is correctly adjusted already at the time the command
+# is searching, so something like docker run IMG python runs binary from SCL
+ADD bin/container-entrypoint /usr/bin/container-entrypoint
+
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
 WORKDIR ${HOME}
 
+ENTRYPOINT ["container-entrypoint"]
 CMD ["base-usage"]

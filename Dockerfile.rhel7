@@ -1,8 +1,6 @@
 FROM rhel7
 
 # This image is the base image for all OpenShift v3 language Docker images.
-MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
-
 # Location of the STI scripts inside the image
 LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
 
@@ -42,7 +40,8 @@ ENV BASH_ENV=/opt/app-root/etc/scl_enable \
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
 # TODO: Use better UID and GID values
-RUN yum install -y --setopt=tsflags=nodocs \
+RUN yum-config-manager --enable rhel-7-server-optional-rpms && \
+  yum install -y --setopt=tsflags=nodocs \
   autoconf \
   automake \
   bsdtar \
@@ -72,17 +71,21 @@ RUN yum install -y --setopt=tsflags=nodocs \
   zlib-devel && \
   yum clean all -y && \
   mkdir -p ${HOME} && \
-  groupadd -r default -f -g 1001 && \
-  useradd -u 1001 -r -g default -d ${HOME} -s /sbin/nologin \
+  useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
-  chown -R 1001:1001 /opt/app-root
+  chown -R 1001:0 /opt/app-root
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
 ADD bin/base-usage /usr/bin/base-usage
 
+# Use entrypoint so path is correctly adjusted already at the time the command
+# is searching, so something like docker run IMG python runs binary from SCL
+ADD bin/container-entrypoint /usr/bin/container-entrypoint
+
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
 WORKDIR ${HOME}
 
+ENTRYPOINT ["container-entrypoint"]
 CMD ["base-usage"]
