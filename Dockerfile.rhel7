@@ -30,7 +30,7 @@ ENV HOME=/opt/app-root/src \
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
 # the SCL for all scripts without need to do 'scl enable'.
-ADD contrib/scl_enable /opt/app-root/etc/scl_enable
+COPY contrib/scl_enable /opt/app-root/etc/scl_enable
 ENV BASH_ENV=/opt/app-root/etc/scl_enable \
     ENV=/opt/app-root/etc/scl_enable \
     PROMPT_COMMAND=". /opt/app-root/etc/scl_enable"
@@ -77,11 +77,14 @@ RUN yum-config-manager --enable rhel-7-server-optional-rpms && \
 
 # Create directory where the image STI scripts will be located
 # Install the base-usage script with base image usage informations
-ADD bin/base-usage /usr/bin/base-usage
+COPY bin/base-usage /usr/bin/base-usage
 
 # Use entrypoint so path is correctly adjusted already at the time the command
 # is searching, so something like docker run IMG python runs binary from SCL
-ADD bin/container-entrypoint /usr/bin/container-entrypoint
+COPY bin/container-entrypoint /usr/bin/container-entrypoint
+
+# Add script to fix directory permissions 
+COPY bin/fix-permissions /usr/bin/fix-permissions
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path
