@@ -1,7 +1,7 @@
 FROM centos:centos7
 
 # This image is the base image for all OpenShift v3 language Docker images.
-MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
+MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
 
 # Location of the STI scripts inside the image
 #
