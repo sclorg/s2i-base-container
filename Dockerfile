@@ -34,8 +34,7 @@ ENV BASH_ENV=/opt/app-root/etc/scl_enable \
 # application runtime execution.
 # TODO: Use better UID and GID values
 RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-  yum install -y --setopt=tsflags=nodocs \
-  autoconf \
+  INSTALL_PKGS="autoconf \
   automake \
   bsdtar \
   epel-release \
@@ -62,7 +61,9 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   wget \
   which \
   yum-utils \
-  zlib-devel && \
+  zlib-devel" && \
+  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+  rpm -V $INSTALL_PKGS && \
   yum clean all -y && \
   mkdir -p ${HOME} && \
   useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
