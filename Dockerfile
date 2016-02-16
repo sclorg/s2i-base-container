@@ -40,6 +40,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   epel-release \
   findutils \
   gcc-c++ \
+  gd-devel \
   gdb \
   gettext \
   git \

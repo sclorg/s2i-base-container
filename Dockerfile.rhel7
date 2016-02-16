@@ -46,6 +46,7 @@ RUN yum-config-manager --enable rhel-7-server-optional-rpms && \
   bsdtar \
   findutils \
   gcc-c++ \
+  gd-devel \
   gdb \
   gettext \
   git \
