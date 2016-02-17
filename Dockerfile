@@ -18,7 +18,9 @@ ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
 # The $HOME is not set by default, but some applications needs this variable
 ENV HOME=/opt/app-root/src \
-    PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH
+    PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH \
+    LC_ALL=en_US.UTF-8 \
+    TERM=vt100
 
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
