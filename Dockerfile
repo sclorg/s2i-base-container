@@ -63,10 +63,11 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   which \
   yum-utils \
   zlib-devel" && \
+  mkdir -p ${HOME}/.pki/nssdb && \
+  chown -R 1001:0 ${HOME}/.pki && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
   yum clean all -y && \
-  mkdir -p ${HOME} && \
   useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
   chown -R 1001:0 /opt/app-root
