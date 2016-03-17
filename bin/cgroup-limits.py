@@ -36,5 +36,6 @@ def get_number_of_cores():
 get_memory_limit()
 get_number_of_cores()
 
+print("MAX_MEMORY_LIMIT_IN_BYTES=9223372036854775807")
 for item in env_vars.items():
     print("=".join(item))
