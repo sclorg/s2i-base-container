@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+import sys
+
 env_vars = {}
 
 
@@ -13,8 +16,11 @@ def read_file(path):
 
 def get_memory_limit():
     limit = read_file('/sys/fs/cgroup/memory/memory.limit_in_bytes')
-    if limit:
-        env_vars['MEMORY_LIMIT_IN_BYTES'] = limit
+    if limit is None:
+        print("Warning: Can't detect memory limit from cgroups",
+              file=sys.stderr)
+        return
+    env_vars['MEMORY_LIMIT_IN_BYTES'] = limit
 
 
 def get_number_of_cores():
@@ -22,6 +28,8 @@ def get_number_of_cores():
 
     line = read_file('/sys/fs/cgroup/cpuset/cpuset.cpus')
     if line is None:
+        print("Warning: Can't detect number of CPU cores from cgroups",
+              file=sys.stderr)
         return
 
     for group in line.split(','):
