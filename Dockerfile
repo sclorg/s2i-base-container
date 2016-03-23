@@ -84,7 +84,7 @@ COPY bin/container-entrypoint /usr/bin/container-entrypoint
 COPY bin/fix-permissions /usr/bin/fix-permissions
 
 # Add utility for parsing cgroup limits
-COPY bin/cgroup-limits.py /usr/bin/cgroup-limits.py
+COPY bin/cgroup-limits /usr/bin/cgroup-limits
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path

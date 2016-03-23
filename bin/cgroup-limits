@@ -9,8 +9,7 @@ successfully read. Output of this script can be directly fed into
 bash's export command. Recommended usage from a bash script:
 
     set -o errexit
-    export_vars=$(cgroup-limits.py)
-    export $export_vars
+    export_vars=$(cgroup-limits) ; export $export_vars
 
 Variables currently supported:
     MAX_MEMORY_LIMIT_IN_BYTES
