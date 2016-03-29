@@ -1,23 +1,21 @@
+# This image is the base image for all OpenShift v3 language Docker images.
 FROM centos:centos7
 
-# This image is the base image for all OpenShift v3 language Docker images.
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
-# Location of the STI scripts inside the image
-#
-LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
+LABEL \
+      # Location of the STI scripts inside the image.
+      io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
+      # DEPRECATED: This label will be kept here for backward compatibility.
+      io.s2i.scripts-url=image:///usr/libexec/s2i
 
-# DEPRECATED: This label will be kept here for backward compatibility
-LABEL io.s2i.scripts-url=image:///usr/libexec/s2i
-
-# Deprecated. Use above LABEL instead, because this will be removed in future versions.
-ENV STI_SCRIPTS_URL=image:///usr/libexec/s2i
-
-# Path to be used in other layers to place s2i scripts into
-ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
-
-# The $HOME is not set by default, but some applications needs this variable
-ENV HOME=/opt/app-root/src \
+ENV \
+    # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.
+    STI_SCRIPTS_URL=image:///usr/libexec/s2i \
+    # Path to be used in other layers to place s2i scripts into
+    STI_SCRIPTS_PATH=/usr/libexec/s2i \
+    # The $HOME is not set by default, but some applications needs this variable
+    HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH
 
 # When bash is started non-interactively, to run a shell script, for example it
@@ -72,22 +70,11 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
       -c "Default Application User" default && \
   chown -R 1001:0 /opt/app-root
 
-# Create directory where the image STI scripts will be located
-# Install the base-usage script with base image usage informations
-COPY bin/base-usage /usr/bin/base-usage
-
-# Use entrypoint so path is correctly adjusted already at the time the command
-# is searching, so something like docker run IMG python runs binary from SCL
-COPY bin/container-entrypoint /usr/bin/container-entrypoint
-
-# Add script to fix directory permissions 
-COPY bin/fix-permissions /usr/bin/fix-permissions
-
-# Add utility for parsing cgroup limits
-COPY bin/cgroup-limits /usr/bin/cgroup-limits
+# Copy executable utilities.
+COPY bin/ /usr/bin/
 
 # Directory with the sources is set as the working directory so all STI scripts
-# can execute relative to this path
+# can execute relative to this path.
 WORKDIR ${HOME}
 
 ENTRYPOINT ["container-entrypoint"]
