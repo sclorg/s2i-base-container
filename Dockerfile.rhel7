@@ -39,6 +39,7 @@ ENV BASH_ENV=/opt/app-root/etc/scl_enable \
 # application runtime execution.
 # TODO: Use better UID and GID values
 RUN yum-config-manager --enable rhel-7-server-optional-rpms && \
+    yum-config-manager --enable rhel-7-server-extras-rpms && \
   INSTALL_PKGS="autoconf \
   automake \
   bsdtar \
