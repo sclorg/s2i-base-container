@@ -1,8 +1,9 @@
 OpenShift base images
 ========================================
-This repository contains [Dockerfiles](https://github.com/openshift/s2i-base)
-which serve as base images with all the essential libraries and tools needed
-for OpenShift language images, namely:
+
+This repository contains Dockerfiles which serve as base images with all the
+essential libraries and tools needed for OpenShift language images, namely:
+
 * [s2i-ruby](https://github.com/openshift/s2i-ruby)
 * [s2i-nodejs](https://github.com/openshift/s2i-nodejs)
 * [s2i-python](https://github.com/openshift/s2i-python)
