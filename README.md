@@ -1,13 +1,14 @@
 OpenShift base images
 ========================================
-This repository contains [Dockerfiles](https://github.com/openshift/sti-base)
-which serve as base images with all the essential libraries and tools needed
-for OpenShift language images, namely:
-* [sti-ruby](https://github.com/openshift/sti-ruby)
-* [sti-nodejs](https://github.com/openshift/sti-nodejs)
-* [sti-python](https://github.com/openshift/sti-python)
-* [sti-perl](https://github.com/openshift/sti-perl)
-* [sti-php](https://github.com/openshift/sti-php)
+
+This repository contains Dockerfiles which serve as base images with all the
+essential libraries and tools needed for OpenShift language images, namely:
+
+* [s2i-ruby](https://github.com/openshift/s2i-ruby)
+* [s2i-nodejs](https://github.com/openshift/s2i-nodejs)
+* [s2i-python](https://github.com/openshift/s2i-python)
+* [s2i-perl](https://github.com/openshift/s2i-perl)
+* [s2i-php](https://github.com/openshift/s2i-php)
 
 Installation and Usage
 ------------------------
@@ -17,8 +18,8 @@ Choose either the CentOS7 or RHEL7 base image:
 To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
 
 ```
-$ git clone https://github.com/openshift/sti-base.git
-$ cd sti-base
+$ git clone https://github.com/openshift/s2i-base.git
+$ cd s2i-base
 $ make build TARGET=rhel7
 ```
 
@@ -33,8 +34,8 @@ docker pull openshift/base-centos7
 To build a Base image from scratch run:
 
 ```
-$ git clone https://github.com/openshift/sti-base.git
-$ cd sti-base
+$ git clone https://github.com/openshift/s2i-base.git
+$ cd s2i-base
 $ make build
 ```
 
