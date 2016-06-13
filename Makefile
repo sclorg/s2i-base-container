@@ -6,10 +6,21 @@ else
 	OS := centos7
 endif
 
+BASE_IMAGE_NAME = "base"
+
+script_env = \
+	SKIP_SQUASH=$(SKIP_SQUASH)                      \
+	VERSIONS="$(VERSIONS)"                          \
+	OS=$(OS)                                        \
+	VERSION=$(VERSION)                              \
+	BASE_IMAGE_NAME=$(BASE_IMAGE_NAME)              \
+	OPENSHIFT_NAMESPACES="$(OPENSHIFT_NAMESPACES)"
+
+
 .PHONY: build
 build:
-	SKIP_SQUASH=$(SKIP_SQUASH) hack/build.sh $(OS)
+	$(script_env) hack/build.sh 
 
 .PHONY: test
 test:
-	SKIP_SQUASH=$(SKIP_SQUASH) TAG_ON_SUCCESS=$(TAG_ON_SUCCESS) TEST_MODE=true hack/build.sh $(OS)
+	$(script_env) TAG_ON_SUCCESS=$(TAG_ON_SUCCESS) TEST_MODE=true hack/build.sh

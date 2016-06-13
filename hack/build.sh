@@ -1,16 +1,19 @@
 #!/bin/bash -e
 # This script is used to build, test and squash the OpenShift Docker images.
 #
-# $1 - Specifies distribution - "rhel7" or "centos7"
+# OS - Specifies distribution - "rhel7" or "centos7"
+# BASE_IMAGE_DIR - Specifies the base image name - "base"
 # TEST_MODE - If set, build a candidate image and test it
 # TAG_ON_SUCCESS - If set, tested image will be re-tagged as a non-candidate
 #                  image, if the tests pass.
 
-OS=$1
-
 DOCKERFILE_PATH=""
-BASE_DIR_NAME=$(echo $(basename `pwd`) | sed -e 's/-[0-9]*$//g')
-BASE_IMAGE_NAME="openshift/${BASE_DIR_NAME#s2i-}"
+test -z "$BASE_IMAGE_NAME" && {
+    BASE_DIR_NAME=$(echo $(basename `pwd`) | sed -e 's/-[0-9]*$//g')
+    BASE_IMAGE_NAME="${BASE_DIR_NAME#s2i-}"
+}
+
+NAMESPACE="openshift/"
 
 # Cleanup the temporary Dockerfile created by docker build with version
 trap "rm -f ${DOCKERFILE_PATH}.version" SIGINT SIGQUIT EXIT
@@ -40,7 +43,7 @@ function squash {
   ${HOME}/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}
 }
 
-IMAGE_NAME="${BASE_IMAGE_NAME}-${OS}"
+IMAGE_NAME="${NAMESPACE}${BASE_IMAGE_NAME}-${OS}"
 
 if [[ -v TEST_MODE ]]; then
   IMAGE_NAME+="-candidate"
