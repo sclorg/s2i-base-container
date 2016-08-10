@@ -1,6 +1,8 @@
 OpenShift base images
 ========================================
 
+[![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=sti-base)](https://ci.openshift.redhat.com/jenkins/job/sti-base/)
+
 This repository contains Dockerfiles which serve as base images with all the
 essential libraries and tools needed for OpenShift language images, namely:
 
