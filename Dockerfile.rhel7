@@ -43,6 +43,7 @@ RUN yum repolist > /dev/null && \
   INSTALL_PKGS="autoconf \
   automake \
   bsdtar \
+  bzip2 \
   findutils \
   gcc-c++ \
   gd-devel \
