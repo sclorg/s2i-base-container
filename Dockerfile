@@ -35,6 +35,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   INSTALL_PKGS="autoconf \
   automake \
   bsdtar \
+  bzip2 \
   epel-release \
   findutils \
   gcc-c++ \
