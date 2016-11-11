@@ -1,5 +1,5 @@
 # This image is the base image for all OpenShift v3 language Docker images.
-FROM rhel7.2
+FROM rhel7
 
 LABEL \
       # Location of the STI scripts inside the image.
@@ -7,11 +7,11 @@ LABEL \
       # DEPRECATED: This label will be kept here for backward compatibility.
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       # Labels consumed by Red Hat build service.
-      BZComponent="openshift-sti-base-docker" \
-      Name="openshift3/sti-base" \
-      Version="1.0" \
-      Release="1" \
-      Architecture="x86_64"
+      com.redhat.component="openshift-sti-base-docker" \
+      name="openshift3/sti-base" \
+      version="1.0" \
+      release="1" \
+      architecture="x86_64"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.
