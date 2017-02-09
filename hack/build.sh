@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # This script is used to build, test and squash the OpenShift Docker images.
 #
-# OS - Specifies distribution - "rhel7" or "centos7"
+# OS - Specifies distribution - "rhel7" or "centos7" or "oraclelinux7"
 # BASE_IMAGE_DIR - Specifies the base image name - "base"
 # TEST_MODE - If set, build a candidate image and test it
 # TAG_ON_SUCCESS - If set, tested image will be re-tagged as a non-candidate
@@ -26,9 +26,11 @@ function docker_build_with_version {
   cp ${DOCKERFILE_PATH} "${DOCKERFILE_PATH}.version"
   git_version=$(git rev-parse --short HEAD)
   echo "LABEL io.openshift.builder-base-version=\"${git_version}\"" >> "${dockerfile}.version"
-  docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
   if [[ "${SKIP_SQUASH}" -ne "1" ]]; then
+    docker build -t ${IMAGE_NAME}-unsquashed -f "${dockerfile}.version" .
     squash "${dockerfile}.version"
+  else
+    docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
   fi
   rm -f "${DOCKERFILE_PATH}.version"
 }
@@ -38,7 +40,7 @@ function docker_build_with_version {
 function squash {
   easy_install -q --user docker-squash
   base=$(awk '/^FROM/{print $2}' $1)
-  ${HOME}/.local/bin/docker-squash -f $base -t ${IMAGE_NAME} ${IMAGE_NAME}
+  ${HOME}/.local/bin/docker-squash -c -f $base -t ${IMAGE_NAME} ${IMAGE_NAME}-unsquashed
 }
 
 IMAGE_NAME="${NAMESPACE}${BASE_IMAGE_NAME}-${OS}"
@@ -51,6 +53,8 @@ echo "-> Building ${IMAGE_NAME} ..."
 
 if [ "$OS" == "rhel7" -o "$OS" == "rhel7-candidate" ]; then
   docker_build_with_version Dockerfile.rhel7
+elif [ "$OS" == "oraclelinux7" ]; then
+  docker_build_with_version Dockerfile.ol7
 else
   docker_build_with_version Dockerfile
 fi

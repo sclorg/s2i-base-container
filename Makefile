@@ -2,6 +2,8 @@ SKIP_SQUASH?=0
 
 ifeq ($(TARGET),rhel7)
 	OS := rhel7
+else ifeq ($(TARGET),ol7)
+	OS := oraclelinux7
 else
 	OS := centos7
 endif
