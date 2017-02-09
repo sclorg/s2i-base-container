@@ -26,9 +26,11 @@ function docker_build_with_version {
   cp ${DOCKERFILE_PATH} "${DOCKERFILE_PATH}.version"
   git_version=$(git rev-parse --short HEAD)
   echo "LABEL io.openshift.builder-base-version=\"${git_version}\"" >> "${dockerfile}.version"
-  docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
   if [[ "${SKIP_SQUASH}" -ne "1" ]]; then
+    docker build -t ${IMAGE_NAME}-unsquashed -f "${dockerfile}.version" .
     squash "${dockerfile}.version"
+  else
+    docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
   fi
   rm -f "${DOCKERFILE_PATH}.version"
 }
@@ -38,7 +40,7 @@ function docker_build_with_version {
 function squash {
   easy_install -q --user docker-squash
   base=$(awk '/^FROM/{print $2}' $1)
-  ${HOME}/.local/bin/docker-squash -f $base -t ${IMAGE_NAME} ${IMAGE_NAME}
+  ${HOME}/.local/bin/docker-squash -c -f $base -t ${IMAGE_NAME} ${IMAGE_NAME}-unsquashed
 }
 
 IMAGE_NAME="${NAMESPACE}${BASE_IMAGE_NAME}-${OS}"
