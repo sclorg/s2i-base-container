@@ -41,11 +41,16 @@ $ make build
 
 * **Oracle Linux 7 base image**
 
+This image is available on the Docker Hub. To download it run:
+
+```console
+docker pull oracle/s2i-base-oraclelinux7
+```
+
 To build an Oracle Linux 7 based image from scratch run:
 
 ```
-$ git clone https://github.com/openshift/s2i-base.git
-$ cd s2i-base
+$ git clone https://github.com/sclorg/s2i-base-container.git
 $ make build TARGET=ol7
 ```
 
