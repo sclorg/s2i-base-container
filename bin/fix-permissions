@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Allow this script to fail without failing a build
+set +e
+
 # Fix permissions on the given directory to allow group read/write of
 # regular files and execute of directories.
 chgrp -R 0 $1;
