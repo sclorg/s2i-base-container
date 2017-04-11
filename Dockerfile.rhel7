@@ -7,9 +7,9 @@ LABEL \
       # DEPRECATED: This label will be kept here for backward compatibility.
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       # Labels consumed by Red Hat build service.
-      com.redhat.component="openshift-sti-base-docker" \
-      name="openshift3/sti-base" \
-      version="1.0" \
+      com.redhat.component="s2i-base-docker" \
+      name="rhscl/s2i-base-rhel7" \
+      version="1" \
       release="1" \
       architecture="x86_64"
 
