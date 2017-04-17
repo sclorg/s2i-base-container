@@ -1,5 +1,5 @@
 # This image is the base image for all OpenShift v3 language Docker images.
-FROM registry.access.redhat.com/rhel7
+FROM rhel7
 
 LABEL \
       # Location of the STI scripts inside the image.
