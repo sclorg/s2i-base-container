@@ -12,7 +12,7 @@ essential libraries and tools needed for OpenShift language images, namely:
 
 Installation and Usage
 ------------------------
-Choose either the CentOS7 or RHEL7 base image:
+Choose either the CentOS7, RHEL7, OR RHEL6 base image:
 *  **RHEL7 base image**
 
 To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
@@ -21,6 +21,16 @@ To build a RHEL7 based image, you need to build it on properly subscribed RHEL m
 $ git clone https://github.com/openshift/s2i-base.git
 $ cd s2i-base
 $ make build TARGET=rhel7
+```
+
+*  **RHEL6 base image**
+
+To build a RHEL6 based image, you need to build it on properly subscribed RHEL machine.
+
+```
+$ git clone https://github.com/openshift/s2i-base.git
+$ cd s2i-base
+$ make build TARGET=rhel6
 ```
 
 *  **CentOS7 base image**
