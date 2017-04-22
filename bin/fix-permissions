@@ -3,10 +3,18 @@
 # Allow this script to fail without failing a build
 set +e
 
-# Fix permissions on the given directory to allow group read/write of
+# Fix permissions on the given directory or file to allow group read/write of
 # regular files and execute of directories.
-chgrp -R 0 $1;
-find -L $1 -xtype l -exec chgrp 0 {} \;
-chmod -R g+rw $1;
-find -L $1 -xtype l -exec chmod g+rw {} \;
-find $1 -type d -exec chmod g+x {} +
+
+# If argument does not exist, script will still exit with 0,
+# but at least we'll see something went wrong in the log
+if ! [ -e "$1" ] ; then
+  echo "ERROR: File or directory $1 does not exist." >&2
+fi
+
+# Using --quiet to avoid error messages when there are not enough permissions
+chgrp -R --quiet 0 "$1";
+find -L "$1" -xtype l -exec chgrp --quiet 0 {} \;
+chmod -R --quiet g+rw "$1";
+find -L "$1" -xtype l -exec chmod --quiet g+rw {} \;
+find "$1" -type d -exec chmod --quiet g+x {} +
