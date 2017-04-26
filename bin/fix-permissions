@@ -13,8 +13,7 @@ if ! [ -e "$1" ] ; then
 fi
 
 # Using --quiet to avoid error messages when there are not enough permissions
-chgrp -R --quiet 0 "$1";
-find -L "$1" -xtype l -exec chgrp --quiet 0 {} \;
-chmod -R --quiet g+rw "$1";
-find -L "$1" -xtype l -exec chmod --quiet g+rw {} \;
-find "$1" -type d -exec chmod --quiet g+x {} +
+find -L "$1" \! -gid 0 -exec chgrp 0 {} +
+find -L "$1" \! -perm /g+rw -exec chmod g+rw {} +
+find -L "$1" -perm /u+x -a \! -perm /g+x -exec chmod g+x {} +
+find -L "$1" -type d \! -perm /g+x -exec chmod g+x {} +
