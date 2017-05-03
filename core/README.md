@@ -1,13 +1,40 @@
 OpenShift base images
 ========================================
 
-This repository contains Dockerfiles which serve as base images for various OpenShift images.
+This repository contains Dockerfiles for images which can be used as base images
+to add support for [source-to-image](https://github.com/openshift/source-to-image).
 
-Versions
----------------------------------
-s2i image versions currently provided are:
-* [core](core/README.md) - rhel7 base + s2i settings
-* [base](base/README.md) - s2i-core + development libraries + npm
+Installation and Usage
+------------------------
+Choose either the CentOS7 or RHEL7 base image:
+*  **RHEL7 base image**
+
+To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
+
+```
+$ git clone https://github.com/sclorg/s2i-base-container.git
+$ cd s2i-base-container
+$ make build VERSION=core TARGET=rhel7
+```
+
+*  **CentOS7 base image**
+
+This image is available on DockerHub. To download it run:
+
+```console
+docker pull sclorg/s2i-core-centos7
+```
+
+To build a Base image from scratch run:
+
+```
+$ git clone https://github.com/sclorg/s2i-base-container.git
+$ cd s2i-base-container
+$ make build VERSION=core
+```
+
+**Notice: By omitting the `VERSION` parameter, the build/test action will be performed
+on all provided versions of s2i image.**
 
 Software Collections in S2I images
 --------------------------------
