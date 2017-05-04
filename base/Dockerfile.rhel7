@@ -18,7 +18,6 @@ RUN yum repolist > /dev/null && \
   yum-config-manager --enable rhel-7-server-optional-rpms && \
   INSTALL_PKGS="autoconf \
   automake \
-  bsdtar \
   bzip2 \
   gcc-c++ \
   gd-devel \

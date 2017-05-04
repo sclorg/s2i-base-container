@@ -42,7 +42,8 @@ RUN yum repolist > /dev/null && \
   yum-config-manager --disable \* &> /dev/null && \
   yum-config-manager --enable rhel-7-server-rpms && \
   yum-config-manager --enable rhel-7-server-optional-rpms && \
-  INSTALL_PKGS="findutils \
+  INSTALL_PKGS="bsdtar \
+  findutils \
   gettext \
   scl-utils \
   tar \

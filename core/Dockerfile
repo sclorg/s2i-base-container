@@ -32,7 +32,8 @@ ENV BASH_ENV=/opt/app-root/etc/scl_enable \
 # application runtime execution.
 # TODO: Use better UID and GID values
 RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-  INSTALL_PKGS="findutils \
+  INSTALL_PKGS="bsdtar \
+  findutils \
   gettext \
   scl-utils \
   tar \
