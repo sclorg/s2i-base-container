@@ -18,7 +18,7 @@ Choose either the CentOS7 or RHEL7 base image:
 To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
 
 ```
-$ git clone https://github.com/sclorg/s2i-base-container.git
+$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
 $ make build VERSION=base TARGET=rhel7
 ```
@@ -34,7 +34,7 @@ docker pull sclorg/s2i-base-centos7
 To build a Base image from scratch run:
 
 ```
-$ git clone https://github.com/sclorg/s2i-base-container.git
+$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
 $ make build VERSION=base
 ```
