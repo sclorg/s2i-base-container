@@ -1,26 +1,9 @@
-SKIP_SQUASH?=0
+# Variables are documented in common/build.sh.
+BASE_IMAGE_NAME = s2i
+VERSIONS = core base
 
-ifeq ($(TARGET),rhel7)
-	OS := rhel7
-else
-	OS := centos7
-endif
+# HACK:  Ensure that 'git pull' for old clones doesn't cause confusion.
+# New clones should use '--recursive'.
+.PHONY: $(shell test -f common/common.mk || echo >&2 'Please do "git submodule update --init" first.')
 
-BASE_IMAGE_NAME = "s2i-base"
-
-script_env = \
-	SKIP_SQUASH=$(SKIP_SQUASH)                      \
-	VERSIONS="$(VERSIONS)"                          \
-	OS=$(OS)                                        \
-	VERSION=$(VERSION)                              \
-	BASE_IMAGE_NAME=$(BASE_IMAGE_NAME)              \
-	OPENSHIFT_NAMESPACES="$(OPENSHIFT_NAMESPACES)"
-
-
-.PHONY: build
-build:
-	$(script_env) hack/build.sh 
-
-.PHONY: test
-test:
-	$(script_env) TAG_ON_SUCCESS=$(TAG_ON_SUCCESS) TEST_MODE=true hack/build.sh
+include common/common.mk
