@@ -2,7 +2,7 @@ OpenShift base images
 ========================================
 
 This repository contains Dockerfiles for images which serve as base images with all the
-essential libraries and tools needed for OpenShift language images, namely:
+essential libraries and tools needed for OpenShift language images, for example:
 
 * [s2i-ruby](https://github.com/sclorg/s2i-ruby-container)
 * [s2i-nodejs](https://github.com/sclorg/s2i-nodejs-container)
@@ -45,7 +45,7 @@ on all provided versions of s2i image.**
 Software Collections in S2I images
 --------------------------------
 OpenShift S2I images use [Software Collections](https://www.softwarecollections.org/en/)
-packages to provide the latest versions of various language environments.
+packages to provide the latest versions of various software.
 The SCL packages are released more frequently than the RHEL or CentOS systems,
 which are unlikely to change for several years.
 We rely on RHEL and CentOS for base images, on the other hand,
@@ -67,7 +67,7 @@ do not need to call `scl enable`.
 `docker exec ... /bin/bash` command, the collection will be automatically enabled.
 
 *Note*:
-The language interpreter executables in the collection (e.g., `ruby`)
+Executables in Software Collections packages (e.g., `ruby`)
 are not directly in a directory named in the `PATH` environment variable.
 This means that you cannot do:
 
