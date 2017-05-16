@@ -13,7 +13,11 @@ test -z "$BASE_IMAGE_NAME" && {
     BASE_IMAGE_NAME="${BASE_DIR_NAME#s2i-}"
 }
 
-NAMESPACE="centos/"
+if [ "${OS}" == "rhel7" ]; then
+    NAMESPACE="rhscl/"
+else
+    NAMESPACE="centos/"
+fi
 
 # Cleanup the temporary Dockerfile created by docker build with version
 trap "rm -f ${DOCKERFILE_PATH}.version" SIGINT SIGQUIT EXIT
