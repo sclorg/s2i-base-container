@@ -10,3 +10,4 @@ find -L $1 -xtype l -exec chgrp 0 {} \;
 chmod -R g+rw $1;
 find -L $1 -xtype l -exec chmod g+rw {} \;
 find $1 -type d -exec chmod g+x {} +
+exit 0
