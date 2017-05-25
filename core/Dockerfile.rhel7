@@ -25,10 +25,12 @@ ENV \
     HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+# Copy extra files to the image.
+COPY ./root/ /
+
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
 # the SCL for all scripts without need to do 'scl enable'.
-COPY contrib/scl_enable /opt/app-root/etc/scl_enable
 ENV BASH_ENV=/opt/app-root/etc/scl_enable \
     ENV=/opt/app-root/etc/scl_enable \
     PROMPT_COMMAND=". /opt/app-root/etc/scl_enable"
@@ -57,9 +59,6 @@ RUN yum repolist > /dev/null && \
   useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
   chown -R 1001:0 /opt/app-root
-
-# Copy executable utilities.
-COPY bin/ /usr/bin/
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.
