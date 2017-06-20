@@ -15,7 +15,7 @@ if ! [ -e "$1" ] ; then
 fi
 
 find -L "$1" \! -gid 0 -exec chgrp 0 {} +
-find -L "$1" \! -perm /g+rw -exec chmod g+rw {} +
+find -L "$1" \! -perm -g+rw -exec chmod g+rw {} +
 find -L "$1" -perm /u+x -a \! -perm /g+x -exec chmod g+x {} +
 find -L "$1" -type d \! -perm /g+x -exec chmod g+x {} +
 
