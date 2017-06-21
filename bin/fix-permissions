@@ -6,6 +6,8 @@ set +e
 # Fix permissions on the given directory or file to allow group read/write of
 # regular files and execute of directories.
 
+[ "$(id -u)" -ne 0 ] && CHECK_OWNER=" -uid $(id -u)"
+
 # If argument does not exist, script will still exit with 0,
 # but at least we'll see something went wrong in the log
 if ! [ -e "$1" ] ; then
@@ -14,10 +16,10 @@ if ! [ -e "$1" ] ; then
   exit 0
 fi
 
-find -L "$1" \! -gid 0 -exec chgrp 0 {} +
-find -L "$1" \! -perm -g+rw -exec chmod g+rw {} +
-find -L "$1" -perm /u+x -a \! -perm /g+x -exec chmod g+x {} +
-find -L "$1" -type d \! -perm /g+x -exec chmod g+x {} +
+find -L "$1" ${CHECK_OWNER} \! -gid 0 -exec chgrp 0 {} +
+find -L "$1" ${CHECK_OWNER} \! -perm -g+rw -exec chmod g+rw {} +
+find -L "$1" ${CHECK_OWNER} -perm /u+x -a \! -perm /g+x -exec chmod g+x {} +
+find -L "$1" ${CHECK_OWNER} -type d \! -perm /g+x -exec chmod g+x {} +
 
 # Always end successfully
 exit 0
