@@ -14,10 +14,10 @@ if ! [ -e "$1" ] ; then
   exit 0
 fi
 
-find -L "$1" \! -gid 0 -exec chgrp 0 {} + 2>/dev/null
-find -L "$1" \! -perm -g+rw -exec chmod g+rw {} + 2>/dev/null
-find -L "$1" -perm /u+x -a \! -perm /g+x -exec chmod g+x {} + 2>/dev/null
-find -L "$1" -type d \! -perm /g+x -exec chmod g+x {} + 2>/dev/null
+find -L "$1" \! -gid 0 -exec chgrp --quiet 0 {} +
+find -L "$1" \! -perm -g+rw -exec chmod --quiet g+rw {} +
+find -L "$1" -perm /u+x -a \! -perm /g+x -exec chmod --quiet g+x {} +
+find -L "$1" -type d \! -perm /g+x -exec chmod --quiet g+x {} +
 
 # Always end successfully
 exit 0
