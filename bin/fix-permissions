@@ -6,7 +6,7 @@ set +e
 # Fix permissions on the given directory or file to allow group read/write of
 # regular files and execute of directories.
 
-[ "$(id -u)" -ne 0 ] && CHECK_OWNER=" -uid $(id -u)"
+[ $(id -u) -ne 0 ] && CHECK_OWNER=" -uid $(id -u)"
 
 # If argument does not exist, script will still exit with 0,
 # but at least we'll see something went wrong in the log
