@@ -30,21 +30,21 @@ function docker_build_with_version {
   cp ${DOCKERFILE_PATH} "${DOCKERFILE_PATH}.version"
   git_version=$(git rev-parse --short HEAD)
   echo "LABEL io.openshift.builder-base-version=\"${git_version}\"" >> "${dockerfile}.version"
-  docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
   if [[ "${SKIP_SQUASH}" -ne "1" ]]; then
+    docker build -t ${IMAGE_NAME}-unsquashed -f "${dockerfile}.version" .
     squash "${dockerfile}.version"
+  else
+    docker build -t ${IMAGE_NAME} -f "${dockerfile}.version" .
   fi
   rm -f "${DOCKERFILE_PATH}.version"
 }
 
 # Install the docker squashing tool[1] and squash the result image
-# [1] https://github.com/goldmann/docker-scripts
+# [1] https://github.com/goldmann/docker-squash
 function squash {
-  # FIXME: We have to use the exact versions here to avoid Docker client
-  #        compatibility issues
-  easy_install -q --user docker_py==1.6.0 docker-scripts==0.4.4
+  easy_install -q --user docker-squash
   base=$(awk '/^FROM/{print $2}' $1)
-  ${HOME}/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}
+  ${HOME}/.local/bin/docker-squash -c -f $base -t ${IMAGE_NAME} ${IMAGE_NAME}-unsquashed
 }
 
 IMAGE_NAME="${NAMESPACE}${BASE_IMAGE_NAME}-${OS}"
