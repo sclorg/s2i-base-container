@@ -2,7 +2,6 @@
 FROM rhscl/s2i-core-rhel7
 
 LABEL \
-      # Labels consumed by Red Hat build service.
       com.redhat.component="s2i-base-docker" \
       name="rhscl/s2i-base-rhel7" \
       version="1" \

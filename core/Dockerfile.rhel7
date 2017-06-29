@@ -2,11 +2,8 @@
 FROM rhel7
 
 LABEL \
-      # Location of the STI scripts inside the image.
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
-      # DEPRECATED: This label will be kept here for backward compatibility.
       io.s2i.scripts-url=image:///usr/libexec/s2i \
-      # Labels consumed by Red Hat build service.
       com.redhat.component="s2i-core-docker" \
       name="rhscl/s2i-core-rhel7" \
       version="1" \
