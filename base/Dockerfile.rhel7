@@ -1,0 +1,39 @@
+# This image is the base image for all OpenShift v3 language Docker images.
+FROM rhscl/s2i-core-rhel7
+
+LABEL \
+      # Labels consumed by Red Hat build service.
+      com.redhat.component="s2i-base-docker" \
+      name="rhscl/s2i-base-rhel7" \
+      version="1" \
+      release="1" \
+      architecture="x86_64"
+
+# This is the list of basic dependencies that all language Docker image can
+# consume.
+RUN INSTALL_PKGS="autoconf \
+  automake \
+  bzip2 \
+  gcc-c++ \
+  gd-devel \
+  gdb \
+  git \
+  libcurl-devel \
+  libxml2-devel \
+  libxslt-devel \
+  lsof \
+  make \
+  mariadb-devel \
+  mariadb-libs \
+  openssl-devel \
+  patch \
+  postgresql-devel \
+  procps-ng \
+  sqlite-devel \
+  unzip \
+  wget \
+  which \
+  zlib-devel" && \
+  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+  rpm -V $INSTALL_PKGS && \
+  yum clean all -y

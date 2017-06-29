@@ -1,13 +1,46 @@
 OpenShift base images
 ========================================
 
-This repository contains Dockerfiles which serve as base images for various OpenShift images.
+This repository contains Dockerfiles for images which serve as base images with all the
+essential libraries and tools needed for OpenShift language images, for example:
 
-Versions
----------------------------------
-s2i image versions currently provided are:
-* [core](core/README.md) - rhel7 base + s2i settings
-* [base](base/README.md) - s2i-core + development libraries + npm
+* [s2i-ruby](https://github.com/sclorg/s2i-ruby-container)
+* [s2i-nodejs](https://github.com/sclorg/s2i-nodejs-container)
+* [s2i-python](https://github.com/sclorg/s2i-python-container)
+* [s2i-perl](https://github.com/sclorg/s2i-perl-container)
+* [s2i-php](https://github.com/sclorg/s2i-php-container)
+
+Installation and Usage
+------------------------
+Choose either the CentOS7 or RHEL7 base image:
+*  **RHEL7 base image**
+
+To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
+
+```
+$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
+$ cd s2i-base-container
+$ make build VERSION=base TARGET=rhel7
+```
+
+*  **CentOS7 base image**
+
+This image is available on DockerHub. To download it run:
+
+```console
+docker pull sclorg/s2i-base-centos7
+```
+
+To build a Base image from scratch run:
+
+```
+$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
+$ cd s2i-base-container
+$ make build VERSION=base
+```
+
+**Notice: By omitting the `VERSION` parameter, the build/test action will be performed
+on all provided versions of s2i image.**
 
 Software Collections in S2I images
 --------------------------------
