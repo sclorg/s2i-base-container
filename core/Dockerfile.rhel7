@@ -2,9 +2,9 @@
 FROM rhel7
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
-    DESCRIPTION="Base image delivers all the essential tools needed for using source-to-image \
-and to allow using Software Collection packages. This image also defines default user \
-and includes some common scripts for derived images."
+    DESCRIPTION="The s2i-core image provides any images layered on top of it \
+with all the tools needed to use source-to-image functionality while keeping \
+the image size as small as possible."
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \

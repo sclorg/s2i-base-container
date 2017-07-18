@@ -1,9 +1,12 @@
 # This image is the base image for all OpenShift v3 language Docker images.
 FROM rhscl/s2i-core-rhel7
 
-ENV SUMMARY="Base image with essential libraries and tools used as a base for builder images like perl, python, ruby, etc."	\
-    DESCRIPTION="Base image delivers all the essential libraries and tools needed for other builder images like perl, python, \
-ruby, etc. This image uses s2i-core image which defines default user and includes some common scripts for derived builder images."
+ENV SUMMARY="Base image with essential libraries and tools used as a base for \
+builder images like perl, python, ruby, etc." \
+    DESCRIPTION="The s2i-base image, being built upon s2i-core, provides any \
+images layered on top of it with all the tools needed to use source-to-image \
+functionality. Additionally, s2i-base also contains various libraries needed for \
+it to serve as a base for other builder images, like s2i-python or s2i-ruby."
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
