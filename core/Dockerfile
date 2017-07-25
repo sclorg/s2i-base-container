@@ -1,13 +1,22 @@
 # This image is the base image for all s2i configurable Docker images.
 FROM centos:7
 
-MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
+ENV SUMMARY="Base image which allows using of source-to-image."	\
+    DESCRIPTION="The s2i-core image provides any images layered on top of it \
+with all the tools needed to use source-to-image functionality while keeping \
+the image size as small as possible."
 
-LABEL \
-      # Location of the STI scripts inside the image.
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$DESCRIPTION" \
+      io.k8s.display-name="s2i core" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
-      # DEPRECATED: This label will be kept here for backward compatibility.
-      io.s2i.scripts-url=image:///usr/libexec/s2i
+      io.s2i.scripts-url=image:///usr/libexec/s2i \
+      com.redhat.component="s2i-core-docker" \
+      name="centos/s2i-core-centos7" \
+      version="1" \
+      release="1" \
+      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.

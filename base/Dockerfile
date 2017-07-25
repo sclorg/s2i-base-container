@@ -1,7 +1,22 @@
 # This image is the base image for all OpenShift v3 language Docker images.
 FROM centos/s2i-core-centos7
 
-MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
+ENV SUMMARY="Base image with essential libraries and tools used as a base for \
+builder images like perl, python, ruby, etc." \
+    DESCRIPTION="The s2i-base image, being built upon s2i-core, provides any \
+images layered on top of it with all the tools needed to use source-to-image \
+functionality. Additionally, s2i-base also contains various libraries needed for \
+it to serve as a base for other builder images, like s2i-python or s2i-ruby."
+
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$DESCRIPTION" \
+      io.k8s.display-name="s2i base" \
+      com.redhat.component="s2i-base-docker" \
+      name="centos/s2i-base-centos7" \
+      version="1" \
+      release="1" \
+      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
