@@ -14,7 +14,7 @@ To build a RHEL7 based image, you need to build it on properly subscribed RHEL m
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSION=core TARGET=rhel7
+$ make build VERSIONS=core TARGET=rhel7
 ```
 
 *  **CentOS7 base image**
@@ -30,7 +30,7 @@ To build a Base image from scratch run:
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSION=core
+$ make build VERSIONS=core
 ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
