@@ -19,7 +19,13 @@ LABEL summary="$SUMMARY" \
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
-RUN INSTALL_PKGS="autoconf \
+# We need to call 2 (!) yum commands before being able to enable repositories properly
+# This is a workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1479388
+RUN yum repolist > /dev/null && \
+    yum install -y yum-utils && \
+    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum-config-manager --enable rhel-7-server-optional-rpms && \
+  INSTALL_PKGS="autoconf \
   automake \
   bzip2 \
   gcc-c++ \
