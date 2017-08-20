@@ -39,6 +39,7 @@ RUN INSTALL_PKGS="autoconf \
   make \
   mariadb-devel \
   mariadb-libs \
+  npm \
   openssl-devel \
   patch \
   postgresql-devel \
