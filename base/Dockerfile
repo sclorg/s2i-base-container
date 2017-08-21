@@ -20,7 +20,8 @@ LABEL summary="$SUMMARY" \
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
-RUN INSTALL_PKGS="autoconf \
+RUN yum install -y centos-release-scl && \
+  INSTALL_PKGS="autoconf \
   automake \
   bzip2 \
   gcc-c++ \
