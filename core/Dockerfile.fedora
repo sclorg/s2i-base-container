@@ -21,6 +21,7 @@ LABEL summary="$SUMMARY" \
       version="$VERSION" \
       release="$RELEASE.$DISTTAG" \
       architecture="$ARCH" \
+      usage="This image is supposed to be used as a base image for other images that support source-to-image" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 ENV \
