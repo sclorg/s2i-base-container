@@ -44,7 +44,10 @@ ENV BASH_ENV=/opt/app-root/etc/scl_enable \
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
 # TODO: Use better UID and GID values
+# We need to call 2 (!) yum commands before being able to enable repositories properly
+# This is a workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1479388
 RUN yum repolist > /dev/null && \
+  yum install -y yum-utils && \
   yum-config-manager --disable \* &> /dev/null && \
   yum-config-manager --enable rhel-7-server-rpms && \
   yum-config-manager --enable rhel-7-server-optional-rpms && \
