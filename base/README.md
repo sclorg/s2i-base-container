@@ -10,40 +10,14 @@ essential libraries and tools needed for OpenShift language images, for example:
 * [s2i-perl](https://github.com/sclorg/s2i-perl-container)
 * [s2i-php](https://github.com/sclorg/s2i-php-container)
 
-Installation and Usage
-------------------------
-Choose either the CentOS7 or RHEL7 base image:
-*  **RHEL7 base image**
+This container imagea also installs several development libraries, that are
+often required in the builder images above. Sharing those development packages
+in a common layer saves disk space and improves pulling speed.
 
-To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
 
-```
-$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
-$ cd s2i-base-container
-$ make build VERSIONS=base TARGET=rhel7
-```
+Description
+-----------
 
-*  **CentOS7 base image**
-
-This image is available on DockerHub. To download it run:
-
-```console
-docker pull sclorg/s2i-base-centos7
-```
-
-To build a Base image from scratch run:
-
-```
-$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
-$ cd s2i-base-container
-$ make build VERSIONS=base
-```
-
-**Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all provided versions of s2i image.**
-
-Software Collections in S2I images
---------------------------------
 OpenShift S2I images use [Software Collections](https://www.softwarecollections.org/en/)
 packages to provide the latest versions of various software.
 The SCL packages are released more frequently than the RHEL or CentOS systems,
@@ -79,3 +53,43 @@ but must instead do:
 
 The `/bin/bash -c`, along with the setting the appropriate environment variable,
 ensures the correct `ruby` executable is found and invoked.
+
+
+Usage
+------------------------
+Choose either the CentOS7 or RHEL7 base image:
+*  **RHEL7 base image**
+
+To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
+
+```
+$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
+$ cd s2i-base-container
+$ make build VERSIONS=base TARGET=rhel7
+```
+
+*  **CentOS7 base image**
+
+This image is available on DockerHub. To download it run:
+
+```console
+docker pull sclorg/s2i-base-centos7
+```
+
+To build a Base image from scratch run:
+
+```
+$ git clone --recursive https://github.com/sclorg/s2i-base-container.git
+$ cd s2i-base-container
+$ make build VERSIONS=base
+```
+
+**Notice: By omitting the `VERSION` parameter, the build/test action will be performed
+on all provided versions of s2i image.**
+
+
+See also
+--------
+Dockerfile and other sources are available on https://github.com/sclorg/s2i-base-container.
+In that repository you also can find another variants of S2I base Dockerfiles.
+Dockerfile for CentOS is called Dockerfile, Dockerfile for RHEL is called Dockerfile.rhel7.
