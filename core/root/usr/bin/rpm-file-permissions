@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CHECK_DIRS="/ /opt /usr /usr/bin /usr/lib /usr/lib64"
+CHECK_DIRS="/ /opt /etc /usr /usr/bin /usr/lib /usr/lib64"
 
 rpm_format="[%{FILESTATES:fstate}  %7{FILEMODES:octal} %{FILENAMES:shescape}\n]"
 
