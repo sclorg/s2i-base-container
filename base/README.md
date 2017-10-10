@@ -10,7 +10,7 @@ essential libraries and tools needed for OpenShift language images, for example:
 * [s2i-perl](https://github.com/sclorg/s2i-perl-container)
 * [s2i-php](https://github.com/sclorg/s2i-php-container)
 
-This container imagea also installs several development libraries, that are
+This container image also installs several development libraries, that are
 often required in the builder images above. Sharing those development packages
 in a common layer saves disk space and improves pulling speed.
 
