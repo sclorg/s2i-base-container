@@ -80,6 +80,6 @@ on all provided versions of s2i image.**
 
 See also
 --------
-Dockerfile and other sources are available on https://github.com/sclorg/s2i-perl-container.
-In that repository you also can find another versions of Perl environment Dockerfiles.
+Dockerfile and other sources are available on https://github.com/sclorg/s2i-base-container.
+In that repository you also can find another variants of S2I Base Dockerfiles.
 Dockerfile for CentOS is called Dockerfile, Dockerfile for RHEL is called Dockerfile.rhel7.
