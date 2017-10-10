@@ -7,3 +7,10 @@ VERSIONS = core base
 .PHONY: $(shell test -f common/common.mk || echo >&2 'Please do "git submodule update --init" first.')
 
 include common/common.mk
+
+# HACK: We need to build core first and tag it right after, so that base picks it up in the same run
+# We cannot just depend on tag here since tag depends on build
+base: core
+core: core/root/help.1
+	VERSIONS="core" $(script_env) $(build)
+	VERSIONS="core" $(script_env) $(tag)
