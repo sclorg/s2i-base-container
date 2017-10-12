@@ -27,8 +27,6 @@ ENV \
     HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH
 
-# Copy extra files to the image.
-COPY ./root/ /
 
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
@@ -54,10 +52,10 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   chown -R 1001:0 ${HOME}/.pki && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
-  yum clean all -y && \
-  useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
-      -c "Default Application User" default && \
-  chown -R 1001:0 /opt/app-root
+  yum clean all -y
+
+# Copy extra files to the image.
+COPY ./root/ /
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.
@@ -65,3 +63,9 @@ WORKDIR ${HOME}
 
 ENTRYPOINT ["container-entrypoint"]
 CMD ["base-usage"]
+
+# Reset permissions of modified directories and add default user
+RUN rpm-file-permissions && \
+  useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
+      -c "Default Application User" default && \
+  chown -R 1001:0 /opt/app-root
