@@ -29,6 +29,7 @@ ENV \
     STI_SCRIPTS_URL=image:///usr/libexec/s2i \
     # Path to be used in other layers to place s2i scripts into
     STI_SCRIPTS_PATH=/usr/libexec/s2i \
+    APP_ROOT=/opt/app-root \
     # The $HOME is not set by default, but some applications needs this variable
     HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH
@@ -36,9 +37,9 @@ ENV \
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
 # the SCL for all scripts without need to do 'scl enable'.
-ENV BASH_ENV=/opt/app-root/etc/scl_enable \
-    ENV=/opt/app-root/etc/scl_enable \
-    PROMPT_COMMAND=". /opt/app-root/etc/scl_enable"
+ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
+    ENV=${APP_ROOT}/etc/scl_enable \
+    PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
@@ -71,4 +72,4 @@ CMD ["base-usage"]
 RUN rpm-file-permissions && \
   useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default && \
-  chown -R 1001:0 /opt/app-root
+  chown -R 1001:0 ${APP_ROOT}
