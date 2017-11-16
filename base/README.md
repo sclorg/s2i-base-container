@@ -11,8 +11,17 @@ essential libraries and tools needed for OpenShift language images, for example:
 * [s2i-php](https://github.com/sclorg/s2i-php-container)
 
 This container image also installs several development libraries, that are
-often required in the builder images above. Sharing those development packages
-in a common layer saves disk space and improves pulling speed.
+often required in the builder images above. It also includes NPM package manager.
+Sharing those development packages in a common layer saves disk space and
+improves pulling speed.
+
+NPM, a package manager for Node.js, offers a pleasant way to install JavaScript
+libraries, that are often needed as static files for various web applications.
+In order to offer good experience for web developers, the NPM package manager
+is also installed in the image.
+
+For containers where the development libraries and NPM package manager are not
+necessary, users are advised to use the s2i-core variant of this container image.
 
 
 Description
