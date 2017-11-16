@@ -6,7 +6,8 @@ builder images like perl, python, ruby, etc." \
     DESCRIPTION="The s2i-base image, being built upon s2i-core, provides any \
 images layered on top of it with all the tools needed to use source-to-image \
 functionality. Additionally, s2i-base also contains various libraries needed for \
-it to serve as a base for other builder images, like s2i-python or s2i-ruby."
+it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
+    NODEJS_SCL=rh-nodejs6
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
@@ -39,7 +40,7 @@ RUN yum install -y centos-release-scl && \
   patch \
   postgresql-devel \
   procps-ng \
-  rh-nodejs6-npm \
+  ${NODEJS_SCL}-npm \
   sqlite-devel \
   unzip \
   wget \
