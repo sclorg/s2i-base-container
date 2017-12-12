@@ -1,6 +1,8 @@
 # This image is the base image for all s2i configurable Docker images.
 FROM registry.fedoraproject.org/fedora:26
 
+SHELL ["/bin/bash", "-c"]
+
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
 with all the tools needed to use source-to-image functionality while keeping \
