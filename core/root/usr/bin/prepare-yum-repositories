@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This script is used to prepare yum repositories, that are given as arguments.
+
+set -xe
+
+is_subscribed() {
+ test -f /etc/pki/entitlement/*.pem
+}
+
+yum install -y yum-utils
+if is_subscribed ; then
+  # Disable only repos that might come from subscribed host, because there
+  # might be other repos provided by user or build system
+  yum-config-manager --disable rhel-\* &> /dev/null
+fi
+yum-config-manager --enable "$@"
+

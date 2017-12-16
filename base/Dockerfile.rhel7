@@ -20,11 +20,7 @@ LABEL summary="$SUMMARY" \
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.
-RUN yum install -y yum-utils && \
-  yum-config-manager --disable \* &> /dev/null && \
-  yum-config-manager --enable rhel-7-server-rpms && \
-  yum-config-manager --enable rhel-7-server-optional-rpms && \
-  yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+RUN prepare-yum-repositories rhel-7-server-rpms rhel-7-server-optional-rpms rhel-server-rhscl-7-rpms && \
   INSTALL_PKGS="autoconf \
   automake \
   bzip2 \
