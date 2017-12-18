@@ -5,7 +5,7 @@
 set -xe
 
 function is_subscribed() {
-  for f in /etc/pki/entitlement/*.pem ; do
+  for f in /run/secrets/etc-pki-entitlement/*.pem ; do
     [ -e "$f" ] && return 0
     break
   done
