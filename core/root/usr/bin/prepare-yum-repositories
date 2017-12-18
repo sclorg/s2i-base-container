@@ -4,8 +4,12 @@
 
 set -xe
 
-is_subscribed() {
- test -f /etc/pki/entitlement/*.pem
+function is_subscribed() {
+  for f in /etc/pki/entitlement/*.pem ; do
+    [ -e "$f" ] && return 0
+    break
+  done
+  return 1
 }
 
 yum install -y yum-utils
