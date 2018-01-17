@@ -29,12 +29,7 @@ if is_subscribed ; then
   yum-config-manager --disable rhel-\* &> /dev/null || :
 fi
 
-repos="${DEFAULT_REPOS:-}"
-if [ $# -gt 0 ] ; then
-  repos="${repos:-} $@"
-fi
-
-if [ ${SKIP_REPOS_ENABLE} = false -a -n "${repos}" ] ; then
-  echo "Running: yum-config-manager --enable ${repos}"
-  yum-config-manager --enable ${repos}
+if [ ${SKIP_REPOS_ENABLE} = false ] && [ -n "${DEFAULT_REPOS}" -o $# -gt 0 ] ; then
+  echo "Running: yum-config-manager --enable ${DEFAULT_REPOS} $@"
+  yum-config-manager --enable ${DEFAULT_REPOS} "$@"
 fi
