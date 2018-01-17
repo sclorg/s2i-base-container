@@ -8,8 +8,8 @@ set -e
 # be used if we need to change this behaviour.
 # Once we realize there are real use cases for using those variables, we should
 # document them properly.
-DEFAULT_REPOS="rhel-7-server-rpms rhel-7-server-optional-rpms"
-SKIP_REPOS_ENABLE=false
+DEFAULT_REPOS=${DEFAULT_REPOS:-"rhel-7-server-rpms rhel-7-server-optional-rpms"}
+SKIP_REPOS_ENABLE=${SKIP_REPOS_ENABLE:-false}
 
 function is_subscribed() {
   for f in /run/secrets/etc-pki-entitlement/*.pem ; do
@@ -19,12 +19,14 @@ function is_subscribed() {
   return 1
 }
 
+# install yum-utils for yum-config-manager
 yum install -y yum-utils
+
 if is_subscribed ; then
   # Disable only repos that might come from subscribed host, because there
   # might be other repos provided by user or build system
-  echo "Disabling repositories rhel-\*"
-  yum-config-manager --disable rhel-\* &> /dev/null
+  echo "Running: yum-config-manager --disable rhel-\*"
+  yum-config-manager --disable rhel-\* &> /dev/null || :
 fi
 
 repos="${DEFAULT_REPOS:-}"
@@ -33,5 +35,6 @@ if [ $# -gt 0 ] ; then
 fi
 
 if [ ${SKIP_REPOS_ENABLE} = false -a -n "${repos}" ] ; then
-  yum-config-manager --enable "${repos}"
+  echo "Running: yum-config-manager --enable ${repos}"
+  yum-config-manager --enable ${repos}
 fi
