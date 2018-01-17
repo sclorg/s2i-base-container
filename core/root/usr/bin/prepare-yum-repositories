@@ -2,7 +2,7 @@
 
 # This script is used to prepare yum repositories, that are given as arguments.
 
-set -xe
+set -e
 
 function is_subscribed() {
   for f in /run/secrets/etc-pki-entitlement/*.pem ; do
@@ -16,7 +16,10 @@ yum install -y yum-utils
 if is_subscribed ; then
   # Disable only repos that might come from subscribed host, because there
   # might be other repos provided by user or build system
+  echo "Disabling repositories rhel-\*"
   yum-config-manager --disable rhel-\* &> /dev/null
 fi
-yum-config-manager --enable "$@"
 
+if [ $# -gt 0 ] ; then
+  yum-config-manager --enable "$@"
+fi
