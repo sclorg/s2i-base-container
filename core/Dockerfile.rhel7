@@ -47,7 +47,7 @@ COPY ./root/usr/bin/prepare-yum-repositories /usr/bin/prepare-yum-repositories
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
 # TODO: Use better UID and GID values
-RUN prepare-yum-repositories rhel-7-server-rpms rhel-7-server-optional-rpms && \
+RUN prepare-yum-repositories && \
   INSTALL_PKGS="bsdtar \
   findutils \
   gettext \

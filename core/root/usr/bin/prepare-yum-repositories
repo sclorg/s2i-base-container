@@ -4,6 +4,13 @@
 
 set -e
 
+# DEFAULT_REPOS and SKIP_REPOS_ENABLE are intentionally undocumented, but might
+# be used if we need to change this behaviour.
+# Once we realize there are real use cases for using those variables, we should
+# document them properly.
+DEFAULT_REPOS="rhel-7-server-rpms rhel-7-server-optional-rpms"
+SKIP_REPOS_ENABLE=false
+
 function is_subscribed() {
   for f in /run/secrets/etc-pki-entitlement/*.pem ; do
     [ -e "$f" ] && return 0
@@ -20,6 +27,11 @@ if is_subscribed ; then
   yum-config-manager --disable rhel-\* &> /dev/null
 fi
 
+repos="${DEFAULT_REPOS:-}"
 if [ $# -gt 0 ] ; then
-  yum-config-manager --enable "$@"
+  repos="${repos:-} $@"
+fi
+
+if [ ${SKIP_REPOS_ENABLE} = false -a -n "${repos}" ] ; then
+  yum-config-manager --enable "${repos}"
 fi
