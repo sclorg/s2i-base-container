@@ -37,15 +37,17 @@ ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
     ENV=${APP_ROOT}/etc/scl_enable \
     PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
 
+# Copy just prepare-yum-repositories that is needed for packages install step,
+# other files might be added later so changing them does not cause packages
+# to be installed again, which takes long time
+COPY ./root/usr/bin/prepare-yum-repositories /usr/bin/prepare-yum-repositories
+
 # This is the list of basic dependencies that all language Docker image can
 # consume.
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
 # TODO: Use better UID and GID values
-RUN yum install -y yum-utils && \
-  yum-config-manager --disable \* &> /dev/null && \
-  yum-config-manager --enable rhel-7-server-rpms && \
-  yum-config-manager --enable rhel-7-server-optional-rpms && \
+RUN prepare-yum-repositories && \
   INSTALL_PKGS="bsdtar \
   findutils \
   gettext \

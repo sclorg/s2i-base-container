@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This script is used to prepare yum repositories, that are given as arguments.
+
+set -e
+
+# DEFAULT_REPOS and SKIP_REPOS_ENABLE are intentionally undocumented, but might
+# be used if we need to change this behaviour.
+# Once we realize there are real use cases for using those variables, we should
+# document them properly.
+DEFAULT_REPOS=${DEFAULT_REPOS:-"rhel-7-server-rpms rhel-7-server-optional-rpms"}
+SKIP_REPOS_ENABLE=${SKIP_REPOS_ENABLE:-false}
+
+function is_subscribed() {
+  for f in /run/secrets/etc-pki-entitlement/*.pem ; do
+    [ -e "$f" ] && return 0
+    break
+  done
+  return 1
+}
+
+# install yum-utils for yum-config-manager
+yum install -y yum-utils
+
+if is_subscribed ; then
+  # Disable only repos that might come from subscribed host, because there
+  # might be other repos provided by user or build system
+  echo "Running: yum-config-manager --disable rhel-\*"
+  yum-config-manager --disable rhel-\* &> /dev/null || :
+fi
+
+if [ ${SKIP_REPOS_ENABLE} = false ] && [ -n "${DEFAULT_REPOS}" -o $# -gt 0 ] ; then
+  echo "Running: yum-config-manager --enable ${DEFAULT_REPOS} $@"
+  yum-config-manager --enable ${DEFAULT_REPOS} "$@"
+fi
