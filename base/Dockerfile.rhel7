@@ -15,8 +15,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.display-name="s2i base" \
       com.redhat.component="s2i-base-docker" \
       name="rhscl/s2i-base-rhel7" \
-      version="1" \
-      release="1"
+      version="1"
 
 # This is the list of basic dependencies that all language Docker image can
 # consume.

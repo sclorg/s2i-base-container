@@ -14,8 +14,7 @@ LABEL summary="$SUMMARY" \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-docker" \
       name="rhscl/s2i-core-rhel7" \
-      version="1" \
-      release="1"
+      version="1"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.
