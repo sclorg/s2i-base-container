@@ -19,6 +19,9 @@ function is_subscribed() {
   return 1
 }
 
+# repo files might be mounted in (read-only), better not try any write ops
+ls -1 /etc/yum.repos.d/ | grep -v redhat.repo >/dev/null && SKIP_REPOS_ENABLE=true
+
 # install yum-utils for yum-config-manager
 yum install -y yum-utils
 
