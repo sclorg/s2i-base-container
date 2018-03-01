@@ -49,7 +49,6 @@ ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
 RUN INSTALL_PKGS="bsdtar \
   findutils \
   gettext \
-  scl-utils \
   tar \
   unzip" && \
   mkdir -p ${HOME}/.pki/nssdb && \
