@@ -45,6 +45,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   INSTALL_PKGS="bsdtar \
   findutils \
   gettext \
+  groff \
   scl-utils \
   tar \
   unzip \
