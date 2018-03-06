@@ -29,8 +29,19 @@ yum install -y yum-utils
 if [ "$SKIP_REPOS_DISABLE" = false ] && is_subscribed; then
   # Disable only repos that might come from subscribed host, because there
   # might be other repos provided by user or build system
-  echo "Running: yum-config-manager --disable rhel-\*"
-  yum-config-manager --disable rhel-\* &> /dev/null || :
+
+  disable_repos=
+  # Lines look like: "Repo-id  :  dist-tag-override/x86_64"
+  while IFS=' /' read -r _ _ repo_id _; do
+      case $repo_id in rhel-*)
+        disable_repos+=" $repo_id" ;;
+      esac
+  done <<<"$(yum repolist -v 2>/dev/null | grep Repo-id)"
+
+  if test -n "$disable_repos"; then
+    echo "Disabling repositories:$disable_repos"
+    yum-config-manager --disable $disable_repos &> /dev/null
+  fi
 fi
 
 if [ ${SKIP_REPOS_ENABLE} = false ] && [ -n "${DEFAULT_REPOS}" -o $# -gt 0 ] ; then
