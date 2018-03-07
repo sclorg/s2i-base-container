@@ -1,4 +1,4 @@
-# This image is the base image for all s2i configurable Docker images.
+# This image is the base image for all s2i configurable container images.
 FROM centos:7
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
@@ -36,7 +36,7 @@ ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
     ENV=${APP_ROOT}/etc/scl_enable \
     PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
 
-# This is the list of basic dependencies that all language Docker image can
+# This is the list of basic dependencies that all language container image can
 # consume.
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.

@@ -1,4 +1,4 @@
-# This image is the base image for all OpenShift v3 language Docker images.
+# This image is the base image for all OpenShift v3 language container images.
 FROM rhscl/s2i-core-rhel7
 
 ENV SUMMARY="Base image with essential libraries and tools used as a base for \
@@ -17,7 +17,7 @@ LABEL summary="$SUMMARY" \
       name="rhscl/s2i-base-rhel7" \
       version="1"
 
-# This is the list of basic dependencies that all language Docker image can
+# This is the list of basic dependencies that all language container image can
 # consume.
 RUN prepare-yum-repositories rhel-server-rhscl-7-rpms && \
   INSTALL_PKGS="autoconf \
