@@ -1,4 +1,4 @@
-# This image is the base image for all s2i configurable Docker images.
+# This image is the base image for all s2i configurable container images.
 FROM rhel7
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
@@ -24,7 +24,7 @@ ENV \
     APP_ROOT=/opt/app-root \
     # The $HOME is not set by default, but some applications needs this variable
     # TODO: There is a bug in rhel7.1 image where the PATH variable is not exported
-    # properly as Docker image metadata, which causes the $PATH variable do not
+    # properly as container image metadata, which causes the $PATH variable do not
     # expand properly.
     HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -41,7 +41,7 @@ ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
 # to be installed again, which takes long time
 COPY ./root/usr/bin/prepare-yum-repositories /usr/bin/prepare-yum-repositories
 
-# This is the list of basic dependencies that all language Docker image can
+# This is the list of basic dependencies that all language container image can
 # consume.
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.

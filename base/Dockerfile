@@ -1,4 +1,4 @@
-# This image is the base image for all OpenShift v3 language Docker images.
+# This image is the base image for all OpenShift v3 language container images.
 FROM centos/s2i-core-centos7
 
 ENV SUMMARY="Base image with essential libraries and tools used as a base for \
@@ -19,7 +19,7 @@ LABEL summary="$SUMMARY" \
       release="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
-# This is the list of basic dependencies that all language Docker image can
+# This is the list of basic dependencies that all language container image can
 # consume.
 RUN yum install -y centos-release-scl && \
   INSTALL_PKGS="autoconf \
