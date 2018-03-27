@@ -2,7 +2,7 @@
 
 # This script is used to prepare yum repositories, that are given as arguments.
 
-set -e
+set -ex
 
 # DEFAULT_REPOS and SKIP_REPOS_{ENABLE,DISABLE} are intentionally undocumented,
 # but might be used if we need to change this behaviour.
@@ -20,8 +20,8 @@ function is_subscribed() {
   return 1
 }
 
-# repo files might be mounted in (read-only), better not try any write ops
-ls -1 /etc/yum.repos.d/ | grep -v redhat.repo >/dev/null && SKIP_REPOS_ENABLE=true
+# if redhat.repo does not exist we have a mounted-in dir, do not enable repositories
+[ -f /etc/yum.repos.d/redhat.repo ] || SKIP_REPOS_ENABLE=true
 
 # install yum-utils for yum-config-manager
 yum install -y yum-utils
@@ -39,12 +39,10 @@ if [ "$SKIP_REPOS_DISABLE" = false ] && is_subscribed; then
   done <<<"$(yum repolist -v 2>/dev/null | grep Repo-id)"
 
   if test -n "$disable_repos"; then
-    echo "Disabling repositories:$disable_repos"
     yum-config-manager --disable $disable_repos &> /dev/null
   fi
 fi
 
 if [ ${SKIP_REPOS_ENABLE} = false ] && [ -n "${DEFAULT_REPOS}" -o $# -gt 0 ] ; then
-  echo "Running: yum-config-manager --enable ${DEFAULT_REPOS} $@"
   yum-config-manager --enable ${DEFAULT_REPOS} "$@"
 fi
