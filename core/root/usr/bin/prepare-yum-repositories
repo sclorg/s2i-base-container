@@ -1,6 +1,15 @@
 #!/bin/bash
 
 # This script is used to prepare yum repositories, that are given as arguments.
+# It is no-op if user also mounts the repo file(s) into the container during
+# image build.  This can be done by one of those commands:
+#
+#   docker build -v /some/repo/file:/etc/yum.repos.d/sclorg_custom.repo
+#   docker build -v /some/repo/directory:/etc/yum.repos.d
+#   make CUSTOM_REPO=/some/repo/file/or/directory
+#
+# The last one works for projects where we have Makefile with the
+# container-common-scripts support.
 
 set -ex
 
@@ -20,8 +29,10 @@ function is_subscribed() {
   return 1
 }
 
-# if redhat.repo does not exist we have a mounted-in dir, do not enable repositories
-[ -f /etc/yum.repos.d/redhat.repo ] || SKIP_REPOS_ENABLE=true
+# DEBUGGING CASE!  Mostly for 'make CUSTOM_REPO=/some/file/or/dir'.
+test ! -f /etc/yum.repos.d/sclorg_custom.repo && \
+! mountpoint /etc/yum.repos.d \
+    || exit 0
 
 # install yum-utils for yum-config-manager
 yum install -y yum-utils
