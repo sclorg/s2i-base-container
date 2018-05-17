@@ -46,6 +46,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   findutils \
   gettext \
   groff-base \
+  rsync \
   scl-utils \
   tar \
   unzip \
