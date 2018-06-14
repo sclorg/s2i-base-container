@@ -13,7 +13,7 @@ LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="s2i base" \
-      com.redhat.component="s2i-base-docker" \
+      com.redhat.component="s2i-base-container" \
       name="rhscl/s2i-base-rhel7" \
       version="1"
 
