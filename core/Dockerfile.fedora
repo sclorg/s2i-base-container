@@ -42,7 +42,7 @@ ENV \
 RUN INSTALL_PKGS="bsdtar \
   findutils \
   gettext \
-  groff \
+  groff-base \
   tar \
   unzip" && \
   mkdir -p ${HOME}/.pki/nssdb && \

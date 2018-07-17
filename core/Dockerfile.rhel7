@@ -50,7 +50,7 @@ RUN prepare-yum-repositories && \
   INSTALL_PKGS="bsdtar \
   findutils \
   gettext \
-  groff \
+  groff-base \
   scl-utils \
   tar \
   unzip \
