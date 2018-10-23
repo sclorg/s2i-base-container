@@ -9,7 +9,6 @@ functionality. Additionally, s2i-base also contains various libraries needed for
 it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
     NAME=s2i-base \
     VERSION=1 \
-    RELEASE=1 \
     ARCH=x86_64
 
 LABEL summary="$SUMMARY" \
@@ -19,8 +18,6 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="$NAME" \
       name="$FGC/$NAME" \
       version="$VERSION" \
-      release="$RELEASE.$DISTTAG" \
-      architecture="$ARCH" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # This is the list of basic dependencies that all language container image can

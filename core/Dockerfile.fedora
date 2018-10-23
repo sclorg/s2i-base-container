@@ -7,7 +7,6 @@ with all the tools needed to use source-to-image functionality while keeping \
 the image size as small as possible." \
     NAME=s2i-core \
     VERSION=0 \
-    RELEASE=1 \
     ARCH=x86_64
 
 LABEL summary="$SUMMARY" \
@@ -19,8 +18,6 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="$NAME" \
       name="$FGC/$NAME" \
       version="$VERSION" \
-      release="$RELEASE.$DISTTAG" \
-      architecture="$ARCH" \
       usage="This image is supposed to be used as a base image for other images that support source-to-image" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
