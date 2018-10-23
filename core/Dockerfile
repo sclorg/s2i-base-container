@@ -15,7 +15,6 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="s2i-core-container" \
       name="centos/s2i-core-centos7" \
       version="1" \
-      release="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 ENV \

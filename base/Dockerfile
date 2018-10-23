@@ -16,7 +16,6 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="s2i-base-container" \
       name="centos/s2i-base-centos7" \
       version="1" \
-      release="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # This is the list of basic dependencies that all language container image can
