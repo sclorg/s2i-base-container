@@ -26,16 +26,6 @@ ENV \
     HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# When bash is started non-interactively, to run a shell script, for example it
-# looks for this variable and source the content of this file. This will enable
-# the SCL for all scripts without need to do 'scl enable'.
-# NOTE: The scl_enable script is "empty" most of the time. It is only present for images
-# that actually need to use scls in rhel8 (like devtools) or need to prepare their
-# environment before anything is run inside (python virtualenv).
-ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
-    ENV=${APP_ROOT}/etc/scl_enable \
-    PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
-
 # Copy just prepare-yum-repositories that is needed for packages install step,
 # other files might be added later so changing them does not cause packages
 # to be installed again, which takes long time
