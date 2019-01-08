@@ -7,7 +7,7 @@ builder images like perl, python, ruby, etc." \
 images layered on top of it with all the tools needed to use source-to-image \
 functionality. Additionally, s2i-base also contains various libraries needed for \
 it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
-    NODEJS_VER=8
+    NODEJS_VER=10
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
