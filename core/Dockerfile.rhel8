@@ -30,9 +30,6 @@ ENV \
 # other files might be added later so changing them does not cause packages
 # to be installed again, which takes long time
 
-# TODO: Everything is in AppStream/BaseOS/Buildroot, do we still need this?
-# COPY ./root/usr/bin/prepare-yum-repositories /usr/bin/prepare-yum-repositories
-
 # This is the list of basic dependencies that all language container image can
 # consume.
 # Also setup the 'openshift' user that is used for the build execution and for the

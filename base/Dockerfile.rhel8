@@ -33,7 +33,6 @@ RUN yum -y module enable nodejs:$NODEJS_VER && \
   libxslt-devel \
   lsof \
   make \
-  mariadb-devel \
   mariadb-connector-c-devel \
   openssl-devel \
   patch \
