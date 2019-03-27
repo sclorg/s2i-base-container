@@ -47,22 +47,23 @@ Two examples:
 * If you specify `BASH_ENV`, then all your `#!/bin/bash` scripts
 do not need to call `scl enable`.
 * If you specify `PROMPT_COMMAND`, then on execution of the
-`docker exec ... /bin/bash` command, the collection will be automatically enabled.
+`podman exec ... /bin/bash` command, the collection will be automatically enabled.
 
 *Note*:
 Executables in Software Collections packages (e.g., `ruby`)
 are not directly in a directory named in the `PATH` environment variable.
 This means that you cannot do:
 
-    $ docker exec <cid> ... ruby
+    $ podman exec <cid> ... ruby
 
 but must instead do:
 
-    $ docker exec <cid> ... /bin/bash -c ruby
+    $ podman exec <cid> ... /bin/bash -c ruby
 
 The `/bin/bash -c`, along with the setting the appropriate environment variable,
 ensures the correct `ruby` executable is found and invoked.
 
+Note: while the examples in this README are calling `podman`, you can replace any such calls by `docker` with the same arguments
 
 Usage
 ------------------------
@@ -82,7 +83,7 @@ $ make build VERSIONS=base TARGET=rhel7
 This image is available on DockerHub. To download it run:
 
 ```console
-docker pull sclorg/s2i-base-centos7
+podman pull sclorg/s2i-base-centos7
 ```
 
 To build a Base image from scratch run:
@@ -101,4 +102,5 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-base-container.
 In that repository you also can find another variants of S2I base Dockerfiles.
-Dockerfile for CentOS is called Dockerfile, Dockerfile for RHEL is called Dockerfile.rhel7.
+The Dockerfile for CentOS is called Dockerfile, the Dockerfile for RHEL7 is called Dockerfile.rhel7,
+the Dockerfile for RHEL8 is called Dockerfile.rhel8 and the Dockerfile for Fedora is Dockerfile.fedora.
