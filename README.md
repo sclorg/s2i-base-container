@@ -29,13 +29,13 @@ To build a S2I base image, choose either the CentOS or RHEL based image:
     This image is available in Red Hat Container Registry. To download it run:
 
     ```
-    $ docker pull registry.access.redhat.com/rhscl/s2i-base-rhel7
+    $ podman pull registry.access.redhat.com/rhscl/s2i-base-rhel7
     ```
 
     Or
 
     ```
-    $ docker pull registry.access.redhat.com/rhscl/s2i-core-rhel7
+    $ podman pull registry.access.redhat.com/rhscl/s2i-core-rhel7
     ```
 
     To build a RHEL based S2I base image, you need to run the build on a properly
@@ -53,13 +53,13 @@ To build a S2I base image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ docker pull centos/s2i-base-centos7
+    $ podman pull centos/s2i-base-centos7
     ```
 
     Or
 
     ```
-    $ docker pull centos/s2i-core-centos7
+    $ podman pull centos/s2i-core-centos7
     ```
 
     To build a S2I base image from scratch run:
@@ -70,6 +70,8 @@ To build a S2I base image, choose either the CentOS or RHEL based image:
     $ git submodule update --init
     $ make build TARGET=centos7 VERSIONS=base
     ```
+
+Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
 on all provided versions of S2I base image.**
