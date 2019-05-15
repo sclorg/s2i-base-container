@@ -1,5 +1,5 @@
 # This image is the base image for all s2i configurable container images.
-FROM rhel7
+FROM registry.access.redhat.com/ubi7:latest
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
