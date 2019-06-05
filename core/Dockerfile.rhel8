@@ -43,6 +43,7 @@ RUN INSTALL_PKGS="bsdtar \
   glibc-locale-source \
   glibc-all-langpacks \
   gettext \
+  rsync \
   scl-utils \
   tar \
   unzip \
