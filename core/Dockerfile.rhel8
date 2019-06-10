@@ -1,5 +1,5 @@
 # This image is the base image for all s2i configurable container images.
-FROM rhel8-beta
+FROM registry.access.redhat.com/ubi8:latest
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
@@ -13,8 +13,9 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="rhel8/s2i-core" \
-      version="1"
+      name="ubi8/s2i-core" \
+      version="1" \
+      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.
