@@ -14,7 +14,8 @@ LABEL summary="$SUMMARY" \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
       name="rhscl/s2i-core-rhel7" \
-      version="1"
+      version="1" \
+      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.

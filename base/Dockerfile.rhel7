@@ -15,7 +15,8 @@ LABEL summary="$SUMMARY" \
       io.k8s.display-name="s2i base" \
       com.redhat.component="s2i-base-container" \
       name="rhscl/s2i-base-rhel7" \
-      version="1"
+      version="1" \
+      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 # This is the list of basic dependencies that all language container image can
 # consume.
