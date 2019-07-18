@@ -47,4 +47,4 @@ RUN yum install -y centos-release-scl && \
   zlib-devel" && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
-  yum clean all -y
+  yum -y clean all --enablerepo='*'

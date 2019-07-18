@@ -55,7 +55,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   chown -R 1001:0 ${HOME}/.pki && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
-  yum clean all -y
+  yum -y clean all --enablerepo='*'
 
 # Copy extra files to the image.
 COPY ./root/ /
