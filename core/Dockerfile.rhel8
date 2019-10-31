@@ -42,7 +42,7 @@ RUN INSTALL_PKGS="bsdtar \
   findutils \
   groff-base \
   glibc-locale-source \
-  glibc-all-langpacks \
+  glibc-langpack-en \
   gettext \
   rsync \
   scl-utils \
