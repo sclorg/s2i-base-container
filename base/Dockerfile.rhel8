@@ -39,6 +39,7 @@ RUN yum -y module enable nodejs:$NODEJS_VER && \
   patch \
   procps-ng \
   npm \
+  redhat-rpm-config \
   sqlite-devel \
   unzip \
   wget \
