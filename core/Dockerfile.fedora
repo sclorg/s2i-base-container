@@ -54,7 +54,7 @@ RUN INSTALL_PKGS="bsdtar \
 COPY ./root/ /
 
 # Create a platform-python symlink if it does not exist already
-RUN [ -e /usr/libexec/platform-python ] || ln -s /usr/libexec/system-python /usr/libexec/platform-python
+RUN [ -e /usr/libexec/platform-python ] || ln -s /usr/bin/python3 /usr/libexec/platform-python
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.
