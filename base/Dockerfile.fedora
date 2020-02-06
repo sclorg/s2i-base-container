@@ -1,5 +1,5 @@
 # This image is the base image for all OpenShift v3 language container images.
-FROM registry.fedoraproject.org/f28/s2i-core:latest
+FROM registry.fedoraproject.org/f31/s2i-core:latest
 
 ENV SUMMARY="Base image with essential libraries and tools used as a base for \
 builder images like perl, python, ruby, etc." \
@@ -30,6 +30,7 @@ RUN INSTALL_PKGS="autoconf \
   gdb \
   git \
   libcurl-devel \
+  libpq-devel \
   libxml2-devel \
   libxslt-devel \
   lsof \
@@ -38,7 +39,6 @@ RUN INSTALL_PKGS="autoconf \
   npm \
   openssl-devel \
   patch \
-  postgresql-devel \
   procps-ng \
   sqlite-devel \
   unzip \
