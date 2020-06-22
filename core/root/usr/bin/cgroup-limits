@@ -46,6 +46,8 @@ def get_memory_limit():
     """
 
     limit = _read_file('/sys/fs/cgroup/memory/memory.limit_in_bytes')
+    # If first file does not exist, try cgroups v2 file
+    limit = limit or _read_file('/sys/fs/cgroup/memory.max')
     if limit is None or not limit.isdigit():
         print("Warning: Can't detect memory limit from cgroups",
               file=sys.stderr)
@@ -61,6 +63,8 @@ def get_number_of_cores():
     core_count = 0
 
     line = _read_file('/sys/fs/cgroup/cpuset/cpuset.cpus')
+    # If first file does not exist, try cgroups v2 file
+    line = line or _read_file('/sys/fs/cgroup/cpuset.cpus')
     if line is None:
         print("Warning: Can't detect number of CPU cores from cgroups",
               file=sys.stderr)
