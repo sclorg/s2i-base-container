@@ -53,8 +53,9 @@ test_cgroup_limits() {
   echo "  Testing 'MEMORY_LIMIT_IN_BYTES' value..."
   if ! ( eval $(docker run --rm ${IMAGE_NAME} /usr/bin/cgroup-limits)
          echo "MEMORY_LIMIT_IN_BYTES=$MEMORY_LIMIT_IN_BYTES"
-         [ "$MEMORY_LIMIT_IN_BYTES" -eq 9223372036854775807 ] ); then
-    echo "MEMORY_LIMIT_IN_BYTES not set to 9223372036854775807."
+				 # This value can be different, but it must be very big (comparing to 10TB)
+         [ "$MEMORY_LIMIT_IN_BYTES" -gt 10000000000000 ] ); then
+    echo "MEMORY_LIMIT_IN_BYTES not greater than 10000000000000."
     return 1
   fi
 }
