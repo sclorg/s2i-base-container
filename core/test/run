@@ -36,6 +36,15 @@ test_cgroup_limits() {
       return 1
     fi
 
+    # check cores number (only works when running as root)
+    echo "  Testing 'NUMBER_OF_CORES' value with --cpuset-cpus=0..."
+    if ! ( eval $(docker run --rm --cpuset-cpus=0 ${IMAGE_NAME} /usr/bin/cgroup-limits)
+           echo "NUMBER_OF_CORES=$NUMBER_OF_CORES"
+           [ "$NUMBER_OF_CORES" -eq 1 ] ); then
+      echo "NUMBER_OF_CORES not set to 1 when set --cpuset-cpus=0."
+      return 1
+    fi
+
   else
     echo "  The test is running as non-root, some tests for cgroup limits are skipped"
   fi
