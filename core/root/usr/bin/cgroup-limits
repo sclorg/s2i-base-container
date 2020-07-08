@@ -19,10 +19,12 @@ Variables currently supported:
         Maximum amount of user memory in bytes. If this value is set
         to the same value as MAX_MEMORY_LIMIT_IN_BYTES, it means that
         there is no limit set. The value is taken from
-        /sys/fs/cgroup/memory/memory.limit_in_bytes
+        /sys/fs/cgroup/memory/memory.limit_in_bytes for cgroups v1
+        and from /sys/fs/cgroup/memory.max for cgroups v2
     NUMBER_OF_CORES
         Number of detected CPU cores that can be used. This value is
-        calculated from /sys/fs/cgroup/cpuset/cpuset.cpus
+        calculated from /sys/fs/cgroup/cpuset/cpuset.cpus for cgroups v1
+        and from /sys/fs/cgroup/cpuset.cpus.effective for cgroups v2
     NO_MEMORY_LIMIT
         Set to "true" if MEMORY_LIMIT_IN_BYTES is so high that the caller
         can act as if no memory limit was set. Undefined otherwise.
@@ -46,7 +48,11 @@ def get_memory_limit():
     """
 
     limit = _read_file('/sys/fs/cgroup/memory/memory.limit_in_bytes')
+    # If first file does not exist, try cgroups v2 file
+    limit = limit or _read_file('/sys/fs/cgroup/memory.max')
     if limit is None or not limit.isdigit():
+        if limit == 'max':
+            return 9223372036854775807
         print("Warning: Can't detect memory limit from cgroups",
               file=sys.stderr)
         return None
@@ -61,7 +67,11 @@ def get_number_of_cores():
     core_count = 0
 
     line = _read_file('/sys/fs/cgroup/cpuset/cpuset.cpus')
+    # If first file does not exist, try cgroups v2 file
+    line = line or _read_file('/sys/fs/cgroup/cpuset.cpus.effective')
     if line is None:
+        # None of the files above exists when running podman as non-root,
+        # so in that case, this warning is printed every-time
         print("Warning: Can't detect number of CPU cores from cgroups",
               file=sys.stderr)
         return None
