@@ -1,5 +1,8 @@
 OpenShift base images
 ========================================
+s2i-core-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/s2i-core-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/s2i-core-centos7)
+
+s2i-base-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/s2i-base-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/s2i-base-centos7)
 
 This repository contains Dockerfiles which serve as base images for various OpenShift images.
 
@@ -53,13 +56,13 @@ To build a S2I base image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull centos/s2i-base-centos7
+    $ podman pull quay.io/centos7/s2i-base-centos7
     ```
 
     Or
 
     ```
-    $ podman pull centos/s2i-core-centos7
+    $ podman pull quay.io/centos7/s2i-core-centos7
     ```
 
     To build a S2I base image from scratch run:
