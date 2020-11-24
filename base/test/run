@@ -6,7 +6,7 @@
 # IMAGE_NAME specifies a name of the candidate image used for testing.
 # The image has to be available before this script is executed.
 #
-IMAGE_NAME=${IMAGE_NAME-${REGISTRY}centos7/s2i-base-centos7-candidate}
+test -n "${IMAGE_NAME-}" || { echo 'make sure $IMAGE_NAME is defined'; exit 1; }
 
 test_docker_run_usage() {
 	echo "Testing 'docker run' usage..."
