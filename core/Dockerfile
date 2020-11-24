@@ -1,5 +1,5 @@
 # This image is the base image for all s2i configurable container images.
-FROM centos:7
+FROM registry.centos.org/centos/centos:7
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
@@ -13,7 +13,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="centos/s2i-core-centos7" \
+      name="centos7/s2i-core-centos7" \
       version="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 

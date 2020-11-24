@@ -1,5 +1,5 @@
 # This image is the base image for all OpenShift v3 language container images.
-FROM centos/s2i-core-centos7
+FROM quay.io/centos7/s2i-core-centos7
 
 ENV SUMMARY="Base image with essential libraries and tools used as a base for \
 builder images like perl, python, ruby, etc." \
@@ -14,7 +14,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="s2i base" \
       com.redhat.component="s2i-base-container" \
-      name="centos/s2i-base-centos7" \
+      name="centos7/s2i-base-centos7" \
       version="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 

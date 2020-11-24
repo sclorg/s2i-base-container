@@ -61,10 +61,10 @@ $ make build VERSIONS=core TARGET=rhel7
 
 *  **CentOS7 base image**
 
-This image is available on DockerHub. To download it run:
+This image is available on Quay.io. To download it run:
 
 ```console
-podman pull sclorg/s2i-core-centos7
+podman pull quay.io/centos7/s2i-core-centos7
 ```
 
 To build a Base image from scratch run:
