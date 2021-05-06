@@ -86,6 +86,8 @@ def get_number_of_cores():
 
             if len(fields) >= 2:
                 quota = fields[0]
+                if quota == 'max':
+                    return None
                 period = fields[1]
 
     if quota.isdigit() and period.isdigit():
