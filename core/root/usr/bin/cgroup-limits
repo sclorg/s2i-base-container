@@ -67,26 +67,26 @@ def get_number_of_cores():
 
     quota, period = None, None
 
-    quota = _read_file('/sys/fs/cgroup/cpu/cpu.cfs_quota_us')
+    quota = _read_file("/sys/fs/cgroup/cpu/cpu.cfs_quota_us")
     if quota:
         # cgroups v1
         quota = quota.strip()
-        if quota == '-1':
+        if quota == "-1":
             return None
 
-        period = _read_file('/sys/fs/cgroup/cpu/cpu.cfs_period_us')
+        period = _read_file("/sys/fs/cgroup/cpu/cpu.cfs_period_us")
         if period:
             period = period.strip()
 
     else:
         # cgroups v2
-        line = _read_file('/sys/fs/cgroup/cpu.max')
+        line = _read_file("/sys/fs/cgroup/cpu.max")
         if line:
             fields = line.split()
 
             if len(fields) >= 2:
                 quota = fields[0]
-                if quota == 'max':
+                if quota == "max":
                     return None
                 period = fields[1]
 
