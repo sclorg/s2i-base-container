@@ -52,7 +52,7 @@ RUN INSTALL_PKGS="bsdtar \
   dnf clean all -y
 
 # Copy extra files to the image.
-COPY ./root/ /
+COPY ./core/root/ /
 
 # Create a platform-python symlink if it does not exist already
 RUN [ -e /usr/libexec/platform-python ] || ln -s /usr/bin/python3 /usr/libexec/platform-python

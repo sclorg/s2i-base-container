@@ -41,7 +41,7 @@ ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
 # Copy just prepare-yum-repositories that is needed for packages install step,
 # other files might be added later so changing them does not cause packages
 # to be installed again, which takes long time
-COPY ./root/usr/bin/prepare-yum-repositories /usr/bin/prepare-yum-repositories
+COPY ./core/root/usr/bin/prepare-yum-repositories /usr/bin/prepare-yum-repositories
 
 # This is the list of basic dependencies that all language container image can
 # consume.
@@ -65,7 +65,7 @@ RUN prepare-yum-repositories && \
   yum -y clean all --enablerepo='*'
 
 # Copy extra files to the image.
-COPY ./root/ /
+COPY ./core/root/ /
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.

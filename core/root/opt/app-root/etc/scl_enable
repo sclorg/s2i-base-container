@@ -1,2 +1,0 @@
-# This file contains automatic SCL enablement.
-unset BASH_ENV PROMPT_COMMAND ENV
