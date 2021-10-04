@@ -37,7 +37,6 @@ Variables currently supported:
 
 from __future__ import division
 from __future__ import print_function
-import multiprocessing
 import sys
 
 
@@ -71,7 +70,9 @@ def get_number_of_cores():
     Read number of CPU cores.
     """
 
-    limits = [_read_cpu_quota(), _read_cpuset_size(), multiprocessing.cpu_count()]
+    limits = [_read_cpu_quota(), _read_cpuset_size()]
+    if not limits:
+        return None
     return min([l for l in limits if l])
 
 
