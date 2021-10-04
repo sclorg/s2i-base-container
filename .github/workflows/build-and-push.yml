@@ -1,0 +1,67 @@
+name: Build and push CentOS7 images to Quay.io registry
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get base image name
+        id: base-image-name
+        run: |
+          # This command returns row with BASE_IMAGE_NAME
+          row=$(grep "BASE_IMAGE_NAME" Makefile)
+          # Return only base image name
+          BASE_IMAGE_ROW=${row/BASE_IMAGE_NAME = /}
+          echo ::set-output name=image_name::$BASE_IMAGE_ROW
+
+      - name: Build s2i-core CentOS7 image
+        id: build-image-core
+        # https://github.com/marketplace/actions/buildah-build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          dockerfiles: core/Dockerfile
+          image: ${{ steps.base-image-name.outputs.image_name}}-core-centos7
+          context: core
+          tags: latest 1 ${{ github.sha }}
+
+      - name: Push s2i-core CentOS7 image to Quay.io
+        id: push-to-quay-core
+        uses: redhat-actions/push-to-registry@v2.2
+        with:
+          image: ${{ steps.build-image-core.outputs.image }}
+          tags: ${{ steps.build-image-core.outputs.tags }}
+          registry: quay.io/centos7
+          username: ${{ secrets.QUAY_IMAGE_BUILDER_USERNAME }}
+          password: ${{ secrets.QUAY_IMAGE_BUILDER_TOKEN }}
+
+      - name: Build s2i-base CentOS7 image
+        # Run this job only on success previous one
+        if: success()
+        id: build-image-base
+        # https://github.com/marketplace/actions/buildah-build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          dockerfiles: base/Dockerfile
+          image: ${{ steps.base-image-name.outputs.image_name}}-base-centos7
+          context: base
+          tags: latest 1 ${{ github.sha }}
+
+      - name: Push s2i-base CentOS7 image to Quay.io
+        # Run this job only on success previous one
+        if: success()
+        id: push-to-quay-base
+        uses: redhat-actions/push-to-registry@v2.2
+        with:
+          image: ${{ steps.build-image-base.outputs.image }}
+          tags: ${{ steps.build-image-base.outputs.tags }}
+          registry: quay.io/centos7
+          username: ${{ secrets.QUAY_IMAGE_BUILDER_USERNAME }}
+          password: ${{ secrets.QUAY_IMAGE_BUILDER_TOKEN }}
+
+      - name: Print image url
+        run: echo "Image pushed to ${{ steps.push-to-quay-core.outputs.registry-paths }} and ${{ steps.push-to-quay-base.outputs.registry-paths }}
