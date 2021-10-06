@@ -1,4 +1,3 @@
-# This image is the base image for all s2i configurable container images.
 FROM registry.access.redhat.com/ubi7:latest
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\

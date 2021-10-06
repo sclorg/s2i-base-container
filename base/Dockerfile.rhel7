@@ -1,4 +1,3 @@
-# This image is the base image for all OpenShift v3 language container images.
 FROM rhscl/s2i-core-rhel7
 
 ENV SUMMARY="Base image with essential libraries and tools used as a base for \
