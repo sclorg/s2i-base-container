@@ -6,9 +6,25 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: "Dockerfile"
+            registry_namespace: "centos7"
+            os_type: "centos7"
+            registry_suffix: "-centos7"
+          - dockerfile: "Dockerfile.c9s"
+            registry_namespace: "sclorg"
+            os_type: "c9s"
+            registry_suffix: ""
+
     steps:
       - uses: actions/checkout@v2
+        -
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Get base image name
         id: base-image-name
@@ -19,25 +35,37 @@ jobs:
           BASE_IMAGE_ROW=${row/BASE_IMAGE_NAME = /}
           echo ::set-output name=image_name::$BASE_IMAGE_ROW
 
-      - name: Build s2i-core CentOS7 image
-        id: build-image-core
+      - name: Export GitHub secrets
+        run: |
+          if [ "${{ matrix.os_type }}" == "centos7" ]; then
+            username="${{ secrets.QUAY_IMAGE_BUILDER_USERNAME }}"
+            token="${{ secrets.QUAY_IMAGE_BUILDER_TOKEN }}"
+          else
+            username="${{ secrets.QUAY_IMAGE_SCLORG_BUILDER_USERNAME }}"
+            token="${{ secrets.QUAY_IMAGE_SCLORG_BUILDER_TOKEN  }}"
+          fi
+          echo "USERNAME=$username" >> GITHUB_ENV
+          echo "TOKEN=$token" >> GITHUB_ENV
+
+      - name: Build image
+        id: build-image
         # https://github.com/marketplace/actions/buildah-build
         uses: redhat-actions/buildah-build@v2
         with:
-          dockerfiles: core/Dockerfile
-          image: ${{ steps.base-image-name.outputs.image_name}}-core-centos7
+          dockerfiles: core/{{ matrix.dockerfile }}
+          image: ${{ steps.base-image-name.outputs.image_name}}-core${{ matrix.registry_suffix }}
           context: core
-          tags: latest 1 ${{ github.sha }}
+          tags: latest c9s ${{ env.NOW }}-${{ github.sha }}
 
-      - name: Push s2i-core CentOS7 image to Quay.io
+      - name: Push s2i-core image to Quay.io
         id: push-to-quay-core
         uses: redhat-actions/push-to-registry@v2.2
         with:
           image: ${{ steps.build-image-core.outputs.image }}
           tags: ${{ steps.build-image-core.outputs.tags }}
-          registry: quay.io/centos7
-          username: ${{ secrets.QUAY_IMAGE_BUILDER_USERNAME }}
-          password: ${{ secrets.QUAY_IMAGE_BUILDER_TOKEN }}
+          registry: quay.io/{{ matrix.registry_namespace }}
+          username: ${{ env.USERNAME }}
+          password: ${{ env.TOKEN }}
 
       - name: Build s2i-base CentOS7 image
         # Run this job only on success previous one
@@ -46,10 +74,10 @@ jobs:
         # https://github.com/marketplace/actions/buildah-build
         uses: redhat-actions/buildah-build@v2
         with:
-          dockerfiles: base/Dockerfile
-          image: ${{ steps.base-image-name.outputs.image_name}}-base-centos7
+          dockerfiles: base/{{ matrix.dockerfile }}
+          image: ${{ steps.base-image-name.outputs.image_name}}-base${{ matrix.registry_suffix }}
           context: base
-          tags: latest 1 ${{ github.sha }}
+          tags: latest c9s ${{ env.NOW}}-${{ github.sha }}
 
       - name: Push s2i-base CentOS7 image to Quay.io
         # Run this job only on success previous one
@@ -59,9 +87,9 @@ jobs:
         with:
           image: ${{ steps.build-image-base.outputs.image }}
           tags: ${{ steps.build-image-base.outputs.tags }}
-          registry: quay.io/centos7
-          username: ${{ secrets.QUAY_IMAGE_BUILDER_USERNAME }}
-          password: ${{ secrets.QUAY_IMAGE_BUILDER_TOKEN }}
+          registry: quay.io/{{ matrix.registry_namespace }}
+          username: ${{ env.USERNAME }}
+          password: ${{ env.TOKEN }}
 
       - name: Print image url
         run: echo "Image pushed to ${{ steps.push-to-quay-core.outputs.registry-paths }} and ${{ steps.push-to-quay-base.outputs.registry-paths }}"
