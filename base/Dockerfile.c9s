@@ -1,0 +1,49 @@
+# This image is the base image for all OpenShift v3 language container images.
+FROM quay.io/sclorg/s2i-core:c9s
+
+ENV SUMMARY="Base image with essential libraries and tools used as a base for \
+builder images like perl, python, ruby, etc." \
+    DESCRIPTION="The s2i-base image, being built upon s2i-core, provides any \
+images layered on top of it with all the tools needed to use source-to-image \
+functionality. Additionally, s2i-base also contains various libraries needed for \
+it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
+    NODEJS_VER=16
+
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$DESCRIPTION" \
+      io.k8s.display-name="s2i base" \
+      com.redhat.component="s2i-base-container" \
+      name="sclorg/s2i-base" \
+      version="1" \
+      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+
+# This is the list of basic dependencies that all language container image can
+# consume.
+RUN INSTALL_PKGS="nodejs autoconf \
+  automake \
+  bzip2 \
+  gcc-c++ \
+  gd-devel \
+  gdb \
+  git \
+  libcurl-devel \
+  libpq-devel \
+  libxml2-devel \
+  libxslt-devel \
+  lsof \
+  make \
+  mariadb-connector-c-devel \
+  openssl-devel \
+  patch \
+  procps-ng \
+  npm \
+  redhat-rpm-config \
+  sqlite-devel \
+  unzip \
+  wget \
+  which \
+  zlib-devel" && \
+  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+  rpm -V $INSTALL_PKGS && \
+  yum -y clean all --enablerepo='*'
