@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        -
+
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
