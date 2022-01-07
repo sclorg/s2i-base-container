@@ -54,7 +54,6 @@ jobs:
         with:
           dockerfiles: core/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.image_name}}-core${{ matrix.registry_suffix }}
-          context: core
           tags: latest c9s ${{ env.NOW }}-${{ github.sha }}
 
       - name: Push s2i-core image to Quay.io
@@ -76,7 +75,6 @@ jobs:
         with:
           dockerfiles: base/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.image_name}}-base${{ matrix.registry_suffix }}
-          context: base
           tags: latest c9s ${{ env.NOW}}-${{ github.sha }}
 
       - name: Push s2i-base CentOS7 image to Quay.io
