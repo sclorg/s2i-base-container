@@ -52,7 +52,7 @@ jobs:
         # https://github.com/marketplace/actions/buildah-build
         uses: redhat-actions/buildah-build@v2
         with:
-          dockerfiles: core/{{ matrix.dockerfile }}
+          dockerfiles: core/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.image_name}}-core${{ matrix.registry_suffix }}
           context: core
           tags: latest c9s ${{ env.NOW }}-${{ github.sha }}
@@ -63,7 +63,7 @@ jobs:
         with:
           image: ${{ steps.build-image-core.outputs.image }}
           tags: ${{ steps.build-image-core.outputs.tags }}
-          registry: quay.io/{{ matrix.registry_namespace }}
+          registry: quay.io/${{ matrix.registry_namespace }}
           username: ${{ env.USERNAME }}
           password: ${{ env.TOKEN }}
 
@@ -74,7 +74,7 @@ jobs:
         # https://github.com/marketplace/actions/buildah-build
         uses: redhat-actions/buildah-build@v2
         with:
-          dockerfiles: base/{{ matrix.dockerfile }}
+          dockerfiles: base/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.image_name}}-base${{ matrix.registry_suffix }}
           context: base
           tags: latest c9s ${{ env.NOW}}-${{ github.sha }}
@@ -87,7 +87,7 @@ jobs:
         with:
           image: ${{ steps.build-image-base.outputs.image }}
           tags: ${{ steps.build-image-base.outputs.tags }}
-          registry: quay.io/{{ matrix.registry_namespace }}
+          registry: quay.io/${{ matrix.registry_namespace }}
           username: ${{ env.USERNAME }}
           password: ${{ env.TOKEN }}
 
