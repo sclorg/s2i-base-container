@@ -24,10 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set current date as env variable
-        run: |
-          echo "NOW=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
       - name: Get base image name
         id: base-image-name
         run: |
@@ -61,6 +57,10 @@ jobs:
           username: ${{ env.QUAY_USERNAME }}
           password: ${{ env.QUAY_ROBOT_TOKEN }}
 
+      - name: Set current date as env variable
+        run: |
+          echo "NOW=$(date +'%Y%m%d')" >> $GITHUB_ENV
+          
       - name: Build and push s2i-core image
         if: success()
         id: build_push_core
@@ -70,7 +70,6 @@ jobs:
           file: ./core/${{ matrix.dockerfile }}
           tags: ${{ steps.base-image-name.outputs.core_name }}:latest,${{ steps.base-image-name.outputs.core_name }}:c9s,${{ steps.base-image-name.outputs.core_name }}:${{ env.NOW }}-${{ github.sha }}
           push: true
-
 
       - name: Build and push s2i-base image
         if: success()
