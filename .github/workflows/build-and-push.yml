@@ -35,8 +35,8 @@ jobs:
           row=$(grep "BASE_IMAGE_NAME" Makefile)
           # Return only base image name
           BASE_IMAGE_ROW=${row/BASE_IMAGE_NAME = /}
-          echo ::set-output core_name=registry::${{ matrix.registry_namespace }}/$BASE_IMAGE_ROW-core${{ matrix.suffix }}
-          echo ::set-output base_name=registry::${{ matrix.registry_namespace }}/$BASE_IMAGE_ROW-base${{ matrix.suffix }}
+          echo ::set-output name=core_name::${{ matrix.registry_namespace }}/$BASE_IMAGE_ROW-core${{ matrix.suffix }}
+          echo ::set-output name=base_name::${{ matrix.registry_namespace }}/$BASE_IMAGE_ROW-base${{ matrix.suffix }}
 
       - name: Export GitHub secrets
         run: |
