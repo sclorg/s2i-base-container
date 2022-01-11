@@ -58,7 +58,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   yum -y clean all --enablerepo='*'
 
 # Copy extra files to the image.
-COPY ./core/root/ /
+COPY ./common/shared-scripts/core/ /
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.

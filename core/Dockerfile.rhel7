@@ -65,7 +65,7 @@ RUN prepare-yum-repositories && \
   yum -y clean all --enablerepo='*'
 
 # Copy extra files to the image.
-COPY ./core/root/ /
+COPY ./common/shared-scripts/core/ /
 
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.
