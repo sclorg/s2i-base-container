@@ -15,9 +15,11 @@ jobs:
           - dockerfile: "Dockerfile"
             registry_namespace: "centos7"
             registry_suffix: "-centos7"
+            tag: "centos7"
           - dockerfile: "Dockerfile.c9s"
             registry_namespace: "sclorg"
             registry_suffix: ""
+            tag: "c9s"
 
     steps:
       - uses: actions/checkout@v2
@@ -46,7 +48,7 @@ jobs:
         with:
           dockerfiles: core/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.core_name }}
-          tags: latest c9s ${{ env.NOW }}-${{ github.sha }}
+          tags: latest ${{ matrix.tag }} ${{ env.NOW }}-${{ github.sha }}
 
       - name: Push s2i-core CentOS 7 image to Quay.io
         id: push-to-quay-core
@@ -77,7 +79,7 @@ jobs:
         with:
           dockerfiles: core/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.base_name }}
-          tags: latest c9s ${{ env.NOW }}-${{ github.sha }}
+          tags: latest ${{ matrix.tag }} ${{ env.NOW }}-${{ github.sha }}
 
       - name: Push s2i-core CentOS 7 image to Quay.io
         id: push-to-quay-base
