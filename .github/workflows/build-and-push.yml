@@ -77,7 +77,7 @@ jobs:
         # https://github.com/marketplace/actions/buildah-build
         uses: redhat-actions/buildah-build@v2
         with:
-          dockerfiles: core/${{ matrix.dockerfile }}
+          dockerfiles: base/${{ matrix.dockerfile }}
           image: ${{ steps.base-image-name.outputs.base_name }}
           tags: latest ${{ matrix.tag }} ${{ env.NOW }}-${{ github.sha }}
 
