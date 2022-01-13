@@ -41,6 +41,14 @@ jobs:
         run: |
           echo "NOW=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
+      - name: Login to Quay.io private registry
+        if: ${{ matrix.registry_namespace != 'centos7' }}
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_IMAGE_SCLORG_BUILDER_USERNAME }}
+          password: ${{ secrets.QUAY_IMAGE_SCLORG_BUILDER_TOKEN }}
+
       - name: Build s2i-core image
         id: build-image-core
         # https://github.com/marketplace/actions/buildah-build
