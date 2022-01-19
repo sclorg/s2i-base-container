@@ -18,7 +18,7 @@ jobs:
             tag: "centos7"
           - dockerfile: "Dockerfile.c9s"
             registry_namespace: "sclorg"
-            registry_suffix: ""
+            registry_suffix: "-c9s"
             tag: "c9s"
 
     steps:
