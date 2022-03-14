@@ -3,7 +3,10 @@ on:
   push:
     branches:
       - master
-
+    scheduled:
+      # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+      # Schedule build to 1:00 each Tuesday
+      - cron: '0 1 * * 2'
 jobs:
   build-and-push:
     name: Build and push s2i containers
