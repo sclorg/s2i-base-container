@@ -39,7 +39,7 @@ jobs:
           dockerfile_path: "core"
           tag: ${{ matrix.tag }}
 
-      - name: Build and push s2i-core to quay.io registry
+      - name: Build and push s2i-base to quay.io registry
         uses: sclorg/build-and-push-action@v1
         with:
           registry: "quay.io"
