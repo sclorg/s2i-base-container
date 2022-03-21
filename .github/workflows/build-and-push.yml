@@ -35,7 +35,6 @@ jobs:
           registry_username: ${{ secrets[matrix.quayio_username] }}
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: ${{ matrix.dockerfile }}
-          docker_context: "core"
           dockerfile_path: "core"
           tag: ${{ matrix.tag }}
 
@@ -47,6 +46,5 @@ jobs:
           registry_username: ${{ secrets[matrix.quayio_username] }}
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: ${{ matrix.dockerfile }}
-          docker_context: "base"
           dockerfile_path: "base"
           tag: ${{ matrix.tag }}
