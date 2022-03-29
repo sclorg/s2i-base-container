@@ -1,4 +1,4 @@
-name: Build and push CentOS7 images to Quay.io registry
+name: Build and push images to Quay.io registry
 on:
   push:
     branches:
@@ -27,7 +27,7 @@ jobs:
             quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
           - dockerfile: "Dockerfile.fedora"
             registry_namespace: "fedora"
-            tag: "35"
+            tag: "34"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
 

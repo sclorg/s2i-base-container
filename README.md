@@ -1,7 +1,7 @@
 OpenShift base images
 ========================================
 
-[![Build and push CentOS7 images to Quay.io registry](https://github.com/sclorg/s2i-base-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-base-container/actions/workflows/build-and-push.yml)
+[![Build and push images to Quay.io registry](https://github.com/sclorg/s2i-base-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-base-container/actions/workflows/build-and-push.yml)
 
 s2i-core-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/s2i-core-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/s2i-core-centos7)
 
