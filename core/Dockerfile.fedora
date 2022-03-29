@@ -6,7 +6,7 @@ ENV SUMMARY="Base image which allows using of source-to-image."	\
 with all the tools needed to use source-to-image functionality while keeping \
 the image size as small as possible." \
     NAME=s2i-core \
-    VERSION=0 \
+    VERSION=34 \
     ARCH=x86_64
 
 LABEL summary="$SUMMARY" \
@@ -16,7 +16,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="$NAME" \
-      name="$FGC/$NAME" \
+      name="fedora/$NAME-fedora" \
       version="$VERSION" \
       usage="This image is supposed to be used as a base image for other images that support source-to-image" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
