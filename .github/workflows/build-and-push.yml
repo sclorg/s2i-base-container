@@ -27,7 +27,7 @@ jobs:
             quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
           - dockerfile: "Dockerfile.fedora"
             registry_namespace: "fedora"
-            tag: "fedora"
+            tag: "35"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
 
