@@ -1,5 +1,5 @@
 # This image is the base image for all s2i configurable container images.
-FROM registry.centos.org/centos/centos:8
+FROM quay.io/centos/centos:stream8
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
@@ -13,7 +13,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="centos/s2i-core-centos8" \
+      name="sclorg/s2i-core" \
       version="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
