@@ -20,6 +20,8 @@ RHEL versions currently supported are:
 
 CentOS versions currently supported are:
 * CentOS7
+* CentOS Stream 8
+* CentOS Stream 9
 
 For more information about contributing, see
 [the Contribution Guidelines](https://github.com/sclorg/welcome/blob/master/contribution.md).
