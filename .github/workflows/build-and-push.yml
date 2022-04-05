@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Build and push s2i-core to quay.io registry
-        uses: sclorg/build-and-push-action@v1
+        uses: sclorg/build-and-push-action@v2
         with:
           registry: "quay.io"
           registry_namespace: ${{ matrix.registry_namespace }}
@@ -43,10 +43,11 @@ jobs:
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: ${{ matrix.dockerfile }}
           dockerfile_path: "core"
+          suffix: ${{ matrix.suffix }}
           tag: ${{ matrix.tag }}
 
       - name: Build and push s2i-base to quay.io registry
-        uses: sclorg/build-and-push-action@v1
+        uses: sclorg/build-and-push-action@v2
         with:
           registry: "quay.io"
           registry_namespace: ${{ matrix.registry_namespace }}
@@ -54,4 +55,5 @@ jobs:
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: ${{ matrix.dockerfile }}
           dockerfile_path: "base"
+          suffix: ${{ matrix.suffix }}
           tag: ${{ matrix.tag }}
