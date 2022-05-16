@@ -1,12 +1,12 @@
 # This image is the base image for all s2i configurable container images.
-FROM quay.io/fedora/fedora:35
+FROM quay.io/fedora/fedora:36
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
 with all the tools needed to use source-to-image functionality while keeping \
 the image size as small as possible." \
     NAME=s2i-core \
-    VERSION=34 \
+    VERSION=36 \
     ARCH=x86_64
 
 LABEL summary="$SUMMARY" \

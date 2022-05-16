@@ -1,5 +1,5 @@
 # This image is the base image for all OpenShift v3 language container images.
-FROM quay.io/fedora/s2i-core:35
+FROM quay.io/fedora/s2i-core:36
 
 ENV SUMMARY="Base image with essential libraries and tools used as a base for \
 builder images like perl, python, ruby, etc." \
