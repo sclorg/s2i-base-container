@@ -9,6 +9,8 @@ on:
     - cron: '0 1 * * 2'
 jobs:
   build-and-push:
+    # To not run in forks
+    if: github.repository_owner == 'sclorg'
     name: Build and push s2i containers
     runs-on: ubuntu-20.04
     strategy:
