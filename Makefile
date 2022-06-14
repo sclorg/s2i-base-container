@@ -12,6 +12,8 @@ include common/common.mk
 # HACK: We need to build core first and tag it right after, so that base picks it up in the same run
 # We cannot just depend on tag here since tag depends on build
 base: core
+	echo "Building s2i-base container"
+
 core: core/root/help.1
 	VERSIONS="core" $(script_env) $(build)
 	VERSIONS="core" $(script_env) $(tag)
