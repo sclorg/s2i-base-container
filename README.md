@@ -3,9 +3,15 @@ OpenShift base images
 
 [![Build and push images to Quay.io registry](https://github.com/sclorg/s2i-base-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-base-container/actions/workflows/build-and-push.yml)
 
-s2i-core-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/s2i-core-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/s2i-core-centos7)
-
-s2i-base-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/s2i-base-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/s2i-base-centos7)
+Images available on Quay are:
+* CentOS 7 [s2i-core](https://quay.io/repository/centos7/s2i-core-centos7)
+* CentOS 7 [s2i-base](https://quay.io/repository/centos7/s2i-base-centos7)
+* CentOS Stream 8 [s2i-core](https://quay.io/repository/sclorg/s2i-core-c8s)
+* CentOS Stream 8 [s2i-base](https://quay.io/repository/sclorg/s2i-base-c8s)
+* CentOS Stream 9 [s2i-core](https://quay.io/repository/sclorg/s2i-core-c9s)
+* CentOS Stream 9 [s2i-base](https://quay.io/repository/sclorg/s2i-base-c9s)
+* Fedora [s2i-core](https://quay.io/repository/fedora/s2i-core)
+* Fedora [s2i-base](https://quay.io/repository/fedora/s2i-base)
 
 This repository contains Dockerfiles which serve as base images for various OpenShift images.
 
@@ -17,6 +23,8 @@ s2i image versions currently provided are:
 
 RHEL versions currently supported are:
 * RHEL7
+* RHEL8
+* RHEL9
 
 CentOS versions currently supported are:
 * CentOS7
