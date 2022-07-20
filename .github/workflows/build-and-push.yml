@@ -37,11 +37,23 @@ jobs:
             suffix: "c8s"
           - dockerfile: "Dockerfile.fedora"
             registry_namespace: "fedora"
-            tag: "36"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
 
     steps:
+      - name: Automatic tag detection for Fedora images
+        id: tag
+        shell: bash
+        run: |
+          if [[ ${{ matrix.dockerfile }} == "Dockerfile.fedora" ]]
+          then
+            _version=`curl https://raw.githubusercontent.com/sclorg/s2i-base-container/master/core/Dockerfile.fedora | grep ^FROM`
+            _tag=`echo $_version | cut -d: -f2`
+          else
+            _tag=${{ matrix.tag }}
+          fi
+          echo "::set-output name=tag::${_tag}"
+
       - name: Build and push s2i-core to quay.io registry
         uses: sclorg/build-and-push-action@v2
         with:
@@ -52,7 +64,7 @@ jobs:
           dockerfile: ${{ matrix.dockerfile }}
           dockerfile_path: "core"
           suffix: ${{ matrix.suffix }}
-          tag: ${{ matrix.tag }}
+          tag: ${{ steps.tag.outputs.tag }}
 
       - name: Build and push s2i-base to quay.io registry
         uses: sclorg/build-and-push-action@v2
@@ -64,4 +76,4 @@ jobs:
           dockerfile: ${{ matrix.dockerfile }}
           dockerfile_path: "base"
           suffix: ${{ matrix.suffix }}
-          tag: ${{ matrix.tag }}
+          tag: ${{ steps.tag.outputs.tag }}
