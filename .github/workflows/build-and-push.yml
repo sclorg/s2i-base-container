@@ -53,14 +53,28 @@ jobs:
             _tag=${{ matrix.tag }}
           fi
           echo "tag=${_tag}" >> $GITHUB_OUTPUT
-
-      - name: Build and push s2i-core to quay.io registry
+          
+      - name: Check if dockerfile is c9s , then build & push s2i-core for multi-arch
+        if: matrix.dockerfile == 'Dockerfile.c9s'
         uses: sclorg/build-and-push-action@v4
         with:
           registry: "quay.io"
           registry_namespace: ${{ matrix.registry_namespace }}
-          registry_username: ${{ secrets[matrix.quayio_username] }}
-          registry_token: ${{ secrets[matrix.quayio_token] }}
+          registry_username: ${{ matrix.quayio_username }}
+          registry_token: ${{ matrix.quayio_token }}
+          dockerfile: "core/${{ matrix.dockerfile }}"
+          image_name: "s2i-core${{ matrix.suffix }}"
+          tag: ${{ steps.tag.outputs.tag }}
+          archs: amd64, ppc64le, s390x
+
+      - name: if dockerfile is not c9s , Build and push s2i-core to quay.io registry
+        if: matrix.dockerfile != 'Dockerfile.c9s'
+        uses: sclorg/build-and-push-action@v4
+        with:
+          registry: "quay.io"
+          registry_namespace: ${{ matrix.registry_namespace }}
+          registry_username: ${{ matrix.quayio_username }}
+          registry_token: ${{ matrix.quayio_token }}
           dockerfile: "core/${{ matrix.dockerfile }}"
           image_name: "s2i-core${{ matrix.suffix }}"
           tag: ${{ steps.tag.outputs.tag }}
