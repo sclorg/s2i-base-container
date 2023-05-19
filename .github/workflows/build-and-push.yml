@@ -67,8 +67,6 @@ jobs:
           tag: ${{ steps.tag.outputs.tag }}
           archs: amd64, ppc64le, s390x
 
-      - name: if dockerfile is not c9s , Build and push s2i-core to quay.io registry
-        if: matrix.dockerfile != 'Dockerfile.c9s'
         uses: sclorg/build-and-push-action@v4
         with:
           registry: "quay.io"
