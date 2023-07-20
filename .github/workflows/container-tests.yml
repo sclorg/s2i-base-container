@@ -6,87 +6,23 @@ on:
       - created
 jobs:
   build:
-    # This job only runs for '[test]' pull request comments by owner, member
-    name: Container-tests by GitHub Action on Testing Farm service
+    name: "Container tests: ${{ matrix.version }} - ${{ matrix.os_test }}"
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - tmt_plan: "fedora"
-            os_test: "fedora"
-            context: "Fedora"
-            compose: "Fedora-latest"
-            api_key: "TF_PUBLIC_API_KEY"
-            branch: "main"
-            tmt_repo: "https://github.com/sclorg/sclorg-testing-farm"
-          - tmt_plan: "rhel7-docker"
-            os_test: "rhel7"
-            context: "RHEL7"
-            compose: "RHEL-7.9-Released"
-            tf_scope: "private"
-            api_key: "TF_INTERNAL_API_KEY"
-            branch: "master"
-            tmt_repo: "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans"
-          - tmt_plan: "rhel8-docker"
-            os_test: "rhel8"
-            context: "RHEL8"
-            compose: "RHEL-8.6.0-Nightly"
-            tf_scope: "private"
-            api_key: "TF_INTERNAL_API_KEY"
-            branch: "master"
-            tmt_repo: "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans"
-          - tmt_plan: "rhel9-docker"
-            os_test: "rhel9"
-            context: "RHEL9"
-            compose: "RHEL-9.1.0-Nightly"
-            api_key: "TF_INTERNAL_API_KEY"
-            branch: "master"
-            tmt_repo: "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans"
-            tf_scope: "private"
-          - tmt_plan: "rhel9-unsubscribed-docker"
-            os_test: "rhel9"
-            context: "RHEL9 - Unsubscribed host"
-            compose: "RHEL-9.1.0-Nightly"
-            api_key: "TF_INTERNAL_API_KEY"
-            branch: "master"
-            tmt_repo: "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans"
-            tf_scope: "private"
-          - tmt_plan: "c9s"
-            os_test: "c9s"
-            context: "CentOS Stream 9"
-            compose: "CentOS-Stream-9"
-            api_key: "TF_PUBLIC_API_KEY"
-            branch: "main"
-            tmt_repo: "https://github.com/sclorg/sclorg-testing-farm"
-          - tmt_plan: "c8s"
-            os_test: "c8s"
-            context: "CentOS Stream 8"
-            compose: "CentOS-Stream-8"
-            api_key: "TF_PUBLIC_API_KEY"
-            branch: "main"
-            tmt_repo: "https://github.com/sclorg/sclorg-testing-farm"
+        os_test: [ "fedora", "rhel7", "rhel8", "rhel9", "c8s", "c9s" ]
 
     if: |
       github.event.issue.pull_request
       && (contains(github.event.comment.body, '[test]') || contains(github.event.comment.body, '[test-all]'))
       && contains(fromJson('["OWNER", "MEMBER"]'), github.event.comment.author_association)
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: sclorg/tfaga-wrapper@main
         with:
-          ref: "refs/pull/${{ github.event.issue.number }}/head"
+          os_test: ${{ matrix.os_test }}
+          version: ""
+          test_case: "container"
+          public_api_key: ${{ secrets.TF_PUBLIC_API_KEY }}
+          private_api_key: ${{ secrets.TF_INTERNAL_API_KEY }}
 
-      # https://github.com/sclorg/testing-farm-as-github-action
-      - name: Schedule tests on external Testing Farm by Testing-Farm-as-github-action
-        id: github_action
-        uses: sclorg/testing-farm-as-github-action@v1
-        with:
-          api_key: ${{ secrets[matrix.api_key] }}
-          git_url: ${{ matrix.tmt_repo }}
-          git_ref: ${{ matrix.branch }}
-          tmt_plan_regex: ${{ matrix.tmt_plan }}
-          pull_request_status_name: ${{ matrix.context }}
-          variables: "REPO_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY;REPO_NAME=$GITHUB_REPOSITORY;PR_NUMBER=${{ github.event.issue.number }};OS=${{ matrix.os_test }};TEST_NAME=test"
-          compose: ${{ matrix.compose }}
-          tf_scope: ${{ matrix.tf_scope }}
