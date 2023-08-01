@@ -12,6 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os_test: [ "fedora", "rhel7", "rhel8", "rhel9", "c8s", "c9s" ]
+        version: [ "core", "base" ]
 
     if: |
       github.event.issue.pull_request
@@ -22,6 +23,7 @@ jobs:
         with:
           os_test: ${{ matrix.os_test }}
           version: ""
+          working_dir: ${{ matrix.version }}
           test_case: "container"
           public_api_key: ${{ secrets.TF_PUBLIC_API_KEY }}
           private_api_key: ${{ secrets.TF_INTERNAL_API_KEY }}
