@@ -31,25 +31,19 @@ jobs:
             quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
             suffix: "-c8s"
 
-          - dockerfile: "Dockerfile.fedora"
+          - dockerfile: "Dockerfile.f38"
             registry_namespace: "fedora"
+            tag: "38"
+            quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
+            quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
+
+          - dockerfile: "Dockerfile.f39"
+            registry_namespace: "fedora"
+            tag: "39"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
 
     steps:
-      - name: Automatic tag detection for Fedora images
-        id: tag
-        shell: bash
-        run: |
-          if [[ ${{ matrix.dockerfile }} == "Dockerfile.fedora" ]]
-          then
-            _version=`curl https://raw.githubusercontent.com/sclorg/s2i-base-container/master/core/Dockerfile.fedora | grep ^FROM`
-            _tag=`echo $_version | cut -d: -f2`
-          else
-            _tag=${{ matrix.tag }}
-          fi
-          echo "tag=${_tag}" >> $GITHUB_OUTPUT
-
       - name: Check if dockerfile is c9s , then build & push s2i-core for multi-arch
         if: matrix.dockerfile == 'Dockerfile.c9s'
         uses: sclorg/build-and-push-action@v4
