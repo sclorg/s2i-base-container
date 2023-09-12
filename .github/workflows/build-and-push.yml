@@ -54,7 +54,7 @@ jobs:
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: "core/${{ matrix.dockerfile }}"
           image_name: "s2i-core${{ matrix.suffix }}"
-          tag: ${{ steps.tag.outputs.tag }}
+          tag: ${{ matrix.tag }}
           archs: amd64, ppc64le, s390x, arm64
 
       - name: Check if dockerfile is not c9s , then build & push s2i-core to quay.io registry
@@ -67,7 +67,7 @@ jobs:
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: "core/${{ matrix.dockerfile }}"
           image_name: "s2i-core${{ matrix.suffix }}"
-          tag: ${{ steps.tag.outputs.tag }}
+          tag: ${{ matrix.tag }}
 
       - name: Build and push s2i-base to quay.io registry
         uses: sclorg/build-and-push-action@v4
@@ -78,4 +78,4 @@ jobs:
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: "base/${{ matrix.dockerfile }}"
           image_name: "s2i-base${{ matrix.suffix }}"
-          tag: ${{ steps.tag.outputs.tag }}
+          tag: ${{ matrix.tag }}
