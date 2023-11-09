@@ -66,6 +66,5 @@ CMD ["base-usage"]
 
 # Reset permissions of modified directories and add default user
 RUN rpm-file-permissions && \
-  useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
-      -c "Default Application User" default && \
+  useradd -u 1001 -r -g 0 -d ${HOME} -c "Default Application User" default && \
   chown -R 1001:0 ${APP_ROOT}
