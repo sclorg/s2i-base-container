@@ -7,7 +7,7 @@ builder images like perl, python, ruby, etc." \
 images layered on top of it with all the tools needed to use source-to-image \
 functionality. Additionally, s2i-base also contains various libraries needed for \
 it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
-    NODEJS_VER=14
+    NODEJS_VER=20
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
@@ -20,7 +20,8 @@ LABEL summary="$SUMMARY" \
 
 # This is the list of basic dependencies that all language container image can
 # consume.
-RUN INSTALL_PKGS="autoconf \
+RUN yum -y module enable nodejs:$NODEJS_VER && \
+  INSTALL_PKGS="autoconf \
   automake \
   bzip2 \
   gcc-c++ \
@@ -46,4 +47,5 @@ RUN INSTALL_PKGS="autoconf \
   zlib-devel" && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
+  node -v | grep -qe "^v$NODEJS_VER\." && echo "Found VERSION $NODEJS_VER" && \
   yum -y clean all --enablerepo='*'
