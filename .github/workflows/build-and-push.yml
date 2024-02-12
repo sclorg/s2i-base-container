@@ -33,9 +33,9 @@ jobs:
             suffix: "-c8s"
             use_default_tags: 'true'
 
-          - dockerfile: "Dockerfile.f38"
+          - dockerfile: "Dockerfile.f40"
             registry_namespace: "fedora"
-            tag: "38"
+            tag: "40"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
             use_default_tags: 'true'
