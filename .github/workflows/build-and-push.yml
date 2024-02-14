@@ -47,6 +47,13 @@ jobs:
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
             use_default_tags: 'false'
 
+          - dockerfile: "Dockerfile.f40"
+            registry_namespace: "fedora"
+            tag: "40"
+            quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
+            quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
+            use_default_tags: 'false'
+
     steps:
       - name: Check if dockerfile is c9s , then build & push s2i-core for multi-arch
         if: matrix.dockerfile == 'Dockerfile.c9s'
