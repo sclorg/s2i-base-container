@@ -6,7 +6,7 @@ ENV SUMMARY="Base image which allows using of source-to-image."	\
 with all the tools needed to use source-to-image functionality while keeping \
 the image size as small as possible." \
     NAME=s2i-core \
-    VERSION=38 \
+    VERSION=39 \
     ARCH=x86_64
 
 LABEL summary="$SUMMARY" \
