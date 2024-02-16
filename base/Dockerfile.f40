@@ -40,9 +40,9 @@ RUN INSTALL_PKGS="autoconf \
   procps-ng \
   sqlite-devel \
   unzip \
-  wget \
+  wget2 \
   which \
-  zlib-devel" && \
+  zlib-ng-compat-devel" && \
   dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
   dnf clean all -y
