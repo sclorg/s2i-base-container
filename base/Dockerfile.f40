@@ -34,7 +34,7 @@ RUN INSTALL_PKGS="autoconf \
   lsof \
   make \
   mariadb-connector-c-devel \
-  nodejs-npm \
+  nodejs20-npm \
   openssl-devel \
   patch \
   procps-ng \
