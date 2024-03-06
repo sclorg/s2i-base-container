@@ -55,8 +55,7 @@ jobs:
             use_default_tags: 'false'
 
     steps:
-      - name: Check if dockerfile is c9s , then build & push s2i-core for multi-arch
-        if: matrix.dockerfile == 'Dockerfile.c9s'
+      - name: Build and push s2i-core to quay.io registry
         uses: sclorg/build-and-push-action@v4
         with:
           registry: "quay.io"
@@ -68,17 +67,6 @@ jobs:
           tag: ${{ matrix.tag }}
           archs: amd64, ppc64le, s390x, arm64
 
-      - name: Check if dockerfile is not c9s , then build & push s2i-core to quay.io registry
-        if: matrix.dockerfile != 'Dockerfile.c9s'
-        uses: sclorg/build-and-push-action@v4
-        with:
-          registry: "quay.io"
-          registry_namespace: ${{ matrix.registry_namespace }}
-          registry_username: ${{ secrets[matrix.quayio_username] }}
-          registry_token: ${{ secrets[matrix.quayio_token] }}
-          dockerfile: "core/${{ matrix.dockerfile }}"
-          image_name: "s2i-core${{ matrix.suffix }}"
-          tag: ${{ matrix.tag }}
 
       - name: Build and push s2i-base to quay.io registry
         uses: sclorg/build-and-push-action@v4
@@ -91,3 +79,4 @@ jobs:
           image_name: "s2i-base${{ matrix.suffix }}"
           tag: ${{ matrix.tag }}
           use_default_tags: ${{ matrix.use_default_tags }}
+          archs: amd64, ppc64le, s390x, arm64
