@@ -24,6 +24,7 @@ jobs:
             quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
             suffix: "-c9s"
             use_default_tags: 'true'
+            arch: "amd64, ppc64le, s390x, arm64"
 
           - dockerfile: "Dockerfile.c8s"
             registry_namespace: "sclorg"
@@ -32,6 +33,7 @@ jobs:
             quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
             suffix: "-c8s"
             use_default_tags: 'true'
+            arch: "amd64, ppc64le, arm64"
 
           - dockerfile: "Dockerfile.f38"
             registry_namespace: "fedora"
@@ -39,6 +41,7 @@ jobs:
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
             use_default_tags: 'true'
+            arch: "amd64, ppc64le, s390x, arm64"
 
           - dockerfile: "Dockerfile.f39"
             registry_namespace: "fedora"
@@ -46,6 +49,7 @@ jobs:
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
             use_default_tags: 'false'
+            arch: "amd64, ppc64le, s390x, arm64"
 
           - dockerfile: "Dockerfile.f40"
             registry_namespace: "fedora"
@@ -53,6 +57,7 @@ jobs:
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
             use_default_tags: 'false'
+            arch: "amd64, ppc64le, s390x, arm64"
 
     steps:
       - name: Build and push s2i-core to quay.io registry
@@ -65,7 +70,7 @@ jobs:
           dockerfile: "core/${{ matrix.dockerfile }}"
           image_name: "s2i-core${{ matrix.suffix }}"
           tag: ${{ matrix.tag }}
-          archs: amd64, ppc64le, s390x, arm64
+          archs: ${{ matrix.arch }}
 
 
       - name: Build and push s2i-base to quay.io registry
@@ -79,4 +84,4 @@ jobs:
           image_name: "s2i-base${{ matrix.suffix }}"
           tag: ${{ matrix.tag }}
           use_default_tags: ${{ matrix.use_default_tags }}
-          archs: amd64, ppc64le, s390x, arm64
+          archs: ${{ matrix.arch }}
