@@ -26,15 +26,6 @@ jobs:
             use_default_tags: 'true'
             arch: "amd64, ppc64le, s390x, arm64"
 
-          - dockerfile: "Dockerfile.c8s"
-            registry_namespace: "sclorg"
-            tag: "c8s"
-            quayio_username: "QUAY_IMAGE_SCLORG_BUILDER_USERNAME"
-            quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
-            suffix: "-c8s"
-            use_default_tags: 'true'
-            arch: "amd64, ppc64le, arm64"
-
           - dockerfile: "Dockerfile.f38"
             registry_namespace: "fedora"
             tag: "38"
