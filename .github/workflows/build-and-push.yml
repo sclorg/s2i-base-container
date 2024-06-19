@@ -62,6 +62,8 @@ jobs:
           image_name: "s2i-core${{ matrix.suffix }}"
           tag: ${{ matrix.tag }}
           archs: ${{ matrix.arch }}
+          readme: "core/README.md"
+          quay_application_token: ${{ secrets.QUAY_IMAGE_SCLORG_UPDATE_DESC }}
 
 
       - name: Build and push s2i-base to quay.io registry
@@ -76,3 +78,5 @@ jobs:
           tag: ${{ matrix.tag }}
           use_default_tags: ${{ matrix.use_default_tags }}
           archs: ${{ matrix.arch }}
+          readme: "base/README.md"
+          quay_application_token: ${{ secrets.QUAY_IMAGE_SCLORG_UPDATE_DESC }}
