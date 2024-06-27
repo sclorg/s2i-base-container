@@ -48,23 +48,23 @@ Note: while the examples in this README are calling `podman`, you can replace an
 
 Usage
 ------------------------
-Choose either the CentOS7 or RHEL7 base image:
-*  **RHEL7 base image**
+Choose either the CentOS Stream or RHEL8 base image:
+*  **RHEL8 base image**
 
-To build a RHEL7 based image, you need to build it on properly subscribed RHEL machine.
+To build a RHEL8 based image, you need to build it on properly subscribed RHEL machine.
 
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSIONS=core TARGET=rhel7
+$ make build VERSIONS=core TARGET=rhel8
 ```
 
-*  **CentOS7 base image**
+*  **CentOS Stream base image**
 
 This image is available on Quay.io. To download it run:
 
 ```console
-podman pull quay.io/centos7/s2i-core-centos7
+podman pull quay.io/sclorg/s2i-core-c9s
 ```
 
 To build a Base image from scratch run:
@@ -72,7 +72,7 @@ To build a Base image from scratch run:
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSIONS=core
+$ make build VERSIONS=core TARGET=c9s
 ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
@@ -83,6 +83,5 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-base-container.
 In that repository you also can find another variants of S2I Base Dockerfiles.
-The Dockerfile for CentOS is called Dockerfile, the Dockerfile for RHEL7 is called Dockerfile.rhel7,
-the Dockerfile for RHEL8 is called Dockerfile.rhel8, the Dockerfile for RHEL9 is called Dockerfile.rhel9,
+The Dockerfile for RHEL8 is called Dockerfile.rhel8, the Dockerfile for RHEL9 is called Dockerfile.rhel9,
 the Dockerfile for CentOS Stream 9 is called Dockerfile.c9s and the Dockerfile for Fedora is Dockerfile.fedora.
