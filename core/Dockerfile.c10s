@@ -1,5 +1,5 @@
 # This image is the base image for all s2i configurable container images.
-FROM quay.io/centos/centos:stream9
+FROM quay.io/centos/centos:stream10-development
 
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
@@ -13,7 +13,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="sclorg/s2i-core" \
+      name="sclorg/s2i-core-c10s" \
       version="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
@@ -26,7 +26,7 @@ ENV \
     # The $HOME is not set by default, but some applications needs this variable
     HOME=/opt/app-root/src \
     PATH=/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    PLATFORM="el9"
+    PLATFORM="el10"
 
 # This is the list of basic dependencies that all language container image can
 # consume.
