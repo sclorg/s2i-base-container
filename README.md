@@ -6,6 +6,8 @@ OpenShift base images
 Images available on Quay are:
 * CentOS Stream 9 [s2i-core](https://quay.io/repository/sclorg/s2i-core-c9s)
 * CentOS Stream 9 [s2i-base](https://quay.io/repository/sclorg/s2i-base-c9s)
+* CentOS Stream 10 [s2i-core](https://quay.io/repository/sclorg/s2i-core-c10s)
+* CentOS Stream 10 [s2i-base](https://quay.io/repository/sclorg/s2i-base-c10s)
 * Fedora [s2i-core](https://quay.io/repository/fedora/s2i-core)
 * Fedora [s2i-base](https://quay.io/repository/fedora/s2i-base)
 
@@ -23,6 +25,7 @@ RHEL versions currently supported are:
 
 CentOS versions currently supported are:
 * CentOS Stream 9
+* CentOS Stream 10
 
 For more information about contributing, see
 [the Contribution Guidelines](https://github.com/sclorg/welcome/blob/master/contribution.md).
