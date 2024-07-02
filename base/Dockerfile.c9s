@@ -14,7 +14,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="s2i base" \
       com.redhat.component="s2i-base-container" \
-      name="sclorg/s2i-base" \
+      name="sclorg/s2i-base-c9s" \
       version="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
