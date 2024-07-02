@@ -17,6 +17,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - dockerfile: "Dockerfile.c10s"
+            registry_namespace: "sclorg"
+            tag: "c10s"
+            quayio_username: "QUAY_IMAGE_SCLORG_BUILDER_USERNAME"
+            quayio_token: "QUAY_IMAGE_SCLORG_BUILDER_TOKEN"
+            suffix: "-c10s"
+            use_default_tags: 'true'
+            arch: "amd64, ppc64le, s390x, arm64"
+
           - dockerfile: "Dockerfile.c9s"
             registry_namespace: "sclorg"
             tag: "c9s"
