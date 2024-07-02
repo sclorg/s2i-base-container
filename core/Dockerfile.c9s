@@ -13,7 +13,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="sclorg/s2i-core" \
+      name="sclorg/s2i-core-c9s" \
       version="1" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
