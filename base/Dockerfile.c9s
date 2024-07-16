@@ -7,15 +7,16 @@ builder images like perl, python, ruby, etc." \
 images layered on top of it with all the tools needed to use source-to-image \
 functionality. Additionally, s2i-base also contains various libraries needed for \
 it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
-    NODEJS_VER=20
+    NODEJS_VER=20 \
+    NAME=s2i-base
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="s2i base" \
-      com.redhat.component="s2i-base-container" \
-      name="sclorg/s2i-base-c9s" \
-      version="1" \
+      com.redhat.component="$NAME-container" \
+      name="sclorg/$NAME-c9s" \
+      version="$VERSION" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # This is the list of basic dependencies that all language container image can
