@@ -4,7 +4,9 @@ FROM quay.io/centos/centos:stream10-development
 ENV SUMMARY="Base image which allows using of source-to-image."	\
     DESCRIPTION="The s2i-core image provides any images layered on top of it \
 with all the tools needed to use source-to-image functionality while keeping \
-the image size as small as possible."
+the image size as small as possible." \
+    NAME=s2i-core \
+    VERSION=10
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
@@ -12,9 +14,9 @@ LABEL summary="$SUMMARY" \
       io.k8s.display-name="s2i core" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
-      com.redhat.component="s2i-core-container" \
-      name="sclorg/s2i-core-c10s" \
-      version="1" \
+      com.redhat.component="$NAME-container" \
+      name="sclorg/$NAME-c10s" \
+      version="$VERSION" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 ENV \
@@ -36,10 +38,10 @@ ENV \
 
 RUN INSTALL_PKGS="bsdtar \
   findutils \
+  gettext \
+  glibc-langpack-en \
   groff-base \
   glibc-locale-source \
-  glibc-langpack-en \
-  gettext \
   rsync \
   scl-utils \
   tar \
@@ -48,9 +50,9 @@ RUN INSTALL_PKGS="bsdtar \
   yum" && \
   mkdir -p ${HOME}/.pki/nssdb && \
   chown -R 1001:0 ${HOME}/.pki && \
-  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+  dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
-  yum -y clean all --enablerepo='*'
+  dnf -y clean all --enablerepo='*'
 
 # Copy extra files to the image.
 COPY ./core/root/ /
