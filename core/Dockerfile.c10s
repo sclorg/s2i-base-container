@@ -41,12 +41,9 @@ RUN INSTALL_PKGS="bsdtar \
   gettext \
   glibc-langpack-en \
   groff-base \
-  glibc-locale-source \
   rsync \
-  scl-utils \
   tar \
   unzip \
-  xz \
   yum" && \
   mkdir -p ${HOME}/.pki/nssdb && \
   chown -R 1001:0 ${HOME}/.pki && \
