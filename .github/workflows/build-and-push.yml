@@ -35,14 +35,6 @@ jobs:
             use_default_tags: 'true'
             arch: "amd64, ppc64le, s390x, arm64"
 
-          - dockerfile: "Dockerfile.f38"
-            registry_namespace: "fedora"
-            tag: "38"
-            quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
-            quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
-            use_default_tags: 'true'
-            arch: "amd64, ppc64le, s390x, arm64"
-
           - dockerfile: "Dockerfile.f39"
             registry_namespace: "fedora"
             tag: "39"
