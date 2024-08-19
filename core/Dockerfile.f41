@@ -42,6 +42,7 @@ RUN INSTALL_PKGS="bsdtar \
   gettext \
   glibc-langpack-en \
   groff-base \
+  python3 \
   rsync \
   tar \
   unzip" && \
