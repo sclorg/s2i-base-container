@@ -7,7 +7,7 @@ builder images like perl, python, ruby, etc." \
 images layered on top of it with all the tools needed to use source-to-image \
 functionality. Additionally, s2i-base also contains various libraries needed for \
 it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
-    NODEJS_VER=20 \
+    NODEJS_VER=22 \
     NAME=s2i-base
 
 LABEL summary="$SUMMARY" \
@@ -42,7 +42,7 @@ RUN INSTALL_PKGS="autoconf \
   redhat-rpm-config \
   sqlite-devel \
   unzip \
-  wget2-wget \
+  wget \
   which \
   zlib-ng-compat-devel" && \
   dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
