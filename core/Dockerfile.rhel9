@@ -12,6 +12,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.display-name="s2i core" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
+      io.openshift.tags="s2i-core rhel9" \
       com.redhat.component="s2i-core-container" \
       name="ubi9/s2i-core" \
       version="1" \
