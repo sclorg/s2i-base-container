@@ -13,6 +13,7 @@ LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="s2i base" \
+      io.openshift.tags="s2i-base rhel9" \
       com.redhat.component="s2i-base-container" \
       name="ubi9/s2i-base" \
       version="1" \
