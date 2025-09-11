@@ -17,7 +17,6 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="s2i-base rhel10" \
       com.redhat.component="s2i-base-container" \
       name="ubi10/s2i-base" \
-      version="1" \
       com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 # This is the list of basic dependencies that all language container image can

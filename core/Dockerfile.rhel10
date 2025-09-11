@@ -17,7 +17,6 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="s2i-core rhel10" \
       com.redhat.component="s2i-core-container" \
       name="ubi10/s2i-core" \
-      version="1" \
       com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 ENV \
