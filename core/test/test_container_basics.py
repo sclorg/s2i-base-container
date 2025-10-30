@@ -3,7 +3,7 @@ import os
 from container_ci_suite.container_lib import ContainerTestLib
 from container_ci_suite.engines.podman_wrapper import PodmanCLIWrapper
 
-from conftest import VARS
+from conftest import VARS, skip_if_not_euid_0
 
 
 class TestS2ICoreContainer:
@@ -24,39 +24,33 @@ class TestS2ICoreContainer:
         ) == 0
 
     def test_cgroup_limits_memory_limit_in_bytes(self):
-        if os.geteuid() == 0:
-            # check memory limited (only works when running as root)
-            output = PodmanCLIWrapper.podman_run_command(
-                cmd=f"--memory=512M {VARS.IMAGE_NAME} /usr/bin/cgroup-limits"
-            )
-            assert "MEMORY_LIMIT_IN_BYTES=536870912" in output
-            assert PodmanCLIWrapper.podman_run_command_and_remove(
-                cid_file_name=VARS.IMAGE_NAME,
-                cmd="/usr/bin/cgroup-limits"
-            ), "MEMORY_LIMIT_IN_BYTES not set to 536870912."
+        skip_if_not_euid_0()
+        # check memory limited (only works when running as root)
+        output = PodmanCLIWrapper.podman_run_command(
+            cmd=f"--memory=512M {VARS.IMAGE_NAME} /usr/bin/cgroup-limits"
+        )
+        assert "MEMORY_LIMIT_IN_BYTES=536870912" in output
+        assert PodmanCLIWrapper.podman_run_command_and_remove(
+            cid_file_name=VARS.IMAGE_NAME,
+            cmd="/usr/bin/cgroup-limits"
+        ), "MEMORY_LIMIT_IN_BYTES not set to 536870912."
 
     def test_cgroup_limits_number_of_cores(self):
-        if os.geteuid() == 0:
-            # check cores number (only works when running as root)
-            output = PodmanCLIWrapper.podman_run_command_and_remove(
-                cid_file_name=VARS.IMAGE_NAME,
-                cmd="/usr/bin/cgroup-limits"
-            )
-            assert "NUMBER_OF_CORES=1" in output, "NUMBER_OF_COORS not set to 1."
-
-            # check cores number (only works when running as root)
-            output = PodmanCLIWrapper.podman_run_command(
-                cmd=f"--rm --cpuset-cpus=0 {VARS.IMAGE_NAME} /usr/bin/cgroup-limits"
-            )
-            assert "NUMBER_OF_CORES=1" in output, "NUMBER_OF_COORS not set to 1."
+        skip_if_not_euid_0()
+        # check cores number (only works when running as root)
+        output = PodmanCLIWrapper.podman_run_command_and_remove(
+            cid_file_name=VARS.IMAGE_NAME,
+            cmd="/usr/bin/cgroup-limits"
+        )
+        assert "NUMBER_OF_CORES=2" in output, "NUMBER_OF_CORES not set to 2."
 
     def test_cgroup_limits_number_of_cores_with_cpuset_cpus(self):
-        if os.geteuid() == 0:
-            # check cores number (only works when running as root)
-            output = PodmanCLIWrapper.podman_run_command(
-                cmd=f"--rm --cpuset-cpus=0 {VARS.IMAGE_NAME} /usr/bin/cgroup-limits"
-            )
-            assert "NUMBER_OF_CORES=1" in output, "NUMBER_OF_COORS not set to 1."
+        skip_if_not_euid_0()
+        # check cores number (only works when running as root)
+        output = PodmanCLIWrapper.podman_run_command(
+            cmd=f"--rm --cpuset-cpus=0 {VARS.IMAGE_NAME} /usr/bin/cgroup-limits"
+        )
+        assert "NUMBER_OF_CORES=1" in output, "NUMBER_OF_CORES not set to 1."
 
     def test_cgroup_limits_no_memory_limit(self):
         # check NO_MEMORY_LIMIT when no limit is set

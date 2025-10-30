@@ -25,3 +25,7 @@ VARS = Vars(
     IMAGE_NAME=os.getenv("IMAGE_NAME"),
     TEST_DIR=Path(__file__).parent.absolute(),
 )
+
+def skip_if_not_euid_0():
+    if os.geteuid() != 0:
+        pytest.skip("This test requires root privileges.")
