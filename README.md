@@ -16,7 +16,7 @@ This repository contains Dockerfiles which serve as base images for various Open
 Versions
 ---------------------------------
 s2i image versions currently provided are:
-* [core](core/README.md) - rhel8 base + s2i settings
+* [core](core/README.md) - rhel10 base + s2i settings
 * [base](base/README.md) - s2i-core + development libraries + npm
 
 RHEL versions currently supported are:
@@ -42,13 +42,13 @@ To build a S2I base image, choose either the CentOS Stream or RHEL based image:
     This image is available in Red Hat Container Registry. To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhel8/s2i-base
+    $ podman pull registry.access.redhat.com/rhel10/s2i-base
     ```
 
     Or
 
     ```
-    $ podman pull registry.access.redhat.com/rhel8/s2i-core
+    $ podman pull registry.access.redhat.com/rhel10/s2i-core
     ```
 
     To build a RHEL based S2I base image, you need to run the build on a properly
@@ -58,7 +58,7 @@ To build a S2I base image, choose either the CentOS Stream or RHEL based image:
     $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
     $ cd s2i-base-container
     $ git submodule update --init
-    $ make build TARGET=rhel8 VERSIONS=base
+    $ make build TARGET=rhel10 VERSIONS=base
     ```
 
 *  **CentOS Stream based image**
