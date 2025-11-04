@@ -49,6 +49,8 @@ Note: while the examples in this README are calling `podman`, you can replace an
 Usage
 ------------------------
 Choose either the CentOS Stream or RHEL10 base image:
+*  **RHEL8 base image**
+*  **RHEL9 base image**
 *  **RHEL10 base image**
 
 To build a RHEL10 based image, you need to build it on properly subscribed RHEL machine.
