@@ -68,14 +68,14 @@ Note: while the examples in this README are calling `podman`, you can replace an
 Usage
 ------------------------
 Choose either the CentOS Stream or RHEL based image:
-*  **RHEL8 base image**
+*  **RHEL10 base image**
 
-To build a RHEL8 based image, you need to build it on properly subscribed RHEL machine.
+To build a RHEL10 based image, you need to build it on properly subscribed RHEL machine.
 
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSIONS=base TARGET=rhel8
+$ make build VERSIONS=base TARGET=rhel10
 ```
 
 *  **CentOS Stream 9 base image**
@@ -83,7 +83,7 @@ $ make build VERSIONS=base TARGET=rhel8
 This image is available on DockerHub. To download it run:
 
 ```console
-podman pull quay.io/sclorg/s2i-base-c9s
+podman pull quay.io/sclorg/s2i-base-c10s
 ```
 
 To build a Base image from scratch run:
@@ -91,7 +91,7 @@ To build a Base image from scratch run:
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSIONS=base TARGET=c9s
+$ make build VERSIONS=base TARGET=c10s
 ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
@@ -104,5 +104,5 @@ Dockerfile and other sources are available on https://github.com/sclorg/s2i-base
 In that repository you also can find another variants of S2I base Dockerfiles.
 The Dockerfile for RHEL8 is called Dockerfile.rhel8, the Dockerfile for RHEL9 is called Dockerfile.rhel9,
 the Dockerfile for RHEL10 is called Dockerfile.rhel10,
-the Dockerfile for CentOS Stream 9 is called Dockerfile.c9s, the Dockerfile for CentOS Stream 10 is called Dockerfile.c10s,
+the Dockerfile for CentOS Stream 9 is called Dockerfile.c10s, the Dockerfile for CentOS Stream 10 is called Dockerfile.c10s,
 and the Dockerfile for Fedora is Dockerfile.fedora.

@@ -48,15 +48,15 @@ Note: while the examples in this README are calling `podman`, you can replace an
 
 Usage
 ------------------------
-Choose either the CentOS Stream or RHEL8 base image:
-*  **RHEL8 base image**
+Choose either the CentOS Stream or RHEL10 base image:
+*  **RHEL10 base image**
 
-To build a RHEL8 based image, you need to build it on properly subscribed RHEL machine.
+To build a RHEL10 based image, you need to build it on properly subscribed RHEL machine.
 
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSIONS=core TARGET=rhel8
+$ make build VERSIONS=core TARGET=rhel10
 ```
 
 *  **CentOS Stream base image**
@@ -64,7 +64,7 @@ $ make build VERSIONS=core TARGET=rhel8
 This image is available on Quay.io. To download it run:
 
 ```console
-podman pull quay.io/sclorg/s2i-core-c9s
+podman pull quay.io/sclorg/s2i-core-c10s
 ```
 
 To build a Base image from scratch run:
@@ -72,7 +72,7 @@ To build a Base image from scratch run:
 ```
 $ git clone --recursive https://github.com/sclorg/s2i-base-container.git
 $ cd s2i-base-container
-$ make build VERSIONS=core TARGET=c9s
+$ make build VERSIONS=core TARGET=c10s
 ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
