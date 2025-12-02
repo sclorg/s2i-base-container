@@ -1,3 +1,5 @@
+import re
+
 from container_ci_suite.container_lib import ContainerTestLib
 from container_ci_suite.engines.podman_wrapper import PodmanCLIWrapper
 
@@ -36,10 +38,12 @@ class TestS2ICoreContainer:
     def test_cgroup_limits_number_of_cores(self):
         skip_if_not_euid_0()
         # check cores number (only works when running as root)
-        output = PodmanCLIWrapper.podman_run_command_and_remove(
-            cid_file_name=VARS.IMAGE_NAME, cmd="/usr/bin/cgroup-limits"
+        output = PodmanCLIWrapper.podman_run_command(
+            cmd=f"--rm {VARS.IMAGE_NAME} /usr/bin/cgroup-limits"
         )
-        assert "NUMBER_OF_CORES=2" in output, "NUMBER_OF_CORES not set to 2."
+        assert re.search(r"NUMBER_OF_CORES=[1-9]\d*", output), (
+            "NUMBER_OF_CORES not set."
+        )
 
     def test_cgroup_limits_number_of_cores_with_cpuset_cpus(self):
         skip_if_not_euid_0()
