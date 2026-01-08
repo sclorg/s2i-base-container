@@ -67,6 +67,14 @@ jobs:
             use_default_tags: 'false'
             arch: "amd64, ppc64le, s390x, arm64"
 
+          - dockerfile: "Dockerfile.f43"
+            registry_namespace: "fedora"
+            tag: "43"
+            quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
+            quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
+            use_default_tags: 'false'
+            arch: "amd64, ppc64le, s390x, arm64"
+
     steps:
       - name: Build and push s2i-core to quay.io registry
         uses: sclorg/build-and-push-action@v4
