@@ -14,6 +14,5 @@ include common/common.mk
 base: core
 	VERSIONS="base" $(script_env) $(build)
 
-core: core/root/help.1
+core:
 	VERSIONS="core" $(script_env) $(build)
-	VERSIONS="core" $(script_env) $(tag)
