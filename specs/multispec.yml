@@ -1,0 +1,157 @@
+version: 1
+
+specs:
+  distroinfo:
+    fedora38:
+      number: "38"
+      distros:
+        - fedora-38-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 18
+    fedora39:
+      number: "39"
+      distros:
+        - fedora-39-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 20
+    fedora40:
+      number: "40"
+      distros:
+        - fedora-40-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 20
+    fedora41:
+      number: "41"
+      distros:
+        - fedora-41-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 22
+    fedora42:
+      number: "42"
+      distros:
+        - fedora-42-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 22
+    fedora43:
+      number: "43"
+      distros:
+        - fedora-43-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 22
+    fedora44:
+      number: "44"
+      distros:
+        - fedora-44-x86_64
+      core_image: quay.io/fedora/fedora:{{ spec.number }}
+      base_image: quay.io/fedora/s2i-core:{{ spec.number }}
+      suffix: "f{{ spec.number }}"
+      prod: "fedora{{ spec.number }}"
+      nodejs_ver: 24
+    rhel8:
+      number: "8"
+      distros:
+        - rhel-8-x86_64
+      core_image: registry.access.redhat.com/ubi{{ spec.number }}:latest
+      base_image: ubi{{ spec.number }}/s2i-core
+      suffix: "el8"
+      prod: "rhel8"
+      nodejs_ver: 20
+    rhel9:
+      number: "9"
+      distros:
+        - rhel-9-x86_64
+      core_image: registry.access.redhat.com/ubi{{ spec.number }}:latest
+      base_image: ubi{{ spec.number }}/s2i-core
+      suffix: "el9"
+      prod: "rhel9"
+      nodejs_ver: 22
+    rhel10:
+      number: "10"
+      distros:
+        - rhel-10-x86_64
+      core_image: registry.access.redhat.com/ubi{{ spec.number }}:latest
+      base_image: ubi{{ spec.number }}/s2i-core
+      suffix: "el{{ spec.number }}"
+      prod: "rhel{{ spec.number }}"
+      nodejs_ver: 22
+    c9s:
+      number: "9"
+      distros:
+        - centos-stream-9-x86_64
+      suffix: "el{{ spec.number }}"
+      prod: "c{{ spec.number }}s"
+      core_image: quay.io/centos/centos:stream{{ spec.number }}
+      base_image: quay.io/sclorg/s2i-core-{{ spec.prod }}:{{ spec.prod }}
+      nodejs_ver: 22
+    c10s:
+      number: "10"
+      distros:
+        - centos-stream-10-x86_64
+      suffix: "el{{ spec.number }}"
+      prod: "c{{ spec.number }}s"
+      core_image: quay.io/centos/centos:stream{{ spec.number }}
+      base_image: quay.io/sclorg/s2i-core-{{ spec.prod }}:{{ spec.prod }}
+      nodejs_ver: 22
+
+  version:
+    "core":
+      name: "core"
+      common_image_name: "{{ spec.org }}/postgresql-{{ spec.short }}-{{ spec.prod }}"
+      rhel_image_name: "rhel8/postgresql-{{ spec.short }}"
+      latest_fedora: "f44"
+
+    "base":
+      name: "base"
+      common_image_name: "{{ spec.org }}/postgresql-{{ spec.short }}-{{ spec.prod }}"
+      c9s_image_name: "sclorg/postgresql-{{ spec.short }}-c9s"
+      rhel_image_name: "rhel9/postgresql-{{ spec.short }}"
+      latest_fedora: "f44"
+
+matrix:
+  include:
+    - version: "core"
+      distros:
+        - rhel-8-x86_64
+        - rhel-9-x86_64
+        - rhel-10-x86_64
+        - centos-stream-9-x86_64
+        - centos-stream-10-x86_64
+        - fedora-38-x86_64
+        - fedora-39-x86_64
+        - fedora-40-x86_64
+        - fedora-41-x86_64
+        - fedora-42-x86_64
+        - fedora-43-x86_64
+        - fedora-44-x86_64
+    - version: "base"
+      distros:
+        - rhel-8-x86_64
+        - rhel-9-x86_64
+        - rhel-10-x86_64
+        - centos-stream-9-x86_64
+        - centos-stream-10-x86_64
+        - fedora-38-x86_64
+        - fedora-39-x86_64
+        - fedora-40-x86_64
+        - fedora-41-x86_64
+        - fedora-42-x86_64
+        - fedora-43-x86_64
+        - fedora-44-x86_64
