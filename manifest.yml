@@ -1,0 +1,69 @@
+# Manifest for image directories creation
+# every dest path will be prefixed by $DESTDIR/$version
+
+# Files containing distgen directives, which are used for each
+# (distro, version) combination not excluded in multispec
+DISTGEN_MULTI_RULES:
+  - src: src/Dockerfile
+    dest: Dockerfile.f38
+
+  - src: src/Dockerfile
+    dest: Dockerfile.f39
+
+  - src: src/Dockerfile
+    dest: Dockerfile.f40
+
+  - src: src/Dockerfile
+    dest: Dockerfile.f41
+
+  - src: src/Dockerfile
+    dest: Dockerfile.f42
+
+  - src: src/Dockerfile
+    dest: Dockerfile.f43
+
+  - src: src/Dockerfile
+    dest: Dockerfile.f44
+
+  - src: src/Dockerfile
+    dest: Dockerfile.rhel8
+
+  - src: src/Dockerfile
+    dest: Dockerfile.rhel9
+
+  - src: src/Dockerfile
+    dest: Dockerfile.rhel10
+
+  - src: src/Dockerfile
+    dest: Dockerfile.c9s
+
+  - src: src/Dockerfile
+    dest: Dockerfile.c10s
+
+DISTGEN_RULES:
+  - src: src/test/__init__.py
+    dest: test/__init__.py
+
+  - src: src/test/run
+    dest: test/run
+    mode: "0755"
+
+  - src: src/test/run-pytest
+    dest: test/run-pytest
+    mode: "0755"
+
+  - src: src/test/conftest.py
+    dest: test/conftest.py
+
+  - src: src/test/test_container_basics.py
+    dest: test/test_container_basics.py
+  
+  - src: src/README.md
+    dest: README.md
+
+SYMLINK_RULES:
+  - src: ../common/shared-scripts/core
+    dest: root
+
+  - src: Dockerfile.f44
+    dest: Dockerfile.fedora

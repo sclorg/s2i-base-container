@@ -12,6 +12,7 @@ test_docker_run_usage() {
   echo "Testing 'docker run' usage..."
   docker run --rm ${IMAGE_NAME} &>/dev/null
 }
+{% if spec.name == "core" %}
 test_cgroup_limits() {
   echo "Testing 'cgroup limits' usage..."
   if [ $EUID -eq 0 ]; then
@@ -67,6 +68,7 @@ test_cgroup_limits() {
     return 1
   fi
 }
+{% endif %}
 
 check_result() {
   local result="$1"
@@ -79,9 +81,11 @@ check_result() {
 # Verify the 'usage' script is working properly when running the base image with 'docker run ...'
 test_docker_run_usage
 check_result $?
+{% if spec.name == "core" %}
 # Verify the cgroup-limits script works as expected
 test_cgroup_limits
 check_result $?
+{% endif %}
 echo "Tests for '${IMAGE_NAME}' succeeded."
 
 # vim: set tabstop=2:shiftwidth=2:expandtab:

@@ -1,6 +1,8 @@
 import os
 import sys
+{% if spec.name == "core" %}
 import pytest
+{% endif %}
 
 from pathlib import Path
 from collections import namedtuple
@@ -22,7 +24,9 @@ VARS = Vars(
     IMAGE_NAME=os.getenv("IMAGE_NAME"),
     TEST_DIR=Path(__file__).parent.absolute(),
 )
+{% if spec.name == "core" %}
 
 def skip_if_not_euid_0():
     if os.geteuid() != 0:
         pytest.skip("This test requires root privileges.")
+{% endif %}

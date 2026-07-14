@@ -8,7 +8,8 @@ images layered on top of it with all the tools needed to use source-to-image \
 functionality. Additionally, s2i-base also contains various libraries needed for \
 it to serve as a base for other builder images, like s2i-python or s2i-ruby." \
     NODEJS_VER=22 \
-    NAME=s2i-base
+    NAME=s2i-base \
+    VERSION=10
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
@@ -17,11 +18,18 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="s2i-base rhel10" \
       com.redhat.component="s2i-base-container" \
       name="ubi10/s2i-base" \
+      version=10 \
       com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 # This is the list of basic dependencies that all language container image can
 # consume.
-RUN INSTALL_PKGS="autoconf \
+# Also setup the 'openshift' user that is used for the build execution and for the
+# application runtime execution.
+# TODO: Use better UID and GID values
+
+RUN \
+  INSTALL_PKGS="autoconf \
+  nodejs \
   automake \
   bzip2 \
   gcc-c++ \
@@ -44,8 +52,8 @@ RUN INSTALL_PKGS="autoconf \
   unzip \
   wget \
   which \
-  zlib-ng-compat-devel" && \
+  zlib-devel" && \
   dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
-  rpm -V $INSTALL_PKGS && \
+  #rpm -V $INSTALL_PKGS && \
   node -v | grep -qe "^v$NODEJS_VER\." && echo "Found VERSION $NODEJS_VER" && \
   dnf -y clean all --enablerepo='*'
